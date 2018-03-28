@@ -1,0 +1,71 @@
+
+This python script generates a virtual BMC (Baseboard Management Controller) for a KVM domain - based on "ipmi_sim" - IPMI LAN BMC Simulator 
+
+
+Name: single_kvm_bmc
+Author: Andreas Mach
+Date: 28-03-2018
+
+--
+
+man page: man ipmi_sim
+
+--
+
+Requirements:
+
+1- add KVM BMC IP address (persistent configuration is also possible)
+
+  example:
+
+   KVM BMC network is 192.168.8.0/24
+   KVM BMC IP is 192.168.8.16
+   used KVM host network interface is "em4"
+
+  # ip address add 192.168.8.16/24 brd + dev em4
+
+
+2- KVM domain setup
+
+  - adjust KVM domain XML add the following lines and make sure correct "port=" is used
+
+  <domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
+
+   .. <snip> ..
+
+   <qemu:commandline>
+     <qemu:arg value='-chardev'/>
+     <qemu:arg value='socket,id=ipmi0,host=0.0.0.0,port=60016,reconnect=10'/>
+     <qemu:arg value='-device'/>
+     <qemu:arg value='ipmi-bmc-extern,id=bmc0,chardev=ipmi0'/>
+     <qemu:arg value='-device'/>
+     <qemu:arg value='isa-ipmi-bt,bmc=bmc0'/>
+   </qemu:commandline>
+  </domain>"
+
+--
+
+ usable commands are:
+
+ ipmitool -I lanplus -U root -P linux -H 192.168.8.16 chassis power status
+ ipmitool -I lanplus -U root -P linux -H 192.168.8.16 chassis power on
+ ipmitool -I lanplus -U root -P linux -H 192.168.8.16 chassis power off
+ ipmitool -I lanplus -U root -P linux -H 192.168.8.16 chassis bootdev pxe
+ ipmitool -I lanplus -U root -P linux -H 192.168.8.16 chassis bootdev disk
+ ipmitool -I lanplus -U root -P linux -H 192.168.8.16 chassis bootdev cdrom
+
+--
+
+script section's:
+
+Hint: not needed to delete files, as they will be re-created using python "w" option
+
+Section 1 - KVM domain verification
+
+Section 2 - set file and folder names
+
+Section 3 - create "ipmi_sim" config files
+
+Section 4 - create systemd unit file
+
+---end---

@@ -79,6 +79,7 @@ dombmcpass = dom_bmc_pass
 dom_port = dom_bmc_ip.split('.')[3]
 domport = dom_port
 
+# Section 1 - KVM domain veriffication
 
 # get current KVM domain status 
 
@@ -138,37 +139,30 @@ print('  KVM host "ip:port" \t 0.0.0.0:600' + domport)
 print()
 
 
-
+# Section 2 - set file and folder names
 # "ipmi_sim" config filename
-
 dncon = domname + "-bmc.conf"
  
 # systemd filename
-
 dnser = domname + "-bmc.service"
  
 # delete previous KVM domain folder and "ipmi_sim" config files
-
 subprocess.call(['rm', '-rf', '/etc/ipmi/' + domname])
 
 # create directory for each node in "/etc/ipmi/"
-
 path = '/etc/ipmi/' + domname
 
 #os.makedirs( path,0o755, exist_ok=True)
-
 os.makedirs( path,0o755)
 
 
-# Section 1
-# create "ipmi_sim" sensor file: "/tmp/file1.ipm"
+# Section 3 - create "ipmi_sim" configuration files
+# create sensor file: "/tmp/file1.ipm"
 
 f = open('/tmp/file1.ipm','w')
 f.write('30\n')
 f.close
 
-
-# Section 2
 # create "ipmi_sim_chassiscontrol" config file - example: "/etc/ipmi/hos-n1/ipmi_sim_chassiscontrol"
 
 f = open('/etc/ipmi/' + domname + '/ipmi_sim_chassiscontrol','w')
@@ -444,9 +438,7 @@ f.write('esac\n')
 f.write('\n')
 f.close()
 
-
-# Section 3
-# create "ipmi_sim" config file - example: /etc/ipmi/hos-n1/hos-n1-bmc.conf
+# create "ipmi_sim" conf file - example: /etc/ipmi/hos-n1/hos-n1-bmc.conf
 
 f = open("/etc/ipmi/" + domname + "/" + dncon,"w")
 f.write('name \"ipmisim1\"\n')
@@ -469,10 +461,10 @@ f.write(' user 3 true   "' + dombmcuser + '" "' +  dombmcpass + '"  admin   10  
 f.close()
 
 
-# Section 4
+# Section 4 - create systemd unit file
 # create systemd unit file - example: /etc/systemd/system/hos-n1-bmc.service
-# stop systemd service - bash command: systemctl stop hos-n5-bmc.service 
 
+# stop systemd service - bash command: systemctl stop hos-n5-bmc.service 
 subprocess.call(['systemctl', 'stop', dnser])
 
 f = open("/etc/systemd/system/" + dnser,"w")
@@ -491,11 +483,9 @@ f.write('WantedBy=multi-user.target\n')
 f.close()
 
 # systemctl enable hos-n1-bmc.service
-
 subprocess.call(['systemctl', 'enable', dnser])
 
 # systemctl start hos-n1-bmc.service
-
 subprocess.call(['systemctl', 'start', dnser])
 
 
@@ -509,3 +499,20 @@ subprocess.call(['chmod', '644', '/etc/systemd/system/'+ dnser])
 print('  Both \"ipmi_sim\" configuration files successfully created and stored in \"/etc/ipmi/' + domname + '"' )
 print()
 print("--------------------------------------------------------------------------------------------------------")
+print()
+print(" make sure your KVM domain XML includes the following lines:")
+print()
+print("<domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'">
+print()
+print("  <snip>  ")
+print()
+print("  <qemu:commandline>")
+print("    <qemu:arg value='-chardev'/>")
+print("    <qemu:arg value='socket,id=ipmi0,host=0.0.0.0,port=600" + domport + ",reconnect=10'/>")
+print("    <qemu:arg value='-device'/>")
+print("    <qemu:arg value='ipmi-bmc-extern,id=bmc0,chardev=ipmi0'/>")
+print("    <qemu:arg value='-device'/>")
+print("    <qemu:arg value='isa-ipmi-bt,bmc=bmc0'/>")
+print("  </qemu:commandline>")
+print("</domain>")
+print()
