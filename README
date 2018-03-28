@@ -29,7 +29,10 @@ Requirements:
 
 2- KVM domain setup
 
+  - remove all <boot order> entries like <boot order='1'/> from KVM domain XML configuration
+
   - adjust KVM domain XML add the following lines and make sure correct "port=" is used
+
 
   <domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
 
