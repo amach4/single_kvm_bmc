@@ -129,14 +129,12 @@ else:
   print('  KVM domain ID: \t ' + str(id))
 
 conn.close()
-print()
 #  exit(0)
 
 
 # show used KVM host IP:port
 
 print('  KVM host "ip:port" \t 0.0.0.0:600' + domport)
-print()
 
 
 # Section 2 - set file and folder names
@@ -500,11 +498,11 @@ print('  Both \"ipmi_sim\" configuration files successfully created and stored i
 print()
 print("--------------------------------------------------------------------------------------------------------")
 print()
-print(" make sure your KVM domain XML includes the following lines:")
+print("  !! IMPORTANT !! make sure your KVM domain XML includes the following lines: ")
 print()
-print("<domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'">
+print("<domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>")
 print()
-print("  <snip>  ")
+print("   <snip\>")
 print()
 print("  <qemu:commandline>")
 print("    <qemu:arg value='-chardev'/>")
@@ -515,4 +513,5 @@ print("    <qemu:arg value='-device'/>")
 print("    <qemu:arg value='isa-ipmi-bt,bmc=bmc0'/>")
 print("  </qemu:commandline>")
 print("</domain>")
+print("--------------------------------------------------------------------------------------------------------")
 print()
