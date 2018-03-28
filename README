@@ -14,13 +14,15 @@ man page: man ipmi_sim
 
 Requirements:
 
-1- add KVM BMC IP address (persistent configuration is also possible)
+1- KVM  host setup
+
+  - add KVM BMC IP address (persistent configuration is also possible)
 
   example:
 
-   KVM BMC network is 192.168.8.0/24
-   KVM BMC IP is 192.168.8.16
-   used KVM host network interface is "em4"
+   KVM BMC network:		192.168.8.0/24
+   KVM BMC IP:			192.168.8.16
+   KVM host network interface:	"em4"
 
   # ip address add 192.168.8.16/24 brd + dev em4
 
