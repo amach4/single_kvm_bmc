@@ -2,7 +2,7 @@
 This python script generates a virtual BMC (Baseboard Management Controller) for a KVM domain - based on "ipmi_sim" - IPMI LAN BMC Simulator 
 
 
-Name: single_kvm_bmc
+Name: single_kvm_bmc.py
 Author: Andreas Mach
 Date: 28-03-2018
 
@@ -12,22 +12,29 @@ man page: man ipmi_sim
 
 --
 
+
 Requirements:
+
 
 1- KVM  host setup
 
+
+  - install "OpenIPMI" package which contains "ipmi_sim" BMC  emulator
+
   - add KVM BMC IP address (persistent configuration is also possible)
 
-  example:
+    example:
 
-   KVM BMC network:		192.168.8.0/24
-   KVM BMC IP:			192.168.8.16
-   KVM host network interface:	"em4"
+    KVM BMC network:		192.168.8.0/24
+    KVM BMC IP:			192.168.8.16
+    KVM host network interface:	"em4"
 
-  # ip address add 192.168.8.16/24 brd + dev em4
+    # ip address add 192.168.8.16/24 brd + dev em4
+
 
 
 2- KVM domain setup
+
 
   - remove all <boot order> entries like <boot order='1'/> from KVM domain XML configuration
 
