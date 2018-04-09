@@ -462,7 +462,7 @@ f.close()
 # Section 4 - create systemd unit file
 # create systemd unit file - example: /etc/systemd/system/hos-n1-bmc.service
 
-# stop systemd service - bash command: systemctl stop hos-n5-bmc.service 
+# stop systemd service - bash command: systemctl stop hos-n1-bmc.service 
 subprocess.call(['systemctl', 'stop', dnser])
 
 f = open("/etc/systemd/system/" + dnser,"w")
