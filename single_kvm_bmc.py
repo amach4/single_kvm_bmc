@@ -27,7 +27,7 @@
 #
 #  <qemu:commandline>
 #    <qemu:arg value='-chardev'/>
-#    <qemu:arg value='socket,id=ipmi0,host=0.0.0.0,port=60016,reconnect=10'/>
+#    <qemu:arg value='socket,id=ipmi0,host=0.0.0.0,port=60011,reconnect=10'/>
 #    <qemu:arg value='-device'/>
 #    <qemu:arg value='ipmi-bmc-extern,id=bmc0,chardev=ipmi0'/>
 #    <qemu:arg value='-device'/>
@@ -41,17 +41,17 @@
 #
 # usable "ipmitool" commands are - examples:
 #
-# ipmitool -I lanplus -U root -P hos -H 192.168.8.16 chassis power status
+# ipmitool -I lanplus -U root -P hos -H 192.168.8.11 chassis power status
 #
-# ipmitool -I lanplus -U root -P hos -H 192.168.8.16 chassis power on
+# ipmitool -I lanplus -U root -P hos -H 192.168.8.11 chassis power on
 #
-# ipmitool -I lanplus -U root -P hos -H 192.168.8.16 chassis power off
+# ipmitool -I lanplus -U root -P hos -H 192.168.8.11 chassis power off
 #
-# ipmitool -I lanplus -U root -P hos -H 192.168.8.16 chassis bootdev pxe
+# ipmitool -I lanplus -U root -P hos -H 192.168.8.11 chassis bootdev pxe
 #
-# ipmitool -I lanplus -U root -P hos -H 192.168.8.16 chassis bootdev disk
+# ipmitool -I lanplus -U root -P hos -H 192.168.8.11 chassis bootdev disk
 #
-# ipmitool -I lanplus -U root -P hos -H 192.168.8.16 chassis bootdev cdrom
+# ipmitool -I lanplus -U root -P hos -H 192.168.8.11 chassis bootdev cdrom
 #
 # # # #
 
