@@ -79,7 +79,7 @@ dombmcpass = dom_bmc_pass
 dom_port = dom_bmc_ip.split('.')[3]
 domport = dom_port
 
-# Section 1 - KVM domain veriffication
+# Section 1 - KVM domain verification
 
 # get current KVM domain status 
 
