@@ -16,7 +16,7 @@ man page: man ipmi_sim
 Requirements:
 
 
-1- KVM  host setup
+1- KVM host setup
 
 
   - install "OpenIPMI" package which contains "ipmi_sim" BMC emulator
@@ -72,12 +72,17 @@ script section's:
 
 Hint: not needed to delete files, as they will be re-created using python "w" option
 
+
 Section 1 - KVM domain verification
+
 
 Section 2 - set file and folder names
 
+
 Section 3 - create "ipmi_sim" config files
 
+
 Section 4 - create systemd unit file
+
 
 ---end---
