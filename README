@@ -38,24 +38,28 @@ Requirements:
 
   - remove all <boot order> entries like <boot order='1'/> from KVM domain XML configuration
 
-  - adjust KVM domain XML add the following lines and make sure correct "port=" is used
+  - adjust KVM domain XML configuration, after running the python script add the displayed lines to your KVM domain XML, make sure correct "port=" is used
 
 
-  <domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
+    Example output:
 
-   .. <snip> ..
 
-   <qemu:commandline>
-     <qemu:arg value='-chardev'/>
-     <qemu:arg value='socket,id=ipmi0,host=0.0.0.0,port=60011,reconnect=10'/>
-     <qemu:arg value='-device'/>
-     <qemu:arg value='ipmi-bmc-extern,id=bmc0,chardev=ipmi0'/>
-     <qemu:arg value='-device'/>
-     <qemu:arg value='isa-ipmi-bt,bmc=bmc0'/>
-   </qemu:commandline>
-  </domain>"
+    <domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
+
+     .. <snip> ..
+
+     <qemu:commandline>
+       <qemu:arg value='-chardev'/>
+       <qemu:arg value='socket,id=ipmi0,host=0.0.0.0,port=60011,reconnect=10'/>
+       <qemu:arg value='-device'/>
+       <qemu:arg value='ipmi-bmc-extern,id=bmc0,chardev=ipmi0'/>
+       <qemu:arg value='-device'/>
+       <qemu:arg value='isa-ipmi-bt,bmc=bmc0'/>
+     </qemu:commandline>
+    </domain>"
 
 --
+
 
  usable commands are:
 
@@ -66,7 +70,9 @@ Requirements:
  ipmitool -I lanplus -U root -P linux -H 192.168.8.11 chassis bootdev disk
  ipmitool -I lanplus -U root -P linux -H 192.168.8.11 chassis bootdev cdrom
 
+
 --
+
 
 script section's:
 
@@ -79,7 +85,7 @@ Section 1 - KVM domain verification
 Section 2 - set file and folder names
 
 
-Section 3 - create "ipmi_sim" config files
+Section 3 - create "ipmi_sim" configuration files
 
 
 Section 4 - create systemd unit file
