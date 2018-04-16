@@ -38,7 +38,7 @@ Requirements:
 
   - remove all <boot order> entries like <boot order='1'/> from KVM domain XML configuration
 
-  - after running the python script add the displayed lines to your KVM domain XML confuguration,
+  - after running the python script add the displayed lines to your KVM domain XML configuration,
     make sure correct "port=" is used
 
 
