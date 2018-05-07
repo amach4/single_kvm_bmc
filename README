@@ -12,6 +12,11 @@ man page: man ipmi_sim
 
 --
 
+Example KVM host setup and KVM domain configuration:
+
+https://github.com/andreas-mach/single_kvm_bmc/wiki
+
+---
 
 Requirements:
 
