@@ -1,0 +1,42 @@
+{#
+#
+# (c) Copyright 2016 Hewlett Packard Enterprise Development LP
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+#}
+# This configuration file includes the default values of HOS
+# Changes may be made to this file by customer
+[DEFAULT]
+auth_strategy = keystone
+
+{% if enable_eon_api_auditing | bool %}
+# Auditing
+auditing = "{{ enable_eon_api_auditing }}"
+audit_map_file = "{{ eon_audit_conf }}"
+{% endif %}
+
+{% if eon_api_admin_listen_ip and eon_api_admin_port is defined %}
+[api]
+host_ip = "{{ eon_api_admin_listen_ip }}"
+port = "{{ eon_api_admin_port}}"
+api_workers = 3
+{% endif %}
+
+{% if enable_eon_api_auditing | bool %}
+[audit_middleware_notifications]
+driver = "{{ eon_notification_driver }}"
+{% endif %}
+
+### End of File  ###
+## Do NOT put anything after this line ##

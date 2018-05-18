@@ -1,0 +1,48 @@
+#
+# (c) Copyright 2015 Hewlett Packard Enterprise Development LP
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+  product:
+    version: 2
+
+  disk-models:
+
+  - name: LIFECYCLE-MANAGER-DISKS
+    # Disk model to be used for Lifecycle Managers nodes
+    # /dev/sda_root is used as a volume group for /, /var/log and /var/crash
+    # sda_root is a templated value to align with whatever partition is really used
+    # This value is checked in os config and replaced by the partition actually used
+    # on sda e.g. sda1 or sda5da e.g. sda1 or sda5. VSA appliance deployed on a host is expected to consume
+    # ~40 GB of disk space from host root disk for ephemeral storage to run VSA VM
+
+    volume-groups:
+      - name: hlm-vg
+        physical-volumes:
+          - /dev/sda_root
+        logical-volumes:
+
+      # The policy is not to consume 100% of the space of each volume group.
+      # 5% should be left free for snapshots and to allow for some flexibility.
+          - name: root
+            size: 80%
+            fstype: ext4
+            mount: /
+          - name: crash
+            size: 15%
+            mount: /var/crash
+            fstype: ext4
+            mkfs-opts: -O large_file
+        consumer:
+          name: os

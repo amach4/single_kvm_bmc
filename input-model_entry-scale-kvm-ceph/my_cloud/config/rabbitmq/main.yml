@@ -1,0 +1,243 @@
+
+# (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+rabbitmq_cluster_name: "{{ rabbitmq_cp.control_plane ~ '_rabbit' }}"
+rabbitmq_cluster_size: "{{ groups[rabbitmq_cp.group_name] | length }}"
+rabbitmq_clustered: "{{ (rabbitmq_cluster_size | int) > 1 }}"
+
+rabbitmq_config_lock: true
+
+rabbitmq_etc_dir: /etc/rabbitmq # Fix for Debian and RPM do not change.
+
+rabbitmq_join_cluster_timeout: "2m"
+
+# We always reset unless overridden.
+rabbitmq_do_not_reset_node: false
+
+rabbitmq_ha_policy_name: HA
+
+rabbitmq_iptables_chain: rabbitmq-temp
+
+rabbitmq_list_queues_timeout: "5m"
+
+rabbitmq_management_protocol: >
+  {%- if (rabbitmq_tls_enabled | bool) -%}
+    https
+  {%- else -%}
+    http
+  {%- endif -%}
+
+# Defaults to rabbit. This can be useful if you want to run more than one node
+# per machine. Note: relate to RABBITMQ_NODENAME env as well.
+# WARNING: Changing the two setting below requires a redeploy.
+rabbitmq_node: rabbit
+
+# NOTE: There are two notions of a address name used here: the one that Ansible
+# has, which is embedded in groups[verb_hosts.FND_RMQ], and the one that is
+# supplied from Config Processor as part of the configuration of the service.
+# It is vital to keep these separated and note that configuration of the
+# service is via the Config Processor address name values and access to the
+# system to be configured is via Ansible address name.
+rabbitmq_nodename: >
+  {{ rabbitmq_node }}@{{ rabbitmq_cp_hosts.hostname }}
+rabbitmq_remote_nodename: >
+  {{ rabbitmq_node }}@{{ rabbitmq_cp_hosts.remote_hostname }}
+
+# Restrict a user from stopping node in an order that could damage a running
+# cluster unless overridden.
+rabbitmq_permit_multi_stop: false
+
+# A user can overrided the host to use for clustering to allow a non-default
+# cluster opration.
+rabbitmq_primary_hostname: "{{ groups[rabbitmq_cp.group_name] | first }}"
+rabbitmq_remote_hostname: >
+  {{ groups[rabbitmq_cp.group_name]
+    [(groups[rabbitmq_cp.group_name].index(rabbitmq_primary_hostname) + 1) %
+      (groups[rabbitmq_cp.group_name] | length)] }}
+
+# The Ansible host to use for remote commands.
+rabbitmq_remote_host: >
+  {%- if inventory_hostname == rabbitmq_primary_hostname -%}
+    {{ rabbitmq_remote_hostname }}
+  {%- else -%}
+    {{ rabbitmq_primary_hostname }}
+  {%- endif -%}
+
+# Set to 'force_reset' to forcefully return a RabbitMQ node to its virgin
+# state.
+rabbitmq_reset_option: reset
+
+# List of packages we register a restart.
+rabbitmq_restart_packages:
+  - upgrade: major
+    workround: "1:18.3.1-dfsg-1+hpelinux1"
+    package: erlang-base
+  - upgrade: "{%- if rabbitmq_config.hipe_compile -%}
+                major
+              {%- endif -%}"
+    workround: "1:18.3.1-dfsg-1+hpelinux1"
+    package: erlang-base-hipe
+  - upgrade: major
+    workround: "1:18.3.1-dfsg-1+hpelinux1"
+    package: erlang-nox
+  - upgrade: check
+    workround: 3.6.1
+    package: rabbitmq-server
+
+rabbitmq_service_name: rabbitmq-server
+
+# Time to wait for a RabbitMQ service start.
+rabbitmq_start_timeout: "5m"
+
+# Time to wait for a RabbitMQ application app.
+rabbitmq_start_app_timeout: "5m"
+
+# Time to wait for a RabbitMQ application stop.
+rabbitmq_stop_app_timeout: "5m"
+
+# Time to wait for a RabbitMQ reset command to complete.
+rabbitmq_reset_timeout: "2m"
+
+# Control the time we wait for a node to become synchronised.
+# This has a max wait time in seconds of:
+#   rabbitmq_sync_retries * rabbitmq_sync_delay
+# Default:  90 * 10 = 900 seconds ( 15 mins )
+rabbitmq_sync_retries: 90
+rabbitmq_sync_delay: 10
+
+# Enable status check for TLS.
+rabbitmq_tls_check_status: true
+
+# Enable TLS replication.
+# This allows the user to disable TLS replication traffic when client TLS is
+# enable ONLY.
+rabbitmq_tls_replication: true
+
+# Set TLS configuration state.
+rabbitmq_tls_enabled: "{{
+   ((hlm_notify_rabbitmq_lockout_tls | default(false)) and
+     hlm_notify_rabbitmq_lockout_tls.changed) or
+   (rabbitmq_cp.tls_enabled | bool) }}"
+
+# User over-ridable TLS cert setting.
+rabbitmq_tls_certs_local_dir: /tmp/helion_tls_certs
+rabbitmq_tls_expiry_check: 2592000 # 30 days expiry
+rabbitmq_tls_certs_force_regeneration: False
+
+# Map a Ansible hostname to a Config Processor hostname.
+rabbitmq_cp_hosts:
+  hostname: >
+    {{ (rabbitmq_cp.map_port_info |
+        selectattr('hlm_ansible_host', 'equalto', inventory_hostname) |
+        first).host }}
+  remote_hostname: >
+    {{ (rabbitmq_cp.map_port_info |
+        selectattr('hlm_ansible_host', 'equalto', rabbitmq_remote_host) |
+        first).host }}
+  ansible_cluster: >
+    {{ rabbitmq_cp.map_port_info |
+    map(attribute='hlm_ansible_host') |
+    list }}
+
+# Config Processor variable mapping.
+rabbitmq_cp:
+  tcp_bind_addresses:
+    - ip: "{{ host.bind.FND_RMQ.tcp_listener.ip_address }}"
+      port: "{{ host.bind.FND_RMQ.tcp_listener.port }}"
+  tls_bind_addresses:
+    - ip: "{{ host.bind.FND_RMQ.tls_listener.ip_address }}"
+      port: "{{ host.bind.FND_RMQ.tls_listener.port }}"
+  control_plane: "{{ host |
+                     item('my_dimensions.control_plane',
+                     default='hos') }}"
+  control_planes: "{{ global.control_planes }}"
+  credentials: "{{ FND_RMQ.consumed_by | default({})}}"
+  erlang_cookie: "{{ FND_RMQ.vars.erlang_cookie }}"
+  group_name: "{{ verb_hosts.FND_RMQ }}"
+  # WARNING: Changing this value requires a redeploy
+  inet_dist_listen_port: >
+    {{ host.bind.FND_RMQ.rabbitmq_inet_dist_listen.port }}
+  management_address:
+    ip: "{{ host.bind.FND_RMQ.rabbitmq_management.ip_address }}"
+    port: "{{ host.bind.FND_RMQ.rabbitmq_management.port }}"
+  map_port_info: "{{ FND_RMQ.members.rabbitmq_epmd }}"
+  # WARNING: Changing this value requires a redeploy
+  home: "{{ host | item('my_logical_volumes.FND_RMQ')
+                 | by_item('consumer.rabbitmq_env', 'home')
+                 | item('0.mount', default='/var/lib/rabbitmq') }}"
+  tls_enabled: "{{ host.bind.FND_RMQ.internal.tls }}"
+  tls_filename: "{{ host | item('bind.FND_RMQ.internal.cert_name',
+                    default='') }}"
+
+rabbitmq_bind_addresses: "{{ rabbitmq_cp.tcp_bind_addresses |
+                             union(rabbitmq_cp.tls_bind_addresses) }}"
+
+# See: https://www.rabbitmq.com/plugins.html
+# Add any RabbitMQ plugins you wish to install to the list.
+rabbitmq_plugins:
+#  - rabbitmq_management # See: https://www.rabbitmq.com/management.html
+#  - rabbitmq_top  # Requires the management plugin.
+
+# For details of config and environment options.
+# See: https://www.rabbitmq.com/configure.html
+
+# RabbitMQ environment.
+# Adding a value here will add it to the RabbitMQ environment file.
+# See: https://www.rabbitmq.com/relocate.html
+rabbitmq_env:
+  home: "{{ rabbitmq_cp.home }}"
+  log_base: /var/log/rabbitmq
+  nodename: "{{ rabbitmq_nodename }}"
+  mnesia_base: "{{ rabbitmq_cp.home }}/mnesia"
+  pid_file: /var/run/rabbitmq/{{ rabbitmq_nodename }}.pid
+  # See: https://www.rabbitmq.com/networking.html
+  #   Increase the Erlang Thread Pool to 128 (default 64).
+  rabbitmq_io_thread_pool_size: 128
+  # See 'rabbitmq_tls_erl_args' for configuration details.
+  rabbitmq_server_additional_erl_args: "{{ rabbitmq_tls_erl_args | quote }}"
+  rabbitmq_ctl_erl_args: "{{ rabbitmq_tls_erl_args | quote }}"
+  rabbitmq_plugins_erl_args: "{{ rabbitmq_tls_erl_args | quote }}"
+
+# RabbitMQ config.
+rabbitmq_config:
+  cluster_partition_handling: pause_minority
+  # See: https://www.rabbitmq.com/disk-alarms.html for alternative setting.
+  disk_free_limit: 1000000000 # 1GB disk free limit.
+  vm_memory_high_watermark: 0.4
+  hipe_compile: false
+  rates_mode: basic
+
+# RabbitMQ TLS vars
+rabbitmq_cert_dir: "{{ rabbitmq_etc_dir }}"
+rabbitmq_tls:
+  erlang_ssl_symlink: >
+    {{ rabbitmq_etc_dir }}/erlang_ssl
+  req_file: >
+    {{ rabbitmq_cert_dir }}/{{ rabbitmq_cp.control_plane }}-rabbitmq.req
+  pem_file: >
+    {{ rabbitmq_cert_dir }}/{{ rabbitmq_cp.control_plane }}-rabbitmq.pem
+
+# RabbitMQ cluster TLS additional aguments as per:
+#   https://www.rabbitmq.com/clustering-ssl.html
+rabbitmq_tls_erl_args: >-
+  {%- if (rabbitmq_tls_enabled | bool) and
+         (rabbitmq_tls_replication | bool) -%}
+    -pa {{ rabbitmq_tls.erlang_ssl_symlink }}
+    -proto_dist inet_tls
+    -ssl_dist_opt server_certfile {{ rabbitmq_tls.pem_file }}
+    -ssl_dist_opt server_keyfile {{ rabbitmq_tls.pem_file }}
+    -ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true
+  {%- endif -%}

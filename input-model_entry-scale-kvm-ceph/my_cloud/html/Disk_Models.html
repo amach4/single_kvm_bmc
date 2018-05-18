@@ -1,0 +1,159 @@
+<html>
+
+<h1>Cloud: entry-scale-kvm-ceph</h1>
+<head><link href="hos.css" type="text/css" rel="stylesheet"></head>
+<h2><a href="Control_Planes.html">Control Plane View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="Regions.html">Region View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="Services.html">Service View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="Networks.html">Network View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="Server_View.html">Server View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="Server_Groups.html">Server Groups View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h2>
+<br>
+<h2>Disk Models</h2>
+<h3><a name="RGW-DISKS">RGW-DISKS</a></h3>
+<table>
+<tr><td>hlm-vg</td><td><table class="tab">
+<tr><td style="font-weight:bold" class="tab">mount</td><td style="font-weight:bold" class="tab">size</td><td style="font-weight:bold" class="tab">fstype</td><td style="font-weight:bold" class="tab">mkfs-opts</td></tr>
+<tr><td class="tab">/</td><td class="tab">30%</td><td class="tab">ext4</td><td class="tab"></tr>
+<tr><td class="tab">/var/log</td><td class="tab">45%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/crash</td><td class="tab">20%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+</table></td><td><table class="tab">
+<tr>
+<td class="tab">/dev/sda_root</td>
+</table></td></tr>
+</table>
+<table class="used_by">
+<tr>
+<td class="used_by">Used By:</td>
+<td class="used_by"><a href="Server_Roles.html#RGW-ROLE">RGW-ROLE</a></td>
+</table>
+<br>
+<br>
+<h3><a name="OSD-DISKS">OSD-DISKS</a></h3>
+<table>
+<tr><td>hlm-vg</td><td><table class="tab">
+<tr><td style="font-weight:bold" class="tab">mount</td><td style="font-weight:bold" class="tab">size</td><td style="font-weight:bold" class="tab">fstype</td><td style="font-weight:bold" class="tab">mkfs-opts</td></tr>
+<tr><td class="tab">/</td><td class="tab">30%</td><td class="tab">ext4</td><td class="tab"></tr>
+<tr><td class="tab">/var/log</td><td class="tab">45%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/crash</td><td class="tab">20%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+</table></td><td><table class="tab">
+<tr>
+<td class="tab">/dev/sda_root</td>
+</table></td></tr>
+<tr><td>ceph-osd-data-and-journal</td><td>ceph</td><td><table class="tab">
+<tr>
+<td class="tab">/dev/sdb</td>
+</table></td></tr>
+<tr><td>ceph-osd-data-and-shared-journal-set-1</td><td>ceph</td><td><table class="tab">
+<tr>
+<td class="tab">/dev/sdd</td>
+</table></td></tr>
+</table>
+<table class="used_by">
+<tr>
+<td class="used_by">Used By:</td>
+<td class="used_by"><a href="Server_Roles.html#OSD-ROLE">OSD-ROLE</a></td>
+</table>
+<br>
+<br>
+<h3><a name="COMPUTE-DISKS">COMPUTE-DISKS</a></h3>
+<table>
+<tr><td>hlm-vg</td><td><table class="tab">
+<tr><td style="font-weight:bold" class="tab">mount</td><td style="font-weight:bold" class="tab">size</td><td style="font-weight:bold" class="tab">fstype</td><td style="font-weight:bold" class="tab">mkfs-opts</td></tr>
+<tr><td class="tab">/</td><td class="tab">35%</td><td class="tab">ext4</td><td class="tab"></tr>
+<tr><td class="tab">/var/log</td><td class="tab">50%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/crash</td><td class="tab">10%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+</table></td><td><table class="tab">
+<tr>
+<td class="tab">/dev/sda_root</td>
+</table></td></tr>
+<tr><td>vg-comp</td><td><table class="tab">
+<tr><td style="font-weight:bold" class="tab">mount</td><td style="font-weight:bold" class="tab">size</td><td style="font-weight:bold" class="tab">fstype</td><td style="font-weight:bold" class="tab">mkfs-opts</td></tr>
+<tr><td class="tab">/var/lib/nova</td><td class="tab">95%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+</table></td><td><table class="tab">
+<tr>
+<td class="tab">/dev/sdb</td>
+</table></td></tr>
+</table>
+<table class="used_by">
+<tr>
+<td class="used_by">Used By:</td>
+<td class="used_by"><a href="Server_Roles.html#COMPUTE-ROLE">COMPUTE-ROLE</a></td>
+</table>
+<br>
+<br>
+<h3><a name="CONTROLLER-1TB-DISKS">CONTROLLER-1TB-DISKS</a></h3>
+<table>
+<tr><td>hlm-vg</td><td><table class="tab">
+<tr><td style="font-weight:bold" class="tab">mount</td><td style="font-weight:bold" class="tab">size</td><td style="font-weight:bold" class="tab">fstype</td><td style="font-weight:bold" class="tab">mkfs-opts</td></tr>
+<tr><td class="tab">/</td><td class="tab">6%</td><td class="tab">ext4</td><td class="tab"></tr>
+<tr><td class="tab">/var/crash</td><td class="tab">6%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/log</td><td class="tab">16%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/lib/mysql</td><td class="tab">6%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/lib/rabbitmq</td><td class="tab">7%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/vertica</td><td class="tab">19%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/kafka</td><td class="tab">7%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/lib/elasticsearch</td><td class="tab">13%</td><td class="tab">ext4</td><td class="tab"></tr>
+<tr><td class="tab">/var/lib/zookeeper</td><td class="tab">1%</td><td class="tab">ext4</td><td class="tab"></tr>
+</table></td><td><table class="tab">
+<tr>
+<td class="tab">/dev/sda_root</td>
+</table></td></tr>
+<tr><td>swiftobj</td><td>swift</td><td><table class="tab">
+<tr>
+<td class="tab">/dev/sdb</td>
+<tr>
+<td class="tab">/dev/sdc</td>
+</table></td></tr>
+</table>
+<table class="used_by">
+<tr>
+<td class="used_by">Used By:</td>
+</table>
+<br>
+<br>
+<h3><a name="LIFECYCLE-MANAGER-DISKS">LIFECYCLE-MANAGER-DISKS</a></h3>
+<table>
+<tr><td>hlm-vg</td><td><table class="tab">
+<tr><td style="font-weight:bold" class="tab">mount</td><td style="font-weight:bold" class="tab">size</td><td style="font-weight:bold" class="tab">fstype</td><td style="font-weight:bold" class="tab">mkfs-opts</td></tr>
+<tr><td class="tab">/</td><td class="tab">80%</td><td class="tab">ext4</td><td class="tab"></tr>
+<tr><td class="tab">/var/crash</td><td class="tab">15%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+</table></td><td><table class="tab">
+<tr>
+<td class="tab">/dev/sda_root</td>
+</table></td></tr>
+</table>
+<table class="used_by">
+<tr>
+<td class="used_by">Used By:</td>
+<td class="used_by"><a href="Server_Roles.html#LIFECYCLE-MANAGER-ROLE">LIFECYCLE-MANAGER-ROLE</a></td>
+</table>
+<br>
+<br>
+<h3><a name="CONTROLLER-600GB-DISKS">CONTROLLER-600GB-DISKS</a></h3>
+<table>
+<tr><td>hlm-vg</td><td><table class="tab">
+<tr><td style="font-weight:bold" class="tab">mount</td><td style="font-weight:bold" class="tab">size</td><td style="font-weight:bold" class="tab">fstype</td><td style="font-weight:bold" class="tab">mkfs-opts</td></tr>
+<tr><td class="tab">/</td><td class="tab">10%</td><td class="tab">ext4</td><td class="tab"></tr>
+<tr><td class="tab">/var/crash</td><td class="tab">11%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/log</td><td class="tab">13%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/lib/mysql</td><td class="tab">10%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/lib/rabbitmq</td><td class="tab">4%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/vertica</td><td class="tab">13%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/kafka</td><td class="tab">11%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/lib/elasticsearch</td><td class="tab">21%</td><td class="tab">ext4</td><td class="tab"></tr>
+<tr><td class="tab">/var/lib/zookeeper</td><td class="tab">1%</td><td class="tab">ext4</td><td class="tab"></tr>
+</table></td><td><table class="tab">
+<tr>
+<td class="tab">/dev/sda_root</td>
+</table></td></tr>
+<tr><td>swiftobj</td><td>swift</td><td><table class="tab">
+<tr>
+<td class="tab">/dev/sdb</td>
+<tr>
+<td class="tab">/dev/sdc</td>
+</table></td></tr>
+</table>
+<table class="used_by">
+<tr>
+<td class="used_by">Used By:</td>
+<td class="used_by"><a href="Server_Roles.html#CONTROLLER-ROLE">CONTROLLER-ROLE</a></td>
+</table>
+<br>
+<br>
+</html>

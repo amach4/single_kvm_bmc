@@ -1,0 +1,68 @@
+{#
+#
+# (c) Copyright 2016 Hewlett Packard Enterprise Development LP
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+#}
+# This configuration file includes the default values of HOS
+# Changes may be made to this file by customer
+
+[DEFAULT]
+# Database
+esx_sql_connection = "{{ eon_sql_connection }}"
+esx_sql_idle_timeout= 3600
+
+# Notifier
+eon_notifier_topics = "{{ eon_ov_notifier_topic }}"
+#Encrypt_PEM_PATH
+eon_rsa_pem_file = "{{ eon_service_conf_dir }}/eon_encrypt.pem"
+
+[neutron]
+admin_auth_url = "{{ neutron_admin_auth_url }}"
+admin_password = "{{ neutron_admin_password }}"
+admin_tenant_name = "{{ neutron_admin_tenant_name }}"
+admin_username = "{{ neutron_admin_username }}"
+auth_strategy = keystone
+ca_certificates_file = /etc/ssl/certs/ca-certificates.crt
+endpoint_type = "{{ neutron_endpoint_type }}"
+url = "{{ neutron_url }}"
+timeout = 300
+
+[nova]
+admin_auth_url = "{{ nova_admin_auth_url }}"
+admin_password = "{{ nova_admin_password }}"
+admin_tenant_name = "{{ nova_admin_tenant_name }}"
+admin_username = "{{ nova_admin_username }}"
+auth_strategy = keystone
+ca_certificates_file = /etc/ssl/certs/ca-certificates.crt
+endpoint_type = "{{ nova_endpoint_type }}"
+url = "{{ nova_url }}"
+timeout = 300
+
+{% if  ova_repo_path and hlinux_server is defined %}
+[vmware]
+template_location = {{ hlinux_server }}/{{ ova_repo_path }}
+{% endif %}
+
+[hlm_ux_service]
+hux_services_url = "{{ eon_hux_service_url }}"
+
+[lifecycle_manager]
+hlm_version = "{{ hlm_version }}"
+ip_address = "{{ cobbler_server_ip_addr }}"
+user = "{{ hlm_user }}"
+ssh_key = "{{ deployer_ssh_pub_key }}"
+
+### End of File  ###
+## Do NOT put anything after this line ##

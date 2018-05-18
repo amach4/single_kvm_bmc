@@ -1,0 +1,40 @@
+{#
+#
+# (c) Copyright 2016 Hewlett Packard Enterprise Development LP
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+#}
+# This file has the values that apply to monasca ovs plugin.
+# Changes may be made to this file by customers.
+
+init_config:
+  admin_password: {{ neutron_admin_password }}
+  admin_tenant_name: {{ neutron_admin_tenant_name }}
+  admin_user: {{ neutron_admin_user }}
+  identity_uri: {{ neutron_identity_uri }}/v2.0
+  neutron_refresh: 14400
+  region_name: {{ neutron_api.public_region }}
+  cache_dir: /dev/shm
+  network_use_bits: false
+  check_router_ha: true
+  included_interface_re: qg.*|vhu.*
+  ovs_cmd: 'sudo /usr/bin/ovs-vsctl'
+  use_absolute_metrics: true
+  use_rate_metrics: false
+  use_health_metrics: false
+  collect_period: 300
+
+instances:
+  - {}
+

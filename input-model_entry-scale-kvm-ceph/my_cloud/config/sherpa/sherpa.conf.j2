@@ -1,0 +1,295 @@
+#
+# (C) Copyright 2014-2015 HP Development Company, L.P.
+#
+# This configuration file includes the default values for Helion Openstack
+# Changes may be made to this file by customers.
+# The changes here will only apply to the sherpa.
+
+try:
+    from sherpa.api.controllers.hooks import RestHook
+except:
+    pass
+
+# Server Specific Configurations
+server = {
+    'host': '{{ sherpa_host_ip }}',
+    'port': {{ sherpa_port }},
+}
+
+
+##############################################################
+# Proxy settings must be present
+# but can be empty string ('') if no proxy needed
+##############################################################
+http_proxy = '{{ sherpa_http_proxy }}'
+https_proxy = '{{ sherpa_https_proxy }}'
+no_proxy =  '{{ sherpa_no_proxy }}'
+##############################################################
+
+sherpa_data = '{{ sherpa_data_dir }}'
+sherpa_ext = '{{ sherpa_ext_dir }}'
+signing_policy='warn'
+certificate_home= '{{ sherpa_cert_dir }}'
+
+# Should the system check for duplicates within a repository handler
+# and throw an exception? If false, duplicates will be ignored. This
+# argument can be overridden by setting it in the manifest.
+check_for_duplicates = True
+
+max_concurrent_jobs = {{ sherpa_max_concurrent_jobs }}
+max_mem_usage_pct = 0.8
+
+try:
+   # Pecan Application Configurations
+   app = {
+       'root': 'sherpa.api.controllers.root.RootController',
+       'modules': ['sherpa.api'],
+       'debug': False,
+       'template_path': '{{ sherpa_template_dir }}',
+       'hooks': [RestHook()],
+       'errors': {
+           404: '/error/404',
+           '__force_dict__': True
+       }
+   }
+except:
+   pass
+
+
+wsme = {
+    'debug': False
+}
+
+{% raw %}
+logging = {
+    'loggers': {
+        'root': {'level': 'INFO', 'handlers': ['console']},
+        'sherpa': {'level': 'INFO', 'handlers': ['file', 'json']},
+        'py.warnings': {'handlers': ['console']},
+        '__force_dict__': True
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'file': {
+            'class': 'logging.handlers.RotatingFileHandler',
+{% endraw %}
+            'filename': '{{ sherpa_log_file }}',
+{% raw %}
+            'maxBytes': 1048576,
+            'backupCount': 5,
+            'formatter': 'simple'
+        },
+        'json': {
+            'level': 'INFO',
+            'class': 'logging.handlers.WatchedFileHandler',
+{% endraw %}
+            'filename': '{{ sherpa_jsonlog_file }}',
+{% raw %}
+            'formatter': 'logstash',
+        }
+    },
+    'formatters': {
+        '__force_dict__': True,
+        'simple': {
+            'format': ('%(asctime)s %(levelname)-5.5s [%(name)s]'
+                       '[%(threadName)s] %(message)s')
+        },
+        'logstash': {
+            '()': 'logstash.formatter.LogstashFormatterVersion1',
+            'message_type': 'sherpa',
+            'tags': 'sherpa',
+        }
+    }
+}
+{% endraw %}
+
+# The following configuration allows you to customize the
+# Authorization policies.
+#
+# sherpa.common.auth_policy.KeystoneAuth
+#   This policy ensures the traffic originates from a keystone
+#   client and bears a keystone token in the auth header
+#
+# sherpa.common.auth_policy.PassThruAuth
+#   This policy allows all traffic
+#
+authentication = 'sherpa.common.auth_policy.KeystoneAuth'
+
+
+# The following configuration allows the customization of the
+# handling of the SHERPA Content based on the installation. This
+# configuration is a registry of the handlers that should be loaded
+# at runtime.
+# Content Handlers
+#   - Content handlers are used to process the content.
+#   - Complex content handlers may unzip or extract sub content
+#     and post the subcontent to the content manager for further handling.
+#
+# Repository Handlers
+#   - These implement the connection to the remote repositories
+#     And provide the API implementations to transfer the content
+#     to the sub repository.
+#   - The file handler may contain one or more destinations which include
+#     'directory', 'overwrite', and 'fail_if_exists'. Currently, the default
+#     'directory' is set to '/tmp/heat_templates'. It will be changed to
+#     '${TRIPLEO_ROOT}/heat_templates' when TripleO is able to set the
+#     environmental variable of $TRIPLEO_ROOT. If 'overwrite' is True, it
+#     will overwrite the existing file. Otherwise, it just prints a log info.
+#     If 'fail_if_exists' is True, it will raise an exception when 'overwrite'
+#     is True.
+{% raw %}
+ContentMgr = {
+   'mapping': {
+     'csu':    'sherpa.handlers.content.csu.CsuContentHandler',
+     'image':  'sherpa.handlers.content.image.ImageContentHandler',
+     'cosmos': 'sherpa.handlers.content.cosmos.CosmosContentHandler',
+     'template': 'sherpa.handlers.content.template.TemplateContentHandler',
+     'workload': 'sherpa.handlers.content.workload.WorkloadContentHandler',
+     'tag': 'sherpa.handlers.content.tag.CapabilityContentHandler',
+     'heat': 'sherpa.handlers.content.heat.HeatContentHandler',
+     'storage': 'sherpa.handlers.content.storage.StorageContentHandler',
+     'content': 'sherpa.handlers.content.sherpa_content.SHERPAContentHandler',
+     'repository': 'sherpa.handlers.content.sherpa_content.SHERPAContentHandler',
+   }
+}
+RepositoryMgr= {
+   'mapping': {
+     'glance':  'sherpa.handlers.repository.glance.GlanceRepositoryHandler',
+     'focus':   'sherpa.handlers.repository.focus.FocusRepositoryHandler',
+     'crowbar': 'sherpa.handlers.repository.crowbar.CrowbarRepositoryHandler',
+     'graffiti': 'sherpa.handlers.repository.graffiti.GraffitiRepositoryHandler',
+     'swift': 'sherpa.handlers.repository.swift.SwiftRepositoryHandler',
+     'file': {
+        'classname': 'sherpa.handlers.repository.file.FileSystemHandler',
+        'destinations': [
+            {
+                'directory': '/tmp/heat_templates',
+                'overwrite': True,
+                'fail_if_exists': False,
+            }
+        ]
+     },
+     'repository': 'sherpa.handlers.repository.sherpa_repository.SHERPARepositoryHandler',
+     'scache': 'sherpa.handlers.repository.cache_swift.CacheSwiftRepositoryHandler',
+     'fcache': {
+        'classname': 'sherpa.handlers.repository.cache_file.CacheFileSystemHandler',
+{% endraw %}
+        'destination': '{{ sherpa_cache_dir }}'
+{% raw %}
+     },
+   }
+}
+CatalogMgr= {
+    'mapping': {
+        'sherpacatalog': {
+            'classname': 'sherpa.handlers.catalog.uploadcatalog.UploadCatalog',
+{% endraw %}
+            'categories': {{sherpa_categories}},
+{% raw %}
+        },
+        'hdpcatalog': {
+            'classname': 'sherpa.handlers.catalog.uploadcatalog.UploadCatalog',
+{% endraw %}
+            'categories': {{sherpa_hdp_categories}},
+{% raw %}
+        },
+        'hdpdircatalog': {
+            'classname': 'sherpa.handlers.catalog.dircatalog.DirCatalog',
+{% endraw %}
+            'directory': '{{ sherpa_import_dir }}',
+            'categories': {{sherpa_hdp_categories}},
+{% raw %}
+         },
+        'dnsdircatalog': {
+            'classname': 'sherpa.handlers.catalog.dircatalog.DirCatalog',
+{% endraw %}
+            'directory': '{{ sherpa_import_dir }}',
+            'categories': {{sherpa_categories}},
+{% raw %}
+         },
+        'dircatalog': {
+            'classname': 'sherpa.handlers.catalog.dircatalog.DirCatalog',
+{% endraw %}
+            'directory': '{{ sherpa_import_dir }}',
+            'categories': {{sherpa_categories}},
+{% raw %}
+        },
+        'wscatalog': {
+            'classname': 'sherpa.handlers.catalog.hpws_catalog.HPWSCatalog',
+            'auth_type': 'password',
+            'client_id': 'hpws_cloudos_multi',
+            'client_secret': '586995c46e73c250ea56d26815f25dbdffa2fe3f',
+            'cert_verify': True,
+            'catalog_id': '048d8926-2241-11e3-a926-d8d385e16fb6',
+            'page_size': 100,
+            'page_offset': 0,
+{% endraw %}
+            'os_version': {{sherpa_os_version}},
+            'os_type': {{sherpa_os_type}},
+            'categories': {{sherpa_categories}},
+{% raw %}
+            'http_proxy': http_proxy,
+            'https_proxy': https_proxy,
+            'no_proxy': no_proxy,
+        }
+    }
+}
+SecretMgr= {
+    'classname': 'sherpa.handlers.secret.localstore.LocalStore',
+{% endraw %}
+    'secret_file': '{{ sherpa_secret_file }}'
+{% raw %}
+}
+CacheMgr= {
+    'repository_list':['scache', 'fcache'],
+}
+
+keystone = {
+{% endraw %}
+    'admin_token': '{{ keystone.token }}',
+    'host': '{{ SHP_API.consumes_KEY_API.vips.private[0].host }}',
+    'admin_port': {{ SHP_API.consumes_KEY_API.vips.private[0].port }},
+{% raw %}
+    'protocol': 'http',
+    'version': 'v2.0',
+    'cacert': '/etc/ssl/certs/ca-certificates.crt'
+}
+{% endraw %}
+
+# The active storage configuration
+active_storage = '{{ sherpa_active_storage }}'
+
+# Database configurations
+{% raw %}
+storage = {
+    'mapping': {
+        'mysql': {
+            'classname': 'sherpa.dao.db_impl.DbDao',
+{% endraw %}
+            'url': '{{ sherpa_db_url  }}',
+{% raw %}
+            'engine_args': {
+                'pool_recycle': 3600,
+            },
+            'table_args': {
+                'mysql_engine': 'InnoDB',
+                'mysql_charset': 'utf8',
+                'mysql_key_block_size': "1024",
+            },
+            'debug': False,
+        },
+        'file': {
+            'classname': 'sherpa.common.queue.jobData.JobData',
+        },
+    },
+    'retries': 10,
+}
+{% endraw %}
+
+### Add additional options here
+
+
+### Do not add anything after this line

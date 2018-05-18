@@ -1,0 +1,47 @@
+#
+# (c) Copyright 2015,2016 Hewlett Packard Enterprise Development LP
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+sub_service:
+  hosts: FND-MDB
+  name: mysql
+  service: foundation
+  logging_options:
+    - files:
+      - /var/log/mysql.log
+      - /var/log/mysql.err
+      - /var/log/mysql/error.log
+      - /var/log/mysql/mysql-slow.log
+      centralized_logging:
+        enabled: true
+        format: json
+      nosu: true
+      log_rotate:
+      - daily
+      - rotate 5
+      - maxsize 45M
+      - missingok
+      - notifempty
+#      - copytruncate # logs w/ postrotate script shouldn't have copytruncate
+      - compress
+      - |
+        sharedscripts
+          postrotate
+            if test -x /usr/bin/mysqladmin && /usr/bin/mysqladmin ping &>/dev/null
+            then
+                env HOME="$(realpath ~root)" /usr/bin/mysql -e 'select @@global.long_query_time,@@global.slow_query_log into @lqt_save, @sq_save; set global long_query_time=2000; set global slow_query_log = 0; select sleep(2); FLUSH LOGS; select sleep(2); set global long_query_time=@lqt_save; set global slow_query_log=@sq_save;' > /var/log/mysqladmin.flush-logs 2>&1
+            fi
+          endscript
+      - create 640 mysql adm

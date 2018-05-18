@@ -1,0 +1,55 @@
+<html>
+
+<h1>Cloud: entry-scale-kvm-ceph</h1>
+<head><link href="../hos.css" type="text/css" rel="stylesheet"></head>
+<h2><a href="../Control_Planes.html">Control Plane View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="../Regions.html">Region View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="../Services.html">Service View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="../Networks.html">Network View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="../Server_View.html">Server View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="../Server_Groups.html">Server Groups View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h2>
+<br>
+<br>
+<h2>Server ID: rgw2</h2>
+<h3>Role: <a href="../Server_Roles.html#RGW-ROLE">RGW-ROLE</a></h3>
+<h3>Status: allocated</h3>
+<h3>Hostname: helion-cp1-rgw-m2-mgmt</h3>
+<h3>Control Plane:<a href="../Control_Planes.html#control-plane-1">  control-plane-1</a></h3>
+<h3>Failure Zone:<a href="../Server_Groups.html">  AZ2</a></h3>
+<h3>Services</h3>
+<table>
+<tr><td valign="top">monasca</td><td valign="top">monasca-agent<br></td></tr>
+<tr><td valign="top">logging</td><td valign="top">logging-producer<br>logging-rotate<br></td></tr>
+<tr><td valign="top">foundation</td><td valign="top">stunnel<br>apache2<br>ntp-client<br></td></tr>
+<tr><td valign="top">clients</td><td valign="top">keystone-client<br></td></tr>
+<tr><td valign="top">freezer</td><td valign="top">freezer-agent<br></td></tr>
+<tr><td valign="top">ceph</td><td valign="top">ceph-radosgw<br></td></tr>
+<tr><td valign="top">hlm</td><td valign="top">lifecycle-manager-target<br></td></tr>
+</table>
+<br>
+<br>
+<h3>Disks (<a href="../Disk_Models.html#RGW-DISKS">RGW-DISKS</a>)</h3>
+<table>
+<tr><td>hlm-vg</td><td><table class="tab">
+<tr><td style="font-weight:bold" class="tab">mount</td><td style="font-weight:bold" class="tab">size</td><td style="font-weight:bold" class="tab">fstype</td><td style="font-weight:bold" class="tab">mkfs-opts</td></tr>
+<tr><td class="tab">/</td><td class="tab">30%</td><td class="tab">ext4</td><td class="tab"></tr>
+<tr><td class="tab">/var/log</td><td class="tab">45%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/crash</td><td class="tab">20%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+</table></td><td><table class="tab">
+<tr>
+<td class="tab">/dev/sda_root</td>
+</table></td></tr>
+</table>
+<br>
+<br>
+<h3>Network Interfaces (<a href="../Interface_Models.html#RGW-INTERFACES">RGW-INTERFACES</a>)</h3>
+<table>
+<tr><td rowspan="2">BOND0</td><td><a href="../Networks.html#MANAGEMENT-NET">MANAGEMENT-NET</a>&nbsp(192.168.10.19)<br></td><td valign="top">Routes&nbspto:<br>&nbsp&nbsp&nbsp&nbsp<I>default</I><br>&nbsp&nbsp&nbsp&nbsp<a href="../Networks.html#OCTAVIA-MGMT-NET">OCTAVIA-MGMT-NET</a><br></td></tr>
+<tr><td><a href="../Networks.html#OSD-CLIENT-NET">OSD-CLIENT-NET</a>&nbsp(192.168.12.6)<br></td><td valign="top">Routes&nbspto:<br></td></tr>
+</table>
+<br>
+<br>
+<h3>NIC Mapping (MY-2PORT-SERVER)</h3>
+<table>
+<tr><td align="center" class="title">Name</td><td align="center" class="title">Bus Address</td><td align="center" class="title">Type</td></tr>
+<tr><td>hed1</td><td>0000:09:02.0</td><td>simple-port</td></tr>
+<tr><td>hed2</td><td>0000:09:03.0</td><td>simple-port</td></tr>
+</table>
+<br>
+<br>
+</html>

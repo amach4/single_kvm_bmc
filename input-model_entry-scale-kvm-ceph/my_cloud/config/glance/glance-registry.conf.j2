@@ -1,0 +1,52 @@
+#
+# (c) Copyright 2016 Hewlett Packard Enterprise Development LP
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+[DEFAULT]
+debug = {{ debug_logs }}
+bind_host = {{ glance_registry_bind_host }}
+bind_port = {{ glance_registry_port }}
+log_file = {{ glance_registry_log_file }}
+log_config_append={{ glance_registry_conf_dir }}/glance-registry-logging.conf
+rpc_backend = {{ glance_registry_notification_backend }}
+
+[database]
+connection = {{ database_connection }}
+
+[keystone_authtoken]
+revocation_cache_time = 10
+auth_uri = {{ keystone_auth_uri }}
+auth_url = {{ keystone_auth_url }}
+auth_plugin = password
+project_domain_name = {{ keystone_project_domain_name }}
+user_domain_name =  {{ keystone_user_domain_name}}
+project_name = {{ glance_admin_project_name }}
+username = {{ glance_admin_user }}
+password = {{ glance_admin_password }}
+
+[oslo_messaging_rabbit]
+rabbit_hosts = {{ rabbit_hosts }}
+rabbit_userid = {{ rabbit_userid }}
+rabbit_password = {{ rabbit_password }}
+rabbit_use_ssl = {{ rabbit_use_ssl }}
+
+[paste_deploy]
+flavor = {{ glance_registry_flavor }}
+
+[profiler]
+enabled = {{ osprofiler_enabled }}
+container_formats = {{ container_formats }}
+
+[oslo_messaging_notifications]
+driver = {{ glance_registry_notification_driver }}

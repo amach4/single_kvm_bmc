@@ -1,0 +1,88 @@
+#
+# (c) Copyright 2016 Hewlett Packard Enterprise Development LP
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+sub_service:
+  hosts: KEYMGR-.*
+  name: barbican
+  service: barbican
+  monitoring:
+    enabled: true
+    external_name: key-manager
+    logging_dir: /var/log/barbican
+  logging_options:
+    - files:
+      - /var/log/barbican/barbican.log
+      - /var/log/barbican/barbican-worker.log
+      centralized_logging:
+        enabled: false
+        format: json
+      log_rotate:
+      - daily
+      - maxsize 50M
+      - rotate 7
+      - compress
+      - missingok
+      - notifempty
+      - copytruncate
+      - create 640 barbican adm
+    - files:
+      - /var/log/barbican/barbican-json.log
+      - /var/log/barbican/barbican-worker-json.log
+      centralized_logging:
+        enabled: true
+        format: rawjson
+      log_rotate:
+      - daily
+      - maxsize 50M
+      - rotate 7
+      - compress
+      - missingok
+      - notifempty
+      - copytruncate
+      - create 640 barbican adm
+    - files:
+      - /var/log/barbican/barbican-access.log
+      centralized_logging:
+        enabled: false
+        format: json
+      log_rotate:
+      - daily
+      - maxsize 50M
+      - rotate 7
+      - compress
+      - missingok
+      - notifempty
+      - copytruncate
+      - create 640 barbican adm
+    - files:
+      - /var/log/barbican/barbican-monitor.log
+      centralized_logging:
+        enabled: false
+        format: json
+      log_rotate:
+      - daily
+      - maxsize 50M
+      - rotate 7
+      - compress
+      - missingok
+      - notifempty
+      - copytruncate
+      - create 640 barbican adm
+    - files:
+      - barbican/barbican-audit.log
+      centralized_audit_logging:
+        enabled: true
+        format: rawjson

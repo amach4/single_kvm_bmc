@@ -1,0 +1,452 @@
+control-plane-1:
+    barbican:
+        barbican-api:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        barbican-worker:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+    ceilometer:
+        ceilometer-agent-notification:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        ceilometer-api:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        ceilometer-common:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        ceilometer-polling:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+    ceph:
+        ceph-monitor:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        ceph-osd:
+        - helion-cp1-ceph0001-mgmt
+        - helion-cp1-ceph0002-mgmt
+        - helion-cp1-ceph0003-mgmt
+        ceph-osd-internal:
+        - helion-cp1-ceph0001-mgmt
+        - helion-cp1-ceph0002-mgmt
+        - helion-cp1-ceph0003-mgmt
+        ceph-radosgw:
+        - helion-cp1-rgw-m1-mgmt
+        - helion-cp1-rgw-m2-mgmt
+    cinder:
+        cinder-api:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        cinder-backup:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        cinder-scheduler:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        cinder-volume:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+    clients:
+        barbican-client:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        ceilometer-client:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        cinder-client:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        designate-client:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        glance-client:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        heat-client:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        keystone-client:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        - helion-cp1-rgw-m1-mgmt
+        - helion-cp1-rgw-m2-mgmt
+        monasca-client:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        neutron-client:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        nova-client:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        openstack-client:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        swift-client:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+    designate:
+        designate-api:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        designate-central:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        designate-mdns:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        designate-pool-manager:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        designate-zone-manager:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+    foundation:
+        apache2:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        - helion-cp1-rgw-m1-mgmt
+        - helion-cp1-rgw-m2-mgmt
+        helion-ca:
+        - helion-cp1-c0-m1-mgmt
+        ip-cluster:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        kafka:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        memcached:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        mysql:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        ntp-client:
+        - helion-cp1-rgw-m1-mgmt
+        - helion-cp1-rgw-m2-mgmt
+        - helion-cp1-comp0001-mgmt
+        - helion-cp1-ceph0001-mgmt
+        - helion-cp1-ceph0002-mgmt
+        - helion-cp1-ceph0003-mgmt
+        ntp-server:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        powerdns:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        powerdns-ext:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        rabbitmq:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        spark:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        storm:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        stunnel:
+        - helion-cp1-c0-m1-mgmt
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        - helion-cp1-rgw-m1-mgmt
+        - helion-cp1-rgw-m2-mgmt
+        - helion-cp1-comp0001-mgmt
+        - helion-cp1-ceph0001-mgmt
+        - helion-cp1-ceph0002-mgmt
+        - helion-cp1-ceph0003-mgmt
+        vertica:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        zookeeper:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+    freezer:
+        freezer-agent:
+        - helion-cp1-c0-m1-mgmt
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        - helion-cp1-rgw-m1-mgmt
+        - helion-cp1-rgw-m2-mgmt
+        - helion-cp1-comp0001-mgmt
+        - helion-cp1-ceph0001-mgmt
+        - helion-cp1-ceph0002-mgmt
+        - helion-cp1-ceph0003-mgmt
+        freezer-api:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+    glance:
+        glance-api:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        glance-registry:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+    heat:
+        heat-api:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        heat-api-cfn:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        heat-api-cloudwatch:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        heat-engine:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+    hlm:
+        hlm-ux-services:
+        - helion-cp1-c0-m1-mgmt
+        lifecycle-manager:
+        - helion-cp1-c0-m1-mgmt
+        lifecycle-manager-target:
+        - helion-cp1-c0-m1-mgmt
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        - helion-cp1-rgw-m1-mgmt
+        - helion-cp1-rgw-m2-mgmt
+        - helion-cp1-comp0001-mgmt
+        - helion-cp1-ceph0001-mgmt
+        - helion-cp1-ceph0002-mgmt
+        - helion-cp1-ceph0003-mgmt
+    horizon:
+        horizon:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+    keystone:
+        keystone-api:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+    logging:
+        logging-api:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        logging-producer:
+        - helion-cp1-c0-m1-mgmt
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        - helion-cp1-rgw-m1-mgmt
+        - helion-cp1-rgw-m2-mgmt
+        - helion-cp1-comp0001-mgmt
+        - helion-cp1-ceph0001-mgmt
+        - helion-cp1-ceph0002-mgmt
+        - helion-cp1-ceph0003-mgmt
+        logging-rotate:
+        - helion-cp1-c0-m1-mgmt
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        - helion-cp1-rgw-m1-mgmt
+        - helion-cp1-rgw-m2-mgmt
+        - helion-cp1-comp0001-mgmt
+        - helion-cp1-ceph0001-mgmt
+        - helion-cp1-ceph0002-mgmt
+        - helion-cp1-ceph0003-mgmt
+        logging-server:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+    monasca:
+        monasca-agent:
+        - helion-cp1-c0-m1-mgmt
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        - helion-cp1-rgw-m1-mgmt
+        - helion-cp1-rgw-m2-mgmt
+        - helion-cp1-comp0001-mgmt
+        - helion-cp1-ceph0001-mgmt
+        - helion-cp1-ceph0002-mgmt
+        - helion-cp1-ceph0003-mgmt
+        monasca-api:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        monasca-liveness-check:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        monasca-notifier:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        monasca-persister:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        monasca-threshold:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        monasca-transform:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+    neutron:
+        neutron-dhcp-agent:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        neutron-l3-agent:
+        - helion-cp1-comp0001-mgmt
+        neutron-lbaasv2-agent:
+        - helion-cp1-comp0001-mgmt
+        neutron-metadata-agent:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        - helion-cp1-comp0001-mgmt
+        neutron-ml2-plugin:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        neutron-openvswitch-agent:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        - helion-cp1-comp0001-mgmt
+        neutron-server:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        neutron-vpn-agent:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+    nova:
+        nova-api:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        nova-compute:
+        - helion-cp1-comp0001-mgmt
+        nova-compute-kvm:
+        - helion-cp1-comp0001-mgmt
+        nova-conductor:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        nova-console-auth:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        nova-metadata:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        nova-novncproxy:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        nova-scheduler:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+    octavia:
+        octavia-api:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        octavia-health-manager:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+    operations:
+        ops-console-monitor:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        ops-console-web:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+    swift:
+        swift-account:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        swift-common:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        swift-container:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        swift-object:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        swift-proxy:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        swift-ring-builder:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+        swift-rsync:
+        - helion-cp1-c1-m1-mgmt
+        - helion-cp1-c1-m2-mgmt
+        - helion-cp1-c1-m3-mgmt
+    tempest:
+        tempest:
+        - helion-cp1-c0-m1-mgmt

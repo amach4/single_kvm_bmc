@@ -1,0 +1,121 @@
+#
+# (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+
+# Global variables used in the plays
+# Note: A number of the vars coming from configprocessor
+# need changing here for full V2 compatibility, will
+# be fixed in  subsequent change
+mysql_no_nodesdown: 0
+mysql_is_upgrade: false
+mysql_is_major_upgrade: false
+mysql_bootstrapping: false
+mysql_bootstrapped: false
+mysql_service: mysql
+mysql_initialised: /var/lib/galera.initialised
+mysql_initialised_deprecated: /var/lib/mysql/galera.initialised
+mysql_pre_v301_bootstrapped: false
+mysql_root_user: "{{ FND_MDB.vars.mysql_root_user }}"
+mysql_root_pwd: "{{ FND_MDB.vars.mysql_root_pwd | quote }}"
+mysql_sst_user: "{{ FND_MDB.vars.mysql_sst_user }}"
+mysql_sst_pwd: "{{ FND_MDB.vars.mysql_sst_password | quote }}"
+mysql_clustercheck_user: "{{ FND_MDB.vars.mysql_clustercheck_user }}"
+mysql_clustercheck_pwd: "{{ FND_MDB.vars.mysql_clustercheck_pwd | quote }}"
+mysql_clustercheck_port: "{{ FND_MDB.vars.mysql_clustercheck_port }}"
+mysql_log_dir: /var/log/mysql
+# Section  [client]
+mysql_client_port: "{{ FND_MDB.members.private[0].port }}"
+mysql_client_socket:  /var/run/mysqld/mysqld.sock
+# Section [mysqld_safe]
+mysql_safe_socket: /var/run/mysqld/mysqld.sock
+mysql_nice: 0
+# Section [mysqld]
+mysql_user: mysql
+mysql_pid_file: /var/run/mysqld/mysqld.pid
+mysql_server_socket: /var/run/mysqld/mysqld.sock
+mysql_server_port: "{{ host.bind['FND_MDB'].internal.port }}"
+mysql_basedir: /usr
+mysql_datadir: /var/lib/mysql
+mysql_tmpdir: /tmp
+mysql_lc_messages_dir: /usr/share/mysql
+mysql_bind_address: "{{ host.bind['FND_MDB'].internal.ip_address }}"
+# This replaces the startup script and checks MyISAM tables if needed
+# the first time they are touched
+mysql_myisam_recover: BACKUP
+mysql_log_error: "{{ mysql_log_dir }}/error.log"
+mysql_collation_server:  utf8_general_ci
+mysql_init_connect: 'SET NAMES utf8'
+mysql_character_set_server: utf8
+mysql_wsrep_provider: /usr/lib/libgalera_smm.so
+mysql_binlog_format: ROW
+mysql_default_storage_engine: InnoDB
+# This changes how InnoDB autoincrement locks are managed and is a requirement for Galera
+mysql_innodb_autoinc_lock_mode: 2
+# cluster name
+mysql_wsrep_cluster_name: "{{ FND_MDB.vars.mysql_cluster_name }}"
+# server id
+mysql_server_id: "{{ ( FND_MDB.vars.mysql_cluster_name ~ host.vars.member_id ) | adler32_unsigned }}"
+# Default address used for Group Comms, SST and IST
+mysql_wsrep_node_address: "{{ host.bind['FND_MDB'].admin.ip_address }}"
+mysql_gmcast_ip: "{{ host.bind['FND_MDB'].mysql_gcomms.ip_address }}"
+mysql_gmcast_port: "{{ host.bind['FND_MDB'].mysql_gcomms.port }}"
+
+mysql_mdb_servers: "{{ FND_MDB.members.mysql_gcomms }}"
+mysql_mdb_hosts: "{{ groups[verb_hosts.FND_MDB] }}"
+# SST method
+mysql_wsrep_sst_method: xtrabackup-v2
+
+# authentication for SST method
+mysql_wsrep_sst_auth: "{{ FND_MDB.vars.mysql_sst_user ~ ':' ~ ( FND_MDB.vars.mysql_sst_password | quote ) }}"
+
+mysql_consumed_by: "{{ FND_MDB.consumed_by | default({})}}"
+mysql_accounts: "[ {% for component in mysql_consumed_by -%} {% if component.vars.accounts is defined -%} {% for account in component.vars.accounts -%} {% for grant in component.vars.accounts[account].grants -%} {{ component.vars.accounts[account] | to_json }} {%- if not loop.last -%} , {% endif -%} {% endfor -%} {%- if not loop.last -%} , {% endif -%} {% endfor -%} {% endif -%} {%- if not loop.last -%} , {% endif -%} {% endfor %} ]"
+
+mysql_grants: "[ {% for component in mysql_consumed_by -%} {% if component.vars.accounts is defined -%} {% for account in component.vars.accounts -%} {% for grant in component.vars.accounts[account].grants -%} {{ grant | to_json }} {%- if not loop.last -%} , {% endif -%} {% endfor -%} {%- if not loop.last -%} , {% endif -%} {% endfor -%} {% endif -%} {%- if not loop.last -%} , {% endif -%} {% endfor %} ]"
+
+mysql_databases: "[ {% for component in mysql_consumed_by -%} {% if component.vars.databases != {} -%} {% for db in component.vars.databases -%} {{ component.vars.databases[db] | to_json }} {%- if not loop.last -%} , {% endif -%} {% endfor -%} {% endif -%} {%- if not loop.last -%} {% if component.vars.databases != {} -%} , {% endif -%} {% endif -%} {% endfor %} ]"
+
+# Certs, CA and deploys
+mysql_tls_certs_dir: "/tmp/helion_tls_certs"
+mysql_ca_certs: "/etc/ssl/certs/ca-certificates.crt"
+mysql_cert_deploy_dir: "/etc/mysql/"
+
+# TLS flags
+mysql_admin_bind_tls: "{{ host.bind['FND_MDB'].admin.tls }}"
+
+# TLS disabled for cluster
+#mysql_gcomms_bind_tls: "{{ host.bind['FND_MDB'].mysql_gcomms.tls }}"
+mysql_gcomms_bind_tls: False
+
+# TLS disabled for SST
+#mysql_sst_bind_tls: "{{ host.bind['FND_MDB'].mysql_sst.tls }}"
+mysql_sst_bind_tls: False
+
+# This variable tells if we have any TLS binds so that certs gets deployed
+mysql_bind_tls: "{{ mysql_admin_bind_tls or mysql_gcomms_bind_tls or mysql_sst_bind_tls }}"
+
+# We use the admin cert for all mysql listeners till there's a need to have
+# individual certs.
+mysql_server_cert_name: "{{ host.bind['FND_MDB'].admin.cert_name | default(None) }}"
+mysql_server_cert: "{{ mysql_cert_deploy_dir }}/{{ mysql_server_cert_name }}.pem"
+mysql_server_key: "{{ mysql_cert_deploy_dir }}/{{ mysql_server_cert_name }}.pem"
+mysql_gcomms_cert: "{{ mysql_server_cert }}"
+mysql_gcomms_key: "{{ mysql_server_key }}"
+mysql_sst_cert:  "{{ mysql_server_cert }}"
+mysql_sst_key: "{{ mysql_server_key }}"
+
+mysql_tls_expiry_check: "2592000" #30 days
+mysql_certs_needs_regeneration: False
+mysql_sync_retries: 20

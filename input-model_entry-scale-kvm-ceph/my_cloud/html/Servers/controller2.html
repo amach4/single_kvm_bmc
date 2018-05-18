@@ -1,0 +1,83 @@
+<html>
+
+<h1>Cloud: entry-scale-kvm-ceph</h1>
+<head><link href="../hos.css" type="text/css" rel="stylesheet"></head>
+<h2><a href="../Control_Planes.html">Control Plane View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="../Regions.html">Region View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="../Services.html">Service View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="../Networks.html">Network View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="../Server_View.html">Server View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="../Server_Groups.html">Server Groups View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h2>
+<br>
+<br>
+<h2>Server ID: controller2</h2>
+<h3>Role: <a href="../Server_Roles.html#CONTROLLER-ROLE">CONTROLLER-ROLE</a></h3>
+<h3>Status: allocated</h3>
+<h3>Hostname: helion-cp1-c1-m2-mgmt</h3>
+<h3>Control Plane:<a href="../Control_Planes.html#control-plane-1">  control-plane-1</a></h3>
+<h3>Failure Zone:<a href="../Server_Groups.html">  AZ2</a></h3>
+<h3>Services</h3>
+<table>
+<tr><td valign="top">operations</td><td valign="top">ops-console-monitor<br>ops-console-web<br></td></tr>
+<tr><td valign="top">foundation</td><td valign="top">ip-cluster<br>mysql<br>apache2<br>storm<br>stunnel<br>kafka<br>memcached<br>rabbitmq<br>powerdns<br>zookeeper<br>vertica<br>ntp-server<br>spark<br>powerdns-ext<br></td></tr>
+<tr><td valign="top">ceilometer</td><td valign="top">ceilometer-api<br>ceilometer-common<br>ceilometer-agent-notification<br>ceilometer-polling<br></td></tr>
+<tr><td valign="top">logging</td><td valign="top">logging-api<br>logging-server<br>logging-producer<br>logging-rotate<br></td></tr>
+<tr><td valign="top">horizon</td><td valign="top">horizon<br></td></tr>
+<tr><td valign="top">monasca</td><td valign="top">monasca-notifier<br>monasca-api<br>monasca-persister<br>monasca-threshold<br>monasca-liveness-check<br>monasca-transform<br>monasca-agent<br></td></tr>
+<tr><td valign="top">clients</td><td valign="top">designate-client<br>nova-client<br>neutron-client<br>cinder-client<br>keystone-client<br>ceilometer-client<br>heat-client<br>monasca-client<br>barbican-client<br>openstack-client<br>swift-client<br>glance-client<br></td></tr>
+<tr><td valign="top">octavia</td><td valign="top">octavia-api<br>octavia-health-manager<br></td></tr>
+<tr><td valign="top">nova</td><td valign="top">nova-api<br>nova-novncproxy<br>nova-conductor<br>nova-console-auth<br>nova-scheduler<br>nova-metadata<br></td></tr>
+<tr><td valign="top">ceph</td><td valign="top">ceph-monitor<br></td></tr>
+<tr><td valign="top">heat</td><td valign="top">heat-api-cfn<br>heat-api<br>heat-engine<br>heat-api-cloudwatch<br></td></tr>
+<tr><td valign="top">keystone</td><td valign="top">keystone-api<br></td></tr>
+<tr><td valign="top">freezer</td><td valign="top">freezer-api<br>freezer-agent<br></td></tr>
+<tr><td valign="top">hlm</td><td valign="top">lifecycle-manager-target<br></td></tr>
+<tr><td valign="top">cinder</td><td valign="top">cinder-backup<br>cinder-api<br>cinder-volume<br>cinder-scheduler<br></td></tr>
+<tr><td valign="top">barbican</td><td valign="top">barbican-api<br>barbican-worker<br></td></tr>
+<tr><td valign="top">swift</td><td valign="top">swift-container<br>swift-common<br>swift-rsync<br>swift-object<br>swift-proxy<br>swift-ring-builder<br>swift-account<br></td></tr>
+<tr><td valign="top">glance</td><td valign="top">glance-registry<br>glance-api<br></td></tr>
+<tr><td valign="top">neutron</td><td valign="top">neutron-ml2-plugin<br>neutron-openvswitch-agent<br>neutron-server<br>neutron-vpn-agent<br>neutron-dhcp-agent<br>neutron-metadata-agent<br></td></tr>
+<tr><td valign="top">designate</td><td valign="top">designate-api<br>designate-central<br>designate-pool-manager<br>designate-mdns<br>designate-zone-manager<br></td></tr>
+</table>
+<br>
+<br>
+<h3>Disks (<a href="../Disk_Models.html#CONTROLLER-600GB-DISKS">CONTROLLER-600GB-DISKS</a>)</h3>
+<table>
+<tr><td>hlm-vg</td><td><table class="tab">
+<tr><td style="font-weight:bold" class="tab">mount</td><td style="font-weight:bold" class="tab">size</td><td style="font-weight:bold" class="tab">fstype</td><td style="font-weight:bold" class="tab">mkfs-opts</td></tr>
+<tr><td class="tab">/</td><td class="tab">10%</td><td class="tab">ext4</td><td class="tab"></tr>
+<tr><td class="tab">/var/crash</td><td class="tab">11%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/log</td><td class="tab">13%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/lib/mysql</td><td class="tab">10%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/lib/rabbitmq</td><td class="tab">4%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/vertica</td><td class="tab">13%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/kafka</td><td class="tab">11%</td><td class="tab">ext4</td><td class="tab">-O large_file</td></tr>
+<tr><td class="tab">/var/lib/elasticsearch</td><td class="tab">21%</td><td class="tab">ext4</td><td class="tab"></tr>
+<tr><td class="tab">/var/lib/zookeeper</td><td class="tab">1%</td><td class="tab">ext4</td><td class="tab"></tr>
+</table></td><td><table class="tab">
+<tr>
+<td class="tab">/dev/sda_root</td>
+</table></td></tr>
+<tr><td>swiftobj</td><td>swift</td><td><table class="tab">
+<tr>
+<td class="tab">/dev/sdb</td>
+<tr>
+<td class="tab">/dev/sdc</td>
+</table></td></tr>
+</table>
+<br>
+<br>
+<h3>Network Interfaces (<a href="../Interface_Models.html#CONTROLLER-INTERFACES">CONTROLLER-INTERFACES</a>)</h3>
+<table>
+<tr><td rowspan="5">BOND0</td><td><a href="../Networks.html#EXTERNAL-API-NET">EXTERNAL-API-NET</a>&nbsp(10.0.1.11)<br></td><td valign="top">Routes&nbspto:<br></td></tr>
+<tr><td><a href="../Networks.html#MANAGEMENT-NET">MANAGEMENT-NET</a>&nbsp(192.168.10.13)<br></td><td valign="top">Routes&nbspto:<br>&nbsp&nbsp&nbsp&nbsp<I>default</I><br>&nbsp&nbsp&nbsp&nbsp<a href="../Networks.html#OCTAVIA-MGMT-NET">OCTAVIA-MGMT-NET</a><br></td></tr>
+<tr><td><a href="../Networks.html#OSD-CLIENT-NET">OSD-CLIENT-NET</a>&nbsp(192.168.12.3)<br></td><td valign="top">Routes&nbspto:<br></td></tr>
+<tr><td><a href="../Networks.html#EXTERNAL-VM-NET">EXTERNAL-VM-NET</a><br></td><td valign="top">Routes&nbspto:<br></td></tr>
+<tr><td><a href="../Networks.html#GUEST-NET">GUEST-NET</a>&nbsp(10.1.1.3)<br></td><td valign="top">Routes&nbspto:<br></td></tr>
+</table>
+<br>
+<br>
+<h3>NIC Mapping (MY-2PORT-SERVER)</h3>
+<table>
+<tr><td align="center" class="title">Name</td><td align="center" class="title">Bus Address</td><td align="center" class="title">Type</td></tr>
+<tr><td>hed1</td><td>0000:09:02.0</td><td>simple-port</td></tr>
+<tr><td>hed2</td><td>0000:09:03.0</td><td>simple-port</td></tr>
+</table>
+<br>
+<br>
+</html>

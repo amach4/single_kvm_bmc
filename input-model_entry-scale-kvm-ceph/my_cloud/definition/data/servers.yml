@@ -1,0 +1,150 @@
+#
+# (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+  product:
+    version: 2
+
+  baremetal:
+    # NOTE: These values need to be changed to match your environment.
+    # Define the network range that contains the ip-addr values for
+    # the individual servers listed below.
+    subnet: 192.168.10.0
+    netmask: 255.255.255.0
+
+  servers:
+    # NOTE: Addresses of servers need to be changed to match your environment.
+    #
+    #       Add additional servers as required
+    #
+
+    # Controllers
+#    - id: controller1
+#      ip-addr: 192.168.10.3
+#      role: CONTROLLER-ROLE
+#      server-group: RACK1
+#      nic-mapping: HP-DL360-4PORT
+#      mac-addr: "b2:72:8d:ac:7c:6f"
+#      ilo-ip: 192.168.9.3
+#      ilo-password: password
+#      ilo-user: admin
+
+    # Lifecycle-manager
+
+    - id: lifecycle-manager
+      ip-addr: 192.168.10.11
+      role: LIFECYCLE-MANAGER-ROLE
+      server-group: RACK1
+      nic-mapping: MY-2PORT-SERVER
+      mac-addr: 52:54:00:57:95:11
+      # ipmi information is not needed
+
+    # Controllers
+ 
+    - id: controller1
+      ip-addr: 192.168.10.12
+      role: CONTROLLER-ROLE
+      server-group: RACK1
+      nic-mapping: MY-2PORT-SERVER
+      mac-addr: "52:54:00:57:95:12"
+      ilo-ip: 192.168.8.12
+      ilo-password: hos
+      ilo-user: root
+
+    - id: controller2
+      ip-addr: 192.168.10.13
+      role: CONTROLLER-ROLE
+      server-group: RACK2
+      nic-mapping: MY-2PORT-SERVER
+      mac-addr: "52:54:00:3b:6e:13"
+      ilo-ip: 192.168.8.13
+      ilo-password: hos
+      ilo-user: root
+
+    - id: controller3
+      ip-addr: 192.168.10.14
+      role: CONTROLLER-ROLE
+      server-group: RACK3
+      nic-mapping: MY-2PORT-SERVER
+      mac-addr: "52:54:00:57:95:14"
+      ilo-ip: 192.168.8.14
+      ilo-password: hos
+      ilo-user: root
+
+    # CEPH OSD Nodes
+
+    - id: osd1
+      ip-addr: 192.168.10.15
+      role: OSD-ROLE
+      server-group: RACK1
+      nic-mapping: MY-2PORT-SERVER
+      mac-addr: "52:54:00:57:95:15"
+      ilo-ip: 192.168.8.15
+      ilo-password: hos
+      ilo-user: root
+
+    - id: osd2
+      ip-addr: 192.168.10.16
+      role: OSD-ROLE
+      server-group: RACK2
+      nic-mapping: MY-2PORT-SERVER
+      mac-addr: "52:54:00:8d:d7:c6"
+      ilo-ip: 192.168.8.16
+      ilo-password: hos
+      ilo-user: root
+
+    - id: osd3
+      ip-addr: 192.168.10.17
+      role: OSD-ROLE
+      server-group: RACK3
+      nic-mapping: MY-2PORT-SERVER
+      mac-addr: "52:54:00:ed:bc:40"
+      ilo-ip: 192.168.8.17
+      ilo-password: hos
+      ilo-user: root
+
+    # Ceph RGW Nodes
+
+    - id: rgw1
+      ip-addr: 192.168.10.18
+      role: RGW-ROLE
+      server-group: RACK1
+      nic-mapping: MY-2PORT-SERVER
+      mac-addr: "52:54:00:18:47:83"
+      ilo-ip: 192.168.8.18
+      ilo-password: hos
+      ilo-user: root
+
+    - id: rgw2
+      ip-addr: 192.168.10.19
+      role: RGW-ROLE
+      server-group: RACK2
+      nic-mapping: MY-2PORT-SERVER
+      mac-addr: "52:54:00:14:b5:1b"
+      ilo-ip: 192.168.8.19
+      ilo-password: hos
+      ilo-user: root
+
+    # Compute Nodes
+
+    - id: compute1
+      ip-addr: 192.168.10.20
+      role: COMPUTE-ROLE
+      server-group: RACK1
+      nic-mapping: MY-2PORT-SERVER
+      mac-addr: "52:54:00:fa:85:2d"
+      ilo-ip: 192.168.8.20
+      ilo-password: hos
+      ilo-user: root

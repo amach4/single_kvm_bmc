@@ -1,0 +1,742 @@
+barbican_admin_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: barbican-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+barbican_master_kek_db_plugin:
+  metadata:
+  - clusters:
+    - cluster1
+    component: barbican-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+barbican_service_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: barbican-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+ceilometer_metering_secret:
+  metadata:
+  - clusters:
+    - cluster1
+    component: ceilometer-common
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+dbadmin_user_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: vertica
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+erlang_cookie:
+  metadata:
+  - clusters:
+    - cluster1
+    component: rabbitmq
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+haproxy_stats_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: ip-cluster
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+heartbeat_key:
+  metadata:
+  - clusters:
+    - cluster1
+    component: octavia-api
+    consumes: octavia-health-manager
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+helion_internal_ca:
+  metadata:
+  - clusters:
+    - cluster0
+    component: helion-ca
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+horizon_secret_key:
+  metadata:
+  - clusters:
+    - cluster1
+    component: horizon
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keepalive_vrrp_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: ip-cluster
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keepalived_vrrp_index:
+  metadata:
+  - clusters:
+    - cluster1
+    component: ip-cluster
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_admin_pwd:
+  metadata:
+  - clusters:
+    - cluster1
+    component: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_admin_token:
+  metadata:
+  - clusters:
+    - cluster1
+    component: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_backup_password:
+  metadata:
+  - clusters:
+    - cluster0
+    - cluster1
+    - rgw
+    - compute
+    - osd
+    component: freezer-agent
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_ceilometer_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: ceilometer-common
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_cinder_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: cinder-api
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_cinderinternal_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: cinder-api
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_demo_pwd:
+  metadata:
+  - clusters:
+    - cluster1
+    component: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_designate_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: designate-central
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_freezer_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: freezer-api
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_glance_check_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: glance-api
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_glance_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: glance-api
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_glance_swift_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: glance-api
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_heat_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: heat-api
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_monasca_agent_password:
+  metadata:
+  - clusters:
+    - cluster0
+    - cluster1
+    - rgw
+    - compute
+    - osd
+    component: monasca-agent
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_monasca_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: monasca-api
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_neutron_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: neutron-server
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  - clusters:
+    - cluster1
+    component: octavia-api
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_nova_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: nova-api
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_octavia_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: octavia-api
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_rgw_password:
+  metadata:
+  - clusters:
+    - rgw
+    component: ceph-radosgw
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_swift_dispersion_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: swift-proxy
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_swift_monitor_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: swift-proxy
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+keystone_swift_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: swift-proxy
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+logging_api_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: logging-api
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+logging_beaver_password:
+  metadata:
+  - clusters:
+    - cluster0
+    - cluster1
+    - rgw
+    - compute
+    - osd
+    component: logging-producer
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+logging_kibana_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: logging-server
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+logging_monitor_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: logging-server
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  - clusters:
+    - cluster0
+    - cluster1
+    - rgw
+    - compute
+    - osd
+    component: logging-producer
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+metadata_proxy_shared_secret:
+  metadata:
+  - clusters:
+    - cluster1
+    component: nova-metadata
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+monitor_user_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: vertica
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+mysql_admin_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: ceilometer
+    consumes: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  - clusters:
+    - cluster1
+    component: heat
+    consumes: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  - clusters:
+    - cluster1
+    component: keystone
+    consumes: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  - clusters:
+    - cluster1
+    - compute
+    component: nova
+    consumes: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  - clusters:
+    - cluster1
+    component: cinder
+    consumes: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  - clusters:
+    - cluster1
+    component: glance
+    consumes: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  - clusters:
+    - cluster1
+    - compute
+    component: neutron
+    consumes: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  - clusters:
+    - cluster1
+    component: horizon
+    consumes: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+mysql_barbican_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: barbican
+    consumes: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+mysql_cluster_name:
+  metadata:
+  - clusters:
+    - cluster1
+    component: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+mysql_clustercheck_pwd:
+  metadata:
+  - clusters:
+    - cluster1
+    component: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+mysql_designate_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: designate
+    consumes: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+mysql_monasca_api_password:
+  metadata:
+  - clusters:
+    - compute
+    - rgw
+    - cluster0
+    - cluster1
+    - osd
+    component: monasca
+    consumes: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+mysql_monasca_notifier_password:
+  metadata:
+  - clusters:
+    - compute
+    - rgw
+    - cluster0
+    - cluster1
+    - osd
+    component: monasca
+    consumes: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+mysql_monasca_thresh_password:
+  metadata:
+  - clusters:
+    - compute
+    - rgw
+    - cluster0
+    - cluster1
+    - osd
+    component: monasca
+    consumes: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+mysql_monasca_transform_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: monasca-transform
+    consumes: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+mysql_nova_api_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: nova-api
+    consumes: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+mysql_octavia_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: octavia
+    consumes: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+mysql_powerdns_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: powerdns
+    consumes: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+mysql_root_pwd:
+  metadata:
+  - clusters:
+    - cluster1
+    component: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+mysql_sst_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+nova_monasca_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: nova-api
+    consumes: keystone-api
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+nova_ssh_key:
+  metadata:
+  - clusters:
+    - compute
+    component: nova-compute-kvm
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+ops_mon_mdb_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: operations
+    consumes: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+password:
+  metadata:
+  - clusters:
+    - cluster0
+    - cluster1
+    - rgw
+    - compute
+    - osd
+    component: freezer-agent
+    consumes: mysql
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+rmq_barbican_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: barbican
+    consumes: rabbitmq
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+rmq_ceilometer_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: ceilometer
+    consumes: rabbitmq
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+rmq_cinder_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: cinder
+    consumes: rabbitmq
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+rmq_designate_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: designate
+    consumes: rabbitmq
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+rmq_keystone_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: keystone
+    consumes: rabbitmq
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+rmq_monasca_monitor_password:
+  metadata:
+  - clusters:
+    - cluster0
+    - cluster1
+    - rgw
+    - compute
+    - osd
+    component: monasca-agent
+    consumes: rabbitmq
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+rmq_nova_password:
+  metadata:
+  - clusters:
+    - cluster1
+    - compute
+    component: nova
+    consumes: rabbitmq
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+rmq_octavia_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: octavia
+    consumes: rabbitmq
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+rmq_service_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: heat
+    consumes: rabbitmq
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  - clusters:
+    - cluster1
+    component: glance
+    consumes: rabbitmq
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  - clusters:
+    - cluster1
+    - compute
+    component: neutron
+    consumes: rabbitmq
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  - clusters:
+    - cluster1
+    component: rabbitmq
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+swift_hash_path_prefix:
+  metadata:
+  - clusters:
+    - cluster1
+    component: swift-common
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+swift_hash_path_suffix:
+  metadata:
+  - clusters:
+    - cluster1
+    component: swift-common
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+swift_intracluster_sync_key:
+  metadata:
+  - clusters:
+    - cluster1
+    component: swift-container
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+vertica_monasca_api_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: monasca-api
+    consumes: vertica
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+vertica_monasca_persister_password:
+  metadata:
+  - clusters:
+    - cluster1
+    component: monasca-persister
+    consumes: vertica
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'
+vertica_ssh_key:
+  metadata:
+  - clusters:
+    - cluster1
+    component: vertica
+    consuming-cp: control-plane-1
+    cp: control-plane-1
+  version: '2.0'

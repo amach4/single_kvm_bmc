@@ -1,0 +1,131 @@
+{#
+#
+# (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+#}
+[DEFAULT]
+verbose = {{ ironic_verbose }}
+debug = {{ ironic_debug }}
+log_config_append = {{ ironic_log_config_append }}
+rpc_backend = {{ ironic_rpc.backend }}
+rpc_conn_pool_size = {{ ironic_rpc.conn_pool_size }}
+enabled_drivers = {{ ironic_enabled_drivers }}
+rootwrap_config = {{ ironic_rootwrap_config_append }}
+parallel_image_downloads = true
+use_stderr = false
+use_syslog = false
+
+[oslo_policy]
+policy_file = {{ ironic_policy_file }}
+
+[oslo_messaging_rabbit]
+rabbit_userid = {{ ironic_rpc.userid }}
+rabbit_password = {{ ironic_rpc.password }}
+rabbit_hosts = {{ ironic_rpc.hosts }}
+rabbit_use_ssl = {{ ironic_rpc.use_ssl }}
+rpc_conn_pool_size = {{ ironic_rpc.conn_pool_size }}
+kombu_reconnect_delay = {{ ironic_kombu_reconnect_delay }}
+
+[ssl]
+ca_file = {{ ironic_ca_file }}
+
+[database]
+connection = {{ ironic_db_connection }}
+
+[keystone]
+region_name = {{ ironic_region }}
+
+[keystone_authtoken]
+admin_user = {{ ironic_cnd_admin.user }}
+admin_password = {{ ironic_cnd_admin.password }}
+admin_tenant_name = {{ ironic_keystone_admin.tenant_name }}
+auth_uri = {{ ironic_cnd_admin.auth_uri_v2 }}
+identity_uri = {{ ironic_cnd_admin.identity_uri }}
+auth_version = {{ ironic_keystone_admin.auth_version_v2 }}
+cafile = {{ ironic_ca_file }}
+region_name = {{ ironic_region }}
+
+[glance]
+glance_host = {{ ironic_glance.host }}
+glance_port = {{ ironic_glance.port }}
+glance_protocol = {{ ironic_glance.protocol }}
+
+{%- if agent_drivers_enabled|bool %}
+
+swift_temp_url_key = {{ ironic_swift.temp_url_key }}
+swift_endpoint_url = {{ ironic_swift.internal_endpoint }}
+swift_api_version = {{ swift_api_version_result.stdout }}
+swift_account = {{ swift_account_result.stdout }}
+swift_container = {{ ironic_swift.container }}
+{% endif %}
+
+glance_cafile = {{ ironic_ca_file }}
+
+[neutron]
+url = {{ ironic_neutron.url }}
+cleaning_network_uuid = {{ ironic_cleaning_network.uuid }}
+
+{%- if oneview_enabled|bool %}
+
+[oneview]
+manager_url = {{ ironic_oneview.manager_url }}
+username = {{ ironic_oneview.username }}
+password = {{ oneview_password.stdout }}
+allow_insecure_connections = {{ ironic_oneview.allow_insecure_connections }}
+tls_cacert_file = {{ ironic_oneview.tls_cacert_file }}
+{% endif %}
+
+[pxe]
+tftp_server = {{ ironic_images.tftp_server }}
+images_path = {{ ironic_images.path }}
+instance_master_path = {{ ironic_images.instance_master_path }}
+pxe_append_params = {{ ironic_images.pxe_append_params }}
+ipxe_enabled = {{ ironic_images.ipxe_enabled }}
+pxe_config_template = {{ ironic_images.pxe_config_template }}
+pxe_bootfile_name = {{ ironic_images.pxe_bootfile_name }}
+uefi_pxe_config_template = {{ ironic_images.uefi_pxe_config_template }}
+uefi_pxe_bootfile_name = {{ ironic_images.uefi_pxe_bootfile_name }}
+ipxe_boot_script = {{ ironic_images.ipxe_boot_script }}
+
+[deploy]
+http_root = {{ ironic_images.http_root }}
+http_url = {{ ironic_images.http_url }}
+
+[conductor]
+api_url = {{ ironic_cnd.url }}
+automated_clean = {{ ironic_automated_clean }}
+
+[oslo_messaging_notifications]
+topics = notifications
+driver = messaging
+
+[ilo]
+power_retry = {{ ironic_ilo.power_retry }}
+power_wait = {{ ironic_ilo.power_wait }}
+
+[ipmi]
+retry_timeout = {{ ironic_ipmi.retry_timeout  }}
+min_command_interval = {{ ironic_ipmi.min_command_interval  }}
+
+{%- if agent_drivers_enabled|bool %}
+
+[swift]
+swift_user_name = {{ ironic_swift.glance_user }}
+swift_user_password = {{ ironic_swift.glance_password }}
+swift_user_tenant_name = {{ ironic_swift.glance_tenant }}
+swift_endpoint_url = {{ ironic_swift.internal_endpoint }}
+swift_api_version = {{ swift_api_version_result.stdout }}
+swift_account = {{ swift_account_result.stdout }}
+{% endif %}

@@ -1,0 +1,61 @@
+#
+# (c) Copyright 2016 Hewlett Packard Enterprise Development LP
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+sub_service:
+  hosts: OCT-.*
+  name: octavia
+  service: octavia
+  monitoring:
+    enabled: true
+    external_name: octavia
+    logging_dir: /var/log/octavia
+  logging_options:
+    - files:
+      - /var/log/octavia/octavia-api.log
+      - /var/log/octavia/octavia-worker.log
+      - /var/log/octavia/octavia-housekeeping.log
+      - /var/log/octavia/octavia-health-manager.log
+      centralized_logging:
+        enabled: false
+        format: json
+      log_rotate:
+      - daily
+      - compress
+      - delaycompress
+      - notifempty
+      - missingok
+      - copytruncate
+      - maxsize 100M
+      - rotate 7
+      - create 644 octavia octavia
+    - files:
+      - /var/log/octavia/octavia-api-json.log
+      - /var/log/octavia/octavia-worker-json.log
+      - /var/log/octavia/octavia-housekeeping-json.log
+      - /var/log/octavia/octavia-health-manager-json.log
+      centralized_logging:
+        enabled: true
+        format: rawjson
+      log_rotate:
+      - daily
+      - compress
+      - delaycompress
+      - notifempty
+      - missingok
+      - copytruncate
+      - maxsize 100M
+      - rotate 5
+      - create 644 octavia octavia

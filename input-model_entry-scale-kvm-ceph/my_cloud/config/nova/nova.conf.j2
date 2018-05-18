@@ -1,0 +1,191 @@
+{#
+#
+# (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+#}
+# This configuration file includes the default values for HOS
+# Changes may be made to this file by the customer.
+# Layout / order of settings in this file can be found:
+# http://docs.openstack.org/liberty/config-reference/content/list-of-compute-config-options.html
+
+[DEFAULT]
+
+# API
+api_paste_config = {{ api_paste_config }}
+api_rate_limit = False
+enable_new_services = True
+multi_instance_display_name_template = %(name)s-%(count)s
+osapi_compute_link_prefix = {{ osapi_compute_link_prefix }}
+osapi_compute_listen = {{ osapi_compute_listen }}
+# Please change this value (if you need to) in helion/hos/ansible/roles/nova-common/defaults/main.yml , do not remove it here
+osapi_compute_workers = {{ osapi_compute_workers }}
+wsgi_default_pool_size = 100
+
+# Authentication
+auth_strategy = keystone
+
+# CA & SSL
+keys_path = {{ keys_path }}
+
+# common
+my_ip = {{ my_ip }}
+notify_api_faults = True
+notify_on_state_change = vm_and_task_state
+rootwrap_config = {{ rootwrap_config }}
+state_path = {{ state_path }}
+
+# Compute
+image_cache_manager_interval = 360
+instance_usage_audit = True
+instance_usage_audit_period = hour
+resume_guests_state_on_host_boot = True
+running_deleted_instance_action = reap
+vif_plugging_is_fatal = False
+vif_plugging_timeout = 30
+
+# Hypervisor
+virt_mkfs = linux-ext4=mkfs -t ext4 -F -L %(fs_label)s %(target)s
+
+# Logging
+debug = True
+default_log_levels = nova.openstack.common.rpc.amqp=INFO,nova.scheduler.filters.retry_filter=INFO,nova.scheduler.filters.image_props_filter=INFO,nova.scheduler.filters.disk_filter=INFO,nova.servicegroup.drivers.db=INFO,nova.servicegroup.api=INFO,nova.scheduler.host_manager=INFO
+logging_context_format_string = %(asctime)s.%(msecs)03d %(process)d %(levelname)s %(name)s [%(request_id)s %(user)s %(tenant)s] %(instance)s%(message)s
+log_dir = {{ log_dir }}
+
+# Metadata
+metadata_host = {{ metadata_host }}
+metadata_listen = {{ metadata_listen }}
+# Please change this value (if you need to) in helion/hos/ansible/roles/nova-common/defaults/main.yml , do not remove it here
+metadata_workers = {{ metadata_workers }}
+use_forwarded_for = {{ metadata_use_forwarded_for }}
+
+# Network
+default_floating_pool = {{ default_floating_pool }}
+dhcpbridge = {{ dhcpbridge }}
+dhcpbridge_flagfile = {{ dhcpbridge_flagfile }}
+firewall_driver = nova.virt.firewall.NoopFirewallDriver
+linuxnet_interface_driver = nova.network.linux_net.LinuxOVSInterfaceDriver
+use_neutron = True
+
+# Oslo messaging
+#  Note:
+#  If the infoblox-ipam-agent is to be deployed in the cloud, change the
+#  notification_driver settting from "messaging" to "messagingv2".
+notification_driver = messaging
+notification_topics = notifications
+
+# Policy
+resize_fs_using_block_device = True
+until_refresh = 1
+
+# Quota
+quota_cores = -1
+quota_injected_files = 5
+quota_injectd_file_content_bytes = 10240
+quota_instances = 40
+quota_metadata_items = 50
+quota_ram = 15360
+
+# Scheduler
+ram_allocation_ratio = 1.0
+ram_weight_multiplier = -1.0
+reserved_host_disk_mb = 10240
+reserved_host_memory_mb = 2816
+scheduler_available_filters = nova.scheduler.filters.all_filters
+scheduler_default_filters = AvailabilityZoneFilter,RetryFilter,ComputeFilter,DiskFilter,RamFilter,ImagePropertiesFilter,ServerGroupAffinityFilter,ServerGroupAntiAffinityFilter,ComputeCapabilitiesFilter,NUMATopologyFilter,PciPassthroughFilter,VCPUModelFilter
+scheduler_host_subset_size = 5
+scheduler_weight_classes = nova.scheduler.weights.ram.RAMWeigher
+
+# Volumes (Cinder)
+volume_usage_poll_interval = 3600
+
+# SRIOV and PCI-PT
+pci_passthrough_whitelist = [{{ pci_passthrough_whitelist }}]
+
+# End of [DEFAULT] section
+
+
+[vnc]
+vncserver_proxyclient_address = {{ vncserver_proxyclient_address }}
+
+[cinder]
+catalog_info = volumev2:cinderv2:internalURL
+cafile = {{ ca_certs_file }}
+os_region_name = {{ cinder_os_region_name }}
+
+[glance]
+api_servers = {{ glance_api_servers }}
+
+[keystone_authtoken]
+auth_type = v3password
+auth_url = {{ keystone_auth_uri }}/v3
+auth_uri = {{ keystone_auth_uri }}/v3
+project_domain_name = Default
+project_name = {{ nova_admin_tenant_name }}
+user_domain_name = Default
+username = {{ nova_admin_user }}
+password = {{ nova_admin_password }}
+region_name = {{ keystone_region_name }}
+cafile = {{ ca_certs_file }}
+
+[neutron]
+auth_type = v2password
+auth_url = {{ neutron_admin_auth_url }}
+password = {{ neutron_admin_password }}
+tenant_name = {{ neutron_admin_tenant_name }}
+username = {{ neutron_admin_username }}
+metadata_proxy_shared_secret = {{ neutron_metadata_proxy_shared_secret }}
+neutron_auth_strategy = keystone
+cafile = {{ ca_certs_file }}
+service_metadata_proxy = True
+url = {{ neutron_url }}
+timeout = 300
+region_name = {{ neutron_region_name }}
+
+[osapi_v3]
+enabled = True
+
+[oslo_concurrency]
+lock_path = {{ lock_path }}
+
+[oslo_messaging_rabbit]
+rabbit_hosts = {{ rabbit_hosts }}
+rabbit_password = {{ rabbit_password }}
+rabbit_userid = {{ rabbit_userid }}
+rabbit_use_ssl = {{ rabbit_use_ssl }}
+rpc_conn_pool_size = 10
+kombu_reconnect_delay = 5.0
+
+[ssl]
+ca_file = {{ ca_certs_file }}
+
+{% if nova_api_audit_enable|bool %}
+[audit_middleware_notifications]
+driver = log
+{% endif %}
+
+{% if barbican_endpoint_template  != "" %}
+#Barbican
+[keymgr]
+api_class = nova.keymgr.barbican.BarbicanKeyManager
+
+[barbican]
+endpoint_template = {{ barbican_endpoint_template }}/v1
+os_region_name = {{ barbican_os_region_name }}
+auth_endpoint = {{ keystone_auth_uri }}/v3
+{% endif %}
+
+### End of File  ###
+## Do NOT put anything after this line ##

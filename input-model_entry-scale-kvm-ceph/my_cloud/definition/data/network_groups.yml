@@ -1,0 +1,72 @@
+product:
+  version: 2
+network-groups:
+  - name: EXTERNAL-API
+    hostname-suffix: extapi
+    component-endpoints:
+      - powerdns-ext
+    load-balancers:
+      - provider: ip-cluster
+        name: extlb
+        tls-components:
+          - default
+        roles:
+          - public
+        cert-file: my-public-entry-scale-kvm-ceph-cert
+  - name: EXTERNAL-VM
+    tags:
+      - neutron.l3_agent.external_network_bridge
+
+    #
+    # OSD-INTERNAL
+    #
+    # This is the network group that will be used for
+    # internal traffic of cluster among OSDs
+    #
+  - name: OSD-INTERNAL
+    hostname-suffix: osd-internal
+    component-endpoints:
+      - ceph-osd-internal
+
+    #
+    # OSD-CLIENT
+    #
+    # This is the network group that will be used for
+    # ceph clients to talk to monitor and OSDs
+    #
+  - name: OSD-CLIENT
+    hostname-suffix: osd-client
+    component-endpoints:
+      - ceph-monitor
+      - ceph-osd
+      - ceph-radosgw
+
+  - name: GUEST
+    hostname-suffix: guest
+    tags:
+      - neutron.networks.vxlan
+  - name: MANAGEMENT
+    hostname-suffix: mgmt
+    hostname: true
+    tls-component-endpoints:
+      - barbican-api
+    component-endpoints:
+      - default
+    routes:
+      - default
+      - OCTAVIA-MGMT-NET
+    load-balancers:
+      - provider: ip-cluster
+        name: lb
+        tls-components:
+          - default
+        components:
+          - vertica
+          - nova-metadata
+        roles:
+          - internal
+          - admin
+        cert-file: helion-internal-cert
+    tags:
+      - neutron.networks.vlan:
+          provider-physical-network: physnet1
