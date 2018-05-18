@@ -1,0 +1,37 @@
+#
+# (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+# The cinder_vol_host_index value specifies the index in the list of CND-VOL
+# nodes of the host where the Cinder Volume service runs. To
+# migrate Cinder Volume and Backup to another CND-VOL node, please specify
+# the appropriate index value for that node. Leave a space between the colon
+# and the index number.
+# Note: If the storage input model is defined the cinder_vol_host_index value
+# will be ignored and a default assignment of backends to nodes will be used.
+# This default assignemnt can be overridden by specifying the assignment of
+# backends to nodes in the cinder_backend_assignment.yml file.
+
+cinder_vol_host_index: 0
+
+# Do not edit the following lines
+_cinder_volume_running_here: >-
+    {{ (config_data is not defined and cinder_vol_host_index ==
+         groups[verb_hosts.CND_VOL].index(inventory_hostname)) or
+       ((config_data is defined and config_data.CND is not defined) and
+         (cinder_vol_host_index ==
+          groups[verb_hosts.CND_VOL].index(inventory_hostname))) or
+       (config_data is defined and config_data.CND is defined) }}

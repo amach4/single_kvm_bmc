@@ -1,0 +1,41 @@
+{#
+# (c) Copyright 2016 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#}
+# This configuration file includes the default values for Ardana Openstack
+# Changes may be made to this file by customers.
+# The changes here will only apply to the l2gw-plugin and l2gateway-agent.
+
+[DEFAULT]
+# (StrOpt) default interface name of the l2 gateway
+#default_interface_name = "FortyGigE1/0/1"
+
+# (StrOpt) default device name of the l2 gateway
+#default_device_name = "Switch1"
+
+# (IntOpt) quota of the l2 gateway
+#quota_l2_gateway = 5
+
+# (IntOpt) The periodic interval at which the plugin
+# checks for the monitoring L2 gateway agent
+#periodic_monitoring_interval = 5
+
+[service_providers]
+# Must be in form:
+# service_provider=<service_type>:<name>:<driver>[:default]
+# List of allowed service types includes L2GW
+# Combination of <service type> and <name> must be unique; <driver> must also be unique
+# This is multiline option
+service_provider=L2GW:l2gw:networking_l2gw.services.l2gateway.service_drivers.rpc_l2gw.L2gwRpcDriver:default

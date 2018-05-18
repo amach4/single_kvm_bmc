@@ -1,0 +1,112 @@
+#
+# (c) Copyright 2015 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+
+barbican_kmip_plugin_conf:
+
+  # Either use file path to provide client certificate details or add cert
+  # content directly in related content variables defined below.
+
+  # File paths takes precedance over cert content if both are provided.
+  # Here file path refers to local filesystem path where ansible is
+  # executed.
+  client_cert_file_path:
+  client_key_file_path:
+  client_cacert_file_path:
+
+  # Following are samples which customer needs to replace with their
+  # own content here or via file path approach mentioned above.
+  client_cert_content: |
+    -----BEGIN CERTIFICATE-----
+    MIID0jCCArqgAwIBAgICAKQwDQYJKoZIhvcNAQELBQAwgZQxCzAJBgNVBAYTAlVT
+    MQswCQYDVQQIEwJDTzEUMBIGA1UEBxMLRnQuIENvbGxpbnMxGDAWBgNVBAoTD0hl
+    d2xldHQgUGFja2FyZDEMMAoGA1UECxMDQ1RMMRYwFAYDVQQDFA1LTUlQX0xvY2Fs
+    X0NBMSIwIAYJKoZIhvcNAQkBFhNkYW4uYXNoYmF1Z2hAaHAuY29tMB4XDTE1MDkx
+    NjA3MjIyMVoXDTI0MDEyNTA3MjIyMVowgaAxCzAJBgNVBAYTAlVTMQswCQYDVQQI
+    DAJDQTESMBAGA1UEBwwJU3Vubnl2YWxlMSMwIQYDVQQKDBpIZXdsZXR0IFBhY2th
+    cmQgRW50ZXJwcmlzZTESMBAGA1UECwwJSFBFIENsb3VkMRUwEwYDVQQDDAxobG1f
+    YmFyYmljYW4xIDAeBgkqhkiG9w0BCQEWEWFydW4ua2FudEBocGUuY29tMIIBIjAN
+    BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArjYVZzdsSMsk520UD1E94jl0/AZG
+    LlsAB152dEP5E9C3mXzQZYvfApMh8PFc53gZwLBCb4joy1r8mZj/e7CwCUuo1cJH
+    R9xnhwdK3RLeRbU3dfW838++5Kc1nW8ofLtCwQ6tD1Ye2SDWKQmfvk3ocX/o81ff
+    s8chvPpBH9N3nU/p5+f7bNuQBG7Uj2/JTExuqMAwWmdBZz1OCGFaJRF0DEd9WJzL
+    Hdaf83ZknyKREb7CETDmxBRST4KLfLZYpLb9MWjmCgotoX3nTuEh9LhhLIdy1jKd
+    7KI1MJSisLYwINLaqtpEeZcPehCHthdd4y29ZMUmhh8MRihwfW1a4HGUOQIDAQAB
+    oyAwHjAJBgNVHRMEAjAAMBEGCWCGSAGG+EIBAQQEAwIHgDANBgkqhkiG9w0BAQsF
+    AAOCAQEArRJa3dypsHD7JYxvT9nlB0FzRAmLrdfMaC8UD4UxHDfBZK1QDEc6IOyA
+    0jpAmHTt7MoJN7f3MzX1M4Iu5tyUHNq1KWjtwHwEX7FrTm6G7ZOxhPiPim4BClFd
+    FLoX/jlWyjzl5tjj10+26x5IuUtC+U5JUzEBY3j/q+lAO+Og2MTiJVnWm03ilsXt
+    biRskNJZVtvbU71lF27Oy5rpPwhTcJ4EgRsMp7GmnlYdaT4/yRFLIBpWrtB3kooG
+    Gyr8ICB8HJSWpM340f/YGIeLkoXGAWyqrxykH+fMnyCs7ctjH5B24u4y5En4q3gW
+    L7x0qB6Zaf3IBkOZqf5bMfAQoKfxww==
+    -----END CERTIFICATE-----
+  client_key_content: |
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEowIBAAKCAQEArjYVZzdsSMsk520UD1E94jl0/AZGLlsAB152dEP5E9C3mXzQ
+    ZYvfApMh8PFc53gZwLBCb4joy1r8mZj/e7CwCUuo1cJHR9xnhwdK3RLeRbU3dfW8
+    38++5Kc1nW8ofLtCwQ6tD1Ye2SDWKQmfvk3ocX/o81ffs8chvPpBH9N3nU/p5+f7
+    bNuQBG7Uj2/JTExuqMAwWmdBZz1OCGFaJRF0DEd9WJzLHdaf83ZknyKREb7CETDm
+    xBRST4KLfLZYpLb9MWjmCgotoX3nTuEh9LhhLIdy1jKd7KI1MJSisLYwINLaqtpE
+    eZcPehCHthdd4y29ZMUmhh8MRihwfW1a4HGUOQIDAQABAoIBAA2CUCKS36i9Z/0y
+    Li4J5LyYLAQnEGYj1Fq97n2Rj80DkFksnpRhRkfS1Pz0Gnowi/6vLFetzC+IvLHE
+    dXtH9j6iSVNaH2DpLHYCEMIX5niNVuGkzqKkX28nsDanGgKiGskRtEXOLdI0g6bn
+    AiYlsHKssom8NLKiLHGVDlvDcDEYkpA2WXXFvfUtI3Twu6o/T/Pf3ytcTPpa8yvG
+    K2eR+Wr6HJ6Wc7rELaNFSqcDWRqRPG8bI5bUucDOxmOZac6j5ZsrpVgnZDHO78NX
+    bnrHwXzS1Hm8oT6tFQTUbzjSJb7EbgS8JXdW4zWTd3zDdkq7rX2CNSGfzAz3wSl2
+    KkKSfqkCgYEA02MnqDmsUDkm6lYVva+WomMgyZvfOYDhca10tP5rBAXaZGP764tn
+    PhD5KTyvOZrgBhLbsGZZVlQEwg8EKiS9vAj/POZqIs2wdH6nAni1FTRCQ2gScty0
+    IgS9iIYbO31FNbfGxqNDSbLDQGpzZ8U+b12YjhhCS45e/Twvm3AeyiMCgYEA0vpg
+    7vMmMgvOFDtbbOKUcLu1NgViO8B7N5idf6+Y/QYlydVXtujH0Yp9VisKDew5W1vy
+    8sQTAibJSY+OpchTT4LSNf6dGmIAWQIJeIjlkAvMoCNqeHiw77ZlWvwXc4jydAc3
+    pl0cIdaupeLQo+WeSthXe1JPuOv76xVZXeC4R/MCgYBdQTENlePewFfaqX+N3xil
+    KvYb+xfPVnwemlcSQesUK0DdaP6KO0Wgq/w/pPXog9qw00D34S8oVoiC0/0SWoMZ
+    oR54z22jTPq7aeRjwrygTh2tfwwkgBk3qL+0qvT4mZsex6R5nSziJmrc0Bl5fhq9
+    Jp1Wkn0st/JP5W1bNWtf4QKBgEqt8e3jB5wjbZjfweby9RRKfURX94OrCHKPhQCT
+    iZXWvT2KVPgbwc88NE1yAqcW/N6H16FzIj9at1lghV/NXx//8KTIMZgLJJBdFjki
+    TBAG/TGaF6/5GLhhWdMw9KQiz5+ehmZPAww/T6bMeInrV3KqzZyLcEjGz29RKUb/
+    qntdAoGBANMBU9yDbQgvDSCor24DJ/gnXRPuF3W7VlnzCbu8twRK9JZJplD+jS58
+    98DmYxBio8+wQWQdiAPRRthtnvhSWL67oYACPwvWUJJ+D18HfpWCEgCmBU3a8ZHc
+    AaW8rRXtMZzuujGgAbA1hpf5z1lHuiG/X7/XMDVGiRALMyBbHV57
+    -----END RSA PRIVATE KEY-----
+  client_cacert_content: |
+    -----BEGIN CERTIFICATE-----
+    MIIEmjCCA4KgAwIBAgIBADANBgkqhkiG9w0BAQsFADCBlDELMAkGA1UEBhMCVVMx
+    CzAJBgNVBAgTAkNPMRQwEgYDVQQHEwtGdC4gQ29sbGluczEYMBYGA1UEChMPSGV3
+    bGV0dCBQYWNrYXJkMQwwCgYDVQQLEwNDVEwxFjAUBgNVBAMUDUtNSVBfTG9jYWxf
+    Q0ExIjAgBgkqhkiG9w0BCQEWE2Rhbi5hc2hiYXVnaEBocC5jb20wHhcNMTQwMTI2
+    MTcwOTU4WhcNMjQwMTI1MTcwOTU4WjCBlDELMAkGA1UEBhMCVVMxCzAJBgNVBAgT
+    AkNPMRQwEgYDVQQHEwtGdC4gQ29sbGluczEYMBYGA1UEChMPSGV3bGV0dCBQYWNr
+    YXJkMQwwCgYDVQQLEwNDVEwxFjAUBgNVBAMUDUtNSVBfTG9jYWxfQ0ExIjAgBgkq
+    hkiG9w0BCQEWE2Rhbi5hc2hiYXVnaEBocC5jb20wggEiMA0GCSqGSIb3DQEBAQUA
+    A4IBDwAwggEKAoIBAQDvEv7rJQRKYddVZePjqVlEJDFq4UVfV7CUXaTs/fxQcRhF
+    BJ2cof90EhcbSeA/YFolIJjQLwKzg53zNryCIW4TKqS5Y6nvALxI3Y3tak2Vp9Gy
+    PXOfn4Bz0Z2o0E1u4tXvXtuAFBGs760vC6u5KbAgy/xjeO6kpVZCK5KGH7hJ4sBC
+    J8b6UOir9m4lAg4K9Yia57uyJkt9LBDWhclv5DOF8LLvLjDca9eXocbDoulUhs94
+    QugbUB0GYEdLPtMYwZiIwvNsuIdn8NIAzW/SJ2AnnYZZqo9CHALdxJg0MCHpOKKA
+    u8nDcZHAUJOkKUQgNtkFq2gx0N8uCJWqzkEQIaXlAgMBAAGjgfQwgfEwHQYDVR0O
+    BBYEFPZqSMXT2ooyVvXZ01Fxe3OvPhafMIHBBgNVHSMEgbkwgbaAFPZqSMXT2ooy
+    VvXZ01Fxe3OvPhafoYGapIGXMIGUMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ08x
+    FDASBgNVBAcTC0Z0LiBDb2xsaW5zMRgwFgYDVQQKEw9IZXdsZXR0IFBhY2thcmQx
+    DDAKBgNVBAsTA0NUTDEWMBQGA1UEAxQNS01JUF9Mb2NhbF9DQTEiMCAGCSqGSIb3
+    DQEJARYTZGFuLmFzaGJhdWdoQGhwLmNvbYIBADAMBgNVHRMEBTADAQH/MA0GCSqG
+    SIb3DQEBCwUAA4IBAQDOqlaGPXwq186iCXeI9QN9aVW+IZUXiBFdeXYd0F6My/vq
+    pop7/R+4IbS3cBUo5hYkEVo6hk9IeKYCHrD7e1QbWfgCfRijhudwmCj80bQcAb+D
+    Mu4N4SltOrhMTOl4VSjwdZyRJHSqf4FrgXAqGCfASKOGSyOXfr9qBSn/iqmRaUYm
+    fFgsCh6/co2fozkRfgdsdR0MBp1FpV/dMXJqHHLSZB/P126GuYProQmbY0K1uQGU
+    FAimEB/a2E+A0oxwuHmhMg0kOpDuXIWn4BW+Z6z5h1j3PFyg/CZ548Fz0XOgvXC7
+    Ejpkd+5R+24HloruUV1R2EYvmlr8UMFX80og11u+
+    -----END CERTIFICATE-----

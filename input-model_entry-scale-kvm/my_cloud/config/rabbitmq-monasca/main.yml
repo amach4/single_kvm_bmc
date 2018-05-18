@@ -1,0 +1,32 @@
+#
+# (c) Copyright 2016 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+# The RabbitMQ default set-up for the Monasca agent plugin.
+rabbitmq_monasca_configure: true
+rabbitmq_monasca_remove: true
+
+# If true, monitor exchanges, queues as well as hosts, process monitoring.
+rabbitmq_monasca_full_monitoring: false
+
+# Config Processor variable mapping.
+rabbitmq_monasca_cp:
+  monasca_api_url: >
+    {{ rabbitmq_management_protocol }}://{{ rabbitmq_cp.management_address.ip }}:{{ rabbitmq_cp.management_address.port }}/api
+  monasca_username: >
+    {{ MON_AGN.consumes_FND_RMQ.vars.accounts.monasca_rmq_monitor.username }}
+  monasca_password: >
+    {{ MON_AGN.consumes_FND_RMQ.vars.accounts.monasca_rmq_monitor.password }}

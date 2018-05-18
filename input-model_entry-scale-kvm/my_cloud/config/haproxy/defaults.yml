@@ -1,0 +1,66 @@
+#
+# (c) Copyright 2015-2017 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017-2018 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+
+vip_check_defaults: "check inter 5000 rise 2 fall 5"
+
+vip_options_defaults:
+        - "option httpchk GET /"
+
+haproxy_globals:
+        - "chroot /var/lib/haproxy"
+        - "user haproxy"
+        - "group haproxy"
+        - "daemon"
+        - "log /dev/log local0 notice"
+        - "maxconn 100000"
+        - "spread-checks 50"
+        - "stats socket /run/haproxy/admin.sock mode 660 level admin"
+        - "stats timeout 30s"
+        - "ssl-default-bind-options no-sslv3"
+        - "ssl-default-server-options no-sslv3"
+        - "ssl-default-bind-ciphers HIGH:!aNULL:!eNULL:!DES:!3DES:!SSLv3:!TLSv1:!CAMELLIA"
+        - "ssl-default-server-ciphers HIGH:!aNULL:!eNULL:!DES:!3DES:!SSLv3:!TLSv1:!CAMELLIA"
+
+# maximum number of workers allowed regardless of CPUs available
+haproxy_max_processes: 3
+# number of workers based on number of vCPUs (sockets*cores*hthreads)
+haproxy_dyn_processes: "{{ ansible_processor_vcpus | default(1) | int }}"
+
+haproxy_is_baremetal: "{{ True if ansible_virtualization_role == 'host' else False  }}"
+haproxy_defaults:
+        - "balance roundrobin"
+        - "maxconn 1500"
+        - "log global"
+        - "mode tcp"
+        - "option dontlognull"
+        - "option tcpka"
+        - "option tcplog"
+        - "retries 3"
+        - "timeout check 10s"
+        - "timeout client 10m"
+        - "timeout connect 10s"
+        - "timeout http-request 10s"
+        - "timeout queue 1m"
+        - "timeout server 10m"
+
+bind_defaults: ''
+haproxy_service: haproxy
+haproxy_restart_required: false
+haproxy_restart_packages:
+    - haproxy
+haproxy_conf_dir: "/etc/haproxy/ardana-conf.d"

@@ -1,0 +1,84 @@
+{#
+#
+# (c) Copyright 2015-2017 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017-2018 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+#}
+# This configuration file includes the default values for Ardana Openstack
+# Changes may be made to this file by the customer.
+[DEFAULT]
+
+# General
+state_path = {{ designate_state_path }}
+root_helper = sudo designate-rootwrap {{ designate_rootwrap_config }}
+
+# Logging
+debug = False
+log_dir = {{ designate_log_file_location }}
+
+# Quota
+quota_zones = 100
+quota_zone_recordsets = 500
+quota_zone_records = 500
+quota_recordset_records = 20
+quota_api_export_size = 1000
+
+# End of [DEFAULT] section
+
+[oslo_messaging_rabbit]
+rabbit_hosts = {{ rabbit.hosts }}
+rabbit_userid = {{ rabbit.rmq_service_user }}
+rabbit_password = {{ rabbit.rmq_service_password }}
+rabbit_use_ssl = {{ rabbit.rmq_use_ssl }}
+
+# End of [oslo_messaging_rabbit] section
+
+[proxy]
+#http_proxy = http://1.2.3.4:8080/
+#https_proxy = http://1.2.3.4:8080/
+#no_proxy = .mycorp.com, .mycorp.net
+
+# End of [proxy] section
+
+[oslo_policy]
+policy_file = {{ designate_policy_file }}
+
+# End of [oslo_policy] section
+
+[oslo_messaging_notifications]
+# Ceilometer Notifications
+driver = log
+driver = messaging
+topics = notifications
+
+# End of [oslo_messaging_notifications] section
+
+[oslo_concurrency]
+lock_path = {{ designate_lock_path }}
+
+# End of [oslo_concurrency] section
+
+[storage:sqlalchemy]
+connection = {{ designate_database_connection }}
+
+# End of [storage:sqlalchemy] section
+
+[ssl]
+ca_file = {{ trusted_ca_bundle }}
+
+# End of [ssl] section
+
+### End of File ###
+## Do NOT put anything after this line ##

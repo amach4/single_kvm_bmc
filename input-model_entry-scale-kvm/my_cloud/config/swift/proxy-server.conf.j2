@@ -1,0 +1,143 @@
+{#
+#
+# (c) Copyright 2015-2017 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+#}
+# This file has the Ardana OpenStack values that apply only to the Swift 
+# service.
+# You may make changes to this file by adding sections/options below.
+
+[DEFAULT]
+bind_port = {{ proxy_bind_port }}
+bind_ip = {{ proxy_bind_ip }}
+swift_dir = {{ swift_dir }}
+user = {{ swift_user }}
+workers = {{ swift_worker_count }}
+
+[pipeline:main]
+pipeline = catch_errors gatekeeper healthcheck proxy-logging cache container_sync bulk crossdomain tempurl formpost ratelimit authtoken keystoneauth{%- if swift_audit_enabled|bool %} audit{% endif %} staticweb container-quotas account-quotas slo dlo versioned_writes proxy-logging name_check proxy-server
+
+[app:proxy-server]
+use = egg:swift#proxy
+account_autocreate = true
+sorting_method = timing
+
+[filter:catch_errors]
+use = egg:swift#catch_errors
+
+[filter:gatekeeper]
+use = egg:swift#gatekeeper
+
+[filter:healthcheck]
+use = egg:swift#healthcheck
+
+[filter:proxy-logging]
+use = egg:swift#proxy_logging
+
+[filter:cache]
+use = egg:swift#memcache
+
+[filter:container_sync]
+use = egg:swift#container_sync
+
+[filter:bulk]
+use = egg:swift#bulk
+
+[filter:crossdomain]
+use = egg:swift#crossdomain
+
+[filter:tempurl]
+use = egg:swift#tempurl
+
+[filter:formpost]
+use = egg:swift#formpost
+
+[filter:ratelimit]
+use = egg:swift#ratelimit
+
+[filter:authtoken]
+paste.filter_factory = keystonemiddleware.auth_token:filter_factory
+auth_uri = {{ keystone_auth_uri }}
+auth_url = {{ keystone_auth_url }}
+auth_plugin = password
+project_domain_name = {{ keystone_default_domain }}
+user_domain_name =  {{ keystone_default_domain }}
+project_name = {{ keystone_service_tenant }}
+username = {{ swift_user_name }}
+password = {{ swift_user_password }}
+cache = swift.cache
+{% if SWF.audit.enabled|bool %}
+include_service_catalog = True
+{% else %}
+include_service_catalog = False
+{% endif %}
+delay_auth_decision = true
+#memcache_security_strategy = ENCRYPT
+#memcache_secret_key = {{ swift_hash_path_prefix }}
+cafile = {{ swift_ca_file }}
+service_token_roles_required = true
+service_token_roles = admin
+
+{% if SWF.audit.enabled|bool %}
+[filter:audit]
+paste.filter_factory = keystonemiddleware.audit:filter_factory
+audit_map_file = /etc/swift/api_audit_map.conf
+use_oslo_messaging = false
+{% endif %}
+
+# Note to reviewer: I'm including all possible filters but not all are
+# included in the pipeline (because they are not required)
+[filter:versioned_writes]
+use = egg:swift#versioned_writes
+allow_versioned_writes = true
+
+[filter:keystoneauth]
+use = egg:swift#keystoneauth
+operator_roles = admin, swiftoperator, _member_, Member
+
+[filter:staticweb]
+use = egg:swift#staticweb
+
+[filter:container-quotas]
+use = egg:swift#container_quotas
+
+[filter:account-quotas]
+use = egg:swift#account_quotas
+
+[filter:slo]
+use = egg:swift#slo
+
+[filter:dlo]
+use = egg:swift#dlo
+
+[filter:domain_remap]
+use = egg:swift#domain_remap
+
+[filter:cname_lookup]
+use = egg:swift#cname_lookup
+
+[filter:name_check]
+use = egg:swift#name_check
+forbidden_chars = "<>
+maximum_length = 2348
+
+[filter:list-endpoints]
+use = egg:swift#list_endpoints
+
+[filter:xprofile]
+use = egg:swift#xprofile
+
+## Do NOT put anything after this line ##

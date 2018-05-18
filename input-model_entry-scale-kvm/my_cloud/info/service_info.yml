@@ -1,0 +1,410 @@
+control-plane-1:
+    ardana:
+        ardana-service:
+        - ardana-cp1-c0-m1-mgmt
+        lifecycle-manager:
+        - ardana-cp1-c0-m1-mgmt
+        lifecycle-manager-target:
+        - ardana-cp1-c0-m1-mgmt
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        - ardana-cp1-comp0001-mgmt
+    barbican:
+        barbican-api:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        barbican-worker:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+    ceilometer:
+        ceilometer-agent-notification:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        ceilometer-api:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        ceilometer-common:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        ceilometer-polling:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+    cinder:
+        cinder-api:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        cinder-backup:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        cinder-scheduler:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        cinder-volume:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+    clients:
+        barbican-client:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        ceilometer-client:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        cinder-client:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        designate-client:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        glance-client:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        heat-client:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        keystone-client:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        magnum-client:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        monasca-client:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        neutron-client:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        nova-client:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        openstack-client:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        swift-client:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+    designate:
+        designate-api:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        designate-central:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        designate-mdns:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        designate-pool-manager:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        designate-zone-manager:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+    foundation:
+        apache2:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        ardana-ca:
+        - ardana-cp1-c0-m1-mgmt
+        bind:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        bind-ext:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        cassandra:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        ip-cluster:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        kafka:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        memcached:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        mysql:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        ntp-client:
+        - ardana-cp1-comp0001-mgmt
+        ntp-server:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        rabbitmq:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        spark:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        storm:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        stunnel:
+        - ardana-cp1-c0-m1-mgmt
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        - ardana-cp1-comp0001-mgmt
+        zookeeper:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+    freezer:
+        freezer-agent:
+        - ardana-cp1-c0-m1-mgmt
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        - ardana-cp1-comp0001-mgmt
+        freezer-api:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+    glance:
+        glance-api:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        glance-registry:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+    heat:
+        heat-api:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        heat-api-cfn:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        heat-api-cloudwatch:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        heat-engine:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+    horizon:
+        horizon:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+    keystone:
+        keystone-api:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+    logging:
+        logging-api:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        logging-producer:
+        - ardana-cp1-c0-m1-mgmt
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        - ardana-cp1-comp0001-mgmt
+        logging-rotate:
+        - ardana-cp1-c0-m1-mgmt
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        - ardana-cp1-comp0001-mgmt
+        logging-server:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+    magnum:
+        magnum-api:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        magnum-conductor:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+    monasca:
+        monasca-agent:
+        - ardana-cp1-c0-m1-mgmt
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        - ardana-cp1-comp0001-mgmt
+        monasca-api:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        monasca-liveness-check:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        monasca-notifier:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        monasca-persister:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        monasca-threshold:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        monasca-transform:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+    neutron:
+        neutron-dhcp-agent:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        neutron-l3-agent:
+        - ardana-cp1-comp0001-mgmt
+        neutron-lbaasv2-agent:
+        - ardana-cp1-comp0001-mgmt
+        neutron-metadata-agent:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        - ardana-cp1-comp0001-mgmt
+        neutron-ml2-plugin:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        neutron-openvswitch-agent:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        - ardana-cp1-comp0001-mgmt
+        neutron-server:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        neutron-vpn-agent:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+    nova:
+        nova-api:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        nova-compute:
+        - ardana-cp1-comp0001-mgmt
+        nova-compute-kvm:
+        - ardana-cp1-comp0001-mgmt
+        nova-conductor:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        nova-console-auth:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        nova-metadata:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        nova-novncproxy:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        nova-placement-api:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        nova-scheduler:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+    octavia:
+        octavia-api:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        octavia-health-manager:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+    operations:
+        ops-console-web:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+    swift:
+        swift-account:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        swift-common:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        swift-container:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        swift-object:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        swift-proxy:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        swift-ring-builder:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+        swift-rsync:
+        - ardana-cp1-c1-m1-mgmt
+        - ardana-cp1-c1-m2-mgmt
+        - ardana-cp1-c1-m3-mgmt
+    tempest:
+        tempest:
+        - ardana-cp1-c0-m1-mgmt

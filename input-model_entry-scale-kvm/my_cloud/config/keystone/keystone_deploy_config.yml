@@ -1,0 +1,47 @@
+#
+# (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+#########################################################
+# Logging
+#########################################################
+# Possible log levels are INFO/DEBUG/WARN/ERROR
+keystone_loglevel:  INFO
+keystone_logstash_loglevel:  INFO
+
+#########################################################
+# WSGI
+#########################################################
+# To handle 100 concurrent connections count = 15 is more than enough
+# Most of the traffice goes to internal vip which is controlled by
+# public procoess count
+keystone_wsgi_admin_process_count:  5
+keystone_wsgi_public_process_count:  15
+
+#socket-timeout option to WSGIDaemonProcess to allow the timeout on indvidual
+# read/writes on the socket connection between the Apache child worker and
+#the daemon process to be specified separately to the Apache Timeout directive.
+keystone_wsgi_socket_timeout:  600
+
+#########################################################
+# Fernet Token
+#########################################################
+# Optional non-core features that can be enabled/disabled
+keystone_configure_fernet: False
+
+#########################################################
+# Enable TLS transport for mysql
+#########################################################
+keystone_enable_tls_for_mysql: True

@@ -1,0 +1,113 @@
+#
+# (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+
+barbican_pkcs11_plugin_conf:
+
+  # Either use file path to provide client certificate details or add cert
+  # content directly in related content variables defined below.
+
+  # File paths takes precedance over cert content if both are provided.
+  # Here file path refers to local filesystem path where ansible is
+  # executed.
+  client_cert_file_path:
+  client_key_file_path:
+  client_cacert_file_path:
+
+  # Following are samples which customer needs to replace with their
+  # own content here or via file path approach mentioned above.
+  client_cert_content: |
+    -----BEGIN CERTIFICATE-----
+    MIIDvzCCAqegAwIBAgIBHTANBgkqhkiG9w0BAQsFADCBjDELMAkGA1UEBhMCVVMx
+    EzARBgNVBAgTCkNhbGlmb3JuaWExEjAQBgNVBAcTCVN1bm55dmFsZTEMMAoGA1UE
+    ChMDSFBFMQ8wDQYDVQQLEwZBdGFsbGExFDASBgNVBAMTC3Z0ZXNrbS1rbWlwMR8w
+    HQYJKoZIhvcNAQkBFhB0ZXN0QGV4YW1wbGUuY29tMB4XDTE2MDUwODIzMDYyNFoX
+    DTI2MDEzMTIzMDYyNFowgZYxCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJDQTESMBAG
+    A1UEBwwJU3Vubnl2YWxlMQwwCgYDVQQKDANIUEUxFzAVBgNVBAsMDkNsb3VkIFNl
+    cnZpY2VzMR0wGwYDVQQDDBRob3M0X2JhcmJpY2FuX3BrY3MxMTEgMB4GCSqGSIb3
+    DQEJARYRYXJ1bi5rYW50QGhwZS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
+    ggEKAoIBAQCz2E6xXR+o9alGz+GsWh1eCs1CUQsQWOFgbSwWNDv8xNZRBVuKVirS
+    scx3D+ziI6UbB4rOsRfX8ib5ICQXskaMScyVOm3oQo6YDuOMAM0C3Bal2C00q8Dv
+    5JAiEt7rOV4dg4bKtZbV+nQiumFduecbrBQ05hYs/bY8Lfh3v6AF0zLqY4dG/zA2
+    oYPXQCPV/jV3lGrlwXn/U1nWD2AcIRjq+anf7V4iUdsuaybzfcVIw0GEPg2Fhsgk
+    IxKPOFE1hGOTcygk0ATdxdCUtHuQVLkpA2neTPcEMTFitJMn0yhncOxjWiON0CKe
+    UGzBoBfdl7r/gA2UxdtQe0FlnXY4zDY/AgMBAAGjIDAeMAkGA1UdEwQCMAAwEQYJ
+    YIZIAYb4QgEBBAQDAgeAMA0GCSqGSIb3DQEBCwUAA4IBAQDFUham8kfqkJwCGJpY
+    QqGd4MtOxUAj+OevNkZjEdnJd7SXQFKNwCNxw231XRuk0w6otuzOv+PniwLhy2IS
+    HowPaKtDmzncfwp01p5U/+E062bjEqlCN7N4dNoSjUuveoEwROI5Opo/wfLhKOuw
+    InUz14Le6VyJ9PdcLZmKWpnYQRytiPcNadIwt19fxja7CBJ+bX/NSdX/b1/fMeN9
+    8xmOn0ruoKdfD4cx/fVmMc+cV49elRKObaIaBgSQTWvjQIx8RWVPdMbQST36SlHK
+    3YLCDn/97rSkOUGAz7ZGJXJGACzHsM9o1cix6y8rKco+kqGvqkBAJZoIByg0ER07
+    CM0u
+    -----END CERTIFICATE-----
+  client_key_content: |
+    -----BEGIN PRIVATE KEY-----
+    MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCz2E6xXR+o9alG
+    z+GsWh1eCs1CUQsQWOFgbSwWNDv8xNZRBVuKVirSscx3D+ziI6UbB4rOsRfX8ib5
+    ICQXskaMScyVOm3oQo6YDuOMAM0C3Bal2C00q8Dv5JAiEt7rOV4dg4bKtZbV+nQi
+    umFduecbrBQ05hYs/bY8Lfh3v6AF0zLqY4dG/zA2oYPXQCPV/jV3lGrlwXn/U1nW
+    D2AcIRjq+anf7V4iUdsuaybzfcVIw0GEPg2FhsgkIxKPOFE1hGOTcygk0ATdxdCU
+    tHuQVLkpA2neTPcEMTFitJMn0yhncOxjWiON0CKeUGzBoBfdl7r/gA2UxdtQe0Fl
+    nXY4zDY/AgMBAAECggEBAKqY2nTmiDzG4483bLQIO2lUx8ZLiDo2hXvps3NQk0LA
+    GSh784yzFiYM4I5kfek5tMmCCwrr9Fk07AFPms0boE49RyKbbVxvnkHhhbntnItE
+    6PriqGcZMYieAJdB3VG2dm96r2ckf/N0g6vZrriwuuiGABj51TlSZgaJ+PLmxE4g
+    pUYHFe4PFm9mvwVG++hFrCqMuyE/RZKmkvUoGElkEUDXFsYYV15+lAsd4FojO4pZ
+    2g7UkL8Q7g/Kr5WyRKfYdes4rdhd2/yIH3tXGTgclUqCDFDsKj4+C4x0BwV3ReCp
+    SzKAbxjAeoEqJFez41uYk9gsx2MDCpcqxSvgn55krxkCgYEA2PNRBkXJtkVc/igD
+    SOIFWKiX+0yctKBZj062RR78uXCxZ5rSpRZL1VoAs7bFZKNRsXaMhAQOH/dHBFqq
+    v+daZHY48pZg5t7YF3pxS2TaFAXIZ870H8qnM+JLwPqldiBiapp6dEbR0Hwky0rn
+    c2eOhWa8FzO/a18F7LFpxo0rBdUCgYEA1Dc8jnc2Z6tMis6g9i8UIkPSGcfKPjAE
+    rSxKvX9K0L3zcoXw3b4bsoiG0ROmTAZ8QVxnxjKNZPSCv4fMOpXMnGEu6/Gi7ofk
+    DuXhPqj2Nu3GLLBhmEOOiYz6qgU5m7Hu2D7rj/4YZQL3VK5oP2R5JUDve4zI5GXP
+    Kp2rXBjFMcMCgYEA0mBH/rwn2Q80GOU2IjPCmXGLR03IW8NudXAPgcGFslEcRuo0
+    P4/6Y15OdfbTPT6+FkduBQplpAvGmutMzqCK4AZgPKUkPFx10XaTbFfUvTvKVRez
+    VSzPrJlRekXTs1O9+7/m5OBTz0bC6zusaxVNeADifeFZSsYvWZHEj5wOzy0CgYBA
+    Ul2wcMG0ul8A05BGDg70M8pCtiO+pZ9FPd+JgEOU8X4QgDh5fV23x1nVlTcaY/zV
+    csShdkEVEGdw1iA4wZ6651npedwAoH+nZFXZQC0giQFAGlX6aL+TQX/YeKz1XAEg
+    2jFb+5A5TaTZreM7E6EEgaIUuJ9LWvBn4lJGH9vlMQKBgB9SGeF32EPSzl/M8FOF
+    /+5k1QKKB+a0sqYhUKYrf2cAhBk67516jPRUDQAEcuXOkuZi6wb5sHrQvWCJHzVJ
+    Ddzr5HHGX+PNRkt/tx+tnV74i0IAJJlhgqizuVtrOSaz3DEKH03d/4K9CJDPODpp
+    esf1sUXCyOs6hvJguTFB3hvI
+    -----END PRIVATE KEY-----
+  client_cacert_content: |
+    -----BEGIN CERTIFICATE-----
+    MIIEgjCCA2qgAwIBAgIBADANBgkqhkiG9w0BAQsFADCBjDELMAkGA1UEBhMCVVMx
+    EzARBgNVBAgTCkNhbGlmb3JuaWExEjAQBgNVBAcTCVN1bm55dmFsZTEMMAoGA1UE
+    ChMDSFBFMQ8wDQYDVQQLEwZBdGFsbGExFDASBgNVBAMTC3Z0ZXNrbS1rbWlwMR8w
+    HQYJKoZIhvcNAQkBFhB0ZXN0QGV4YW1wbGUuY29tMB4XDTE2MDIwMjIyMjAwOVoX
+    DTI2MDEzMTIyMjAwOVowgYwxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9y
+    bmlhMRIwEAYDVQQHEwlTdW5ueXZhbGUxDDAKBgNVBAoTA0hQRTEPMA0GA1UECxMG
+    QXRhbGxhMRQwEgYDVQQDEwt2dGVza20ta21pcDEfMB0GCSqGSIb3DQEJARYQdGVz
+    dEBleGFtcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAM0P
+    whdtq7KTFjD5RSeb8aOR3M4su9sO4iwXHkeXgQ3lEzDK9bdT+E5d/jhjmhmVafkL
+    S6hdvKlf5lTaQ3INZrLCERj1n+valARbdlloRmKAm1s8BaZatPATuEvGJz1tnMpF
+    y8eUO88kQMDam17HKfeAxU+G50P7NodnjFMv/6nLpKAYBi6ERHO8rdhLoYSqDahH
+    Tlp9xcxhFBunMMkM06w8u8htoXDfA9vW8G/EeymZj0fRVJV2E1VkdasJ7ncK20d2
+    9cCFy2tfJ5sZlHPy6UBGcsgzytJx/bnzniBCBCv+MZWqBTfioTZCs+ufYASh8DPG
+    AaCJlEgN7uY2Zv3FBNsCAwEAAaOB7DCB6TAdBgNVHQ4EFgQU8JpCrRunXm9ht2Zd
+    90XHLMIrY0swgbkGA1UdIwSBsTCBroAU8JpCrRunXm9ht2Zd90XHLMIrY0uhgZKk
+    gY8wgYwxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRIwEAYDVQQH
+    EwlTdW5ueXZhbGUxDDAKBgNVBAoTA0hQRTEPMA0GA1UECxMGQXRhbGxhMRQwEgYD
+    VQQDEwt2dGVza20ta21pcDEfMB0GCSqGSIb3DQEJARYQdGVzdEBleGFtcGxlLmNv
+    bYIBADAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQASJDJCRZcIvwr0
+    L0GUuTf5eR4Z1i8AUvs8j2JB7xz+DOukBL7Ty9qQr1hFnq6ArNFa3c//oBwCLzlF
+    eHr5Jz80u2MnR6xO/jBRI58j7jqednFEEkH8L5VGtbT4AZLqMwuJxLDHHpHZ5gef
+    3FzAeP3frE7ALLJH4LFuL95hJ1GlNf0S6axJyZ5jKIbOic6r57/BWD5Fjr0GTw1L
+    NckGzGjtiHqAZ5kmx19PzYwpV682hd5m9np6gvIfFRIwswlLwOL00qqQ7fkJnrIM
+    Dh9ICkgZ3SZZxxyiQ8UV/SDta2P7FVDmRdRsV4B3OI/Z5zcqgZlm+Z3F1q5WvkqU
+    Sc8quzS0
+    -----END CERTIFICATE-----

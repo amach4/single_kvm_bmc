@@ -1,0 +1,142 @@
+<html>
+
+<h1>Cloud: SOC8-entry-scale-kvm</h1>
+<head><link href="ardana.css" type="text/css" rel="stylesheet"></head>
+<h2><a href="Control_Planes.html">Control Plane View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="Regions.html">Region View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="Services.html">Service View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="Networks.html">Network View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="Server_View.html">Server View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="Server_Groups.html">Server Groups View</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h2>
+<br>
+<h2>Network Topology</h2>
+<table>
+<tr><td class="title"><td colspan="3" align="center"><b><a href="Control_Planes.html#control-plane-1">control-plane-1</a></b></td></tr>
+<tr><td class="title"><td colspan="2" align="center"><b>Clusters</b></td><td colspan="1" align="center"><b>Resources</b></td></tr>
+<tr><td class="title"><td align="center"><b>cluster0</b></td><td align="center"><b>cluster1</b></td><td align="center"><b>compute</b></td></tr>
+<tr><td><a href="#EXTERNAL-API">EXTERNAL-API</a></td><td class="title"><td align="center" valign="top"><span title="EXTERNAL-API-NET
+    ardana-cp1-c1-m3: 10.0.1.12
+    ardana-cp1-c1-m2: 10.0.1.11
+    ardana-cp1-c1-m1: 10.0.1.10
+    VIP: 10.0.1.13 (extlb)
+">EXTERNAL-API-NET</span><br></td><td class="title"></tr>
+<tr><td><a href="#MANAGEMENT">MANAGEMENT</a></td><td align="center" valign="top"><span title="MANAGEMENT-NET
+    ardana-cp1-c0-m1: 192.168.10.11
+">MANAGEMENT-NET</span><br></td><td align="center" valign="top"><span title="MANAGEMENT-NET
+    ardana-cp1-c1-m3: 192.168.10.14
+    ardana-cp1-c1-m2: 192.168.10.13
+    ardana-cp1-c1-m1: 192.168.10.12
+    VIP: 192.168.10.2 (lb)
+">MANAGEMENT-NET</span><br></td><td align="center" valign="top"><span title="MANAGEMENT-NET
+    ardana-cp1-comp0001: 192.168.10.15
+">MANAGEMENT-NET</span><br></td></tr>
+<tr><td><a href="#GUEST">GUEST</a></td><td class="title"><td align="center" valign="top"><span title="GUEST-NET
+    ardana-cp1-c1-m3: 10.1.1.4
+    ardana-cp1-c1-m2: 10.1.1.3
+    ardana-cp1-c1-m1: 10.1.1.2
+">GUEST-NET</span><br></td><td align="center" valign="top"><span title="GUEST-NET
+    ardana-cp1-comp0001: 10.1.1.5
+">GUEST-NET</span><br></td></tr>
+<tr><td><a href="#EXTERNAL-VM">EXTERNAL-VM</a></td><td class="title"><td align="center" valign="top"><span title="EXTERNAL-VM-NET
+    ardana-cp1-c1-m3
+    ardana-cp1-c1-m2
+    ardana-cp1-c1-m1
+">EXTERNAL-VM-NET</span><br></td><td align="center" valign="top"><span title="EXTERNAL-VM-NET
+    ardana-cp1-comp0001
+">EXTERNAL-VM-NET</span><br></td></tr>
+<tr><td><a href="#OCTAVIA-MGMT-NET">OCTAVIA-MGMT-NET</a></td><td class="title"><td class="title"><td class="title"></tr>
+</table>
+<br>
+<br>
+<h2>Network Groups</h2>
+<a name="EXTERNAL-API">
+<h3>EXTERNAL-API</h3>
+<a name="EXTERNAL-API-NET">
+<table>
+<tr><td class="title">Network Group</td><td class="title">Networks</td><td class="title"><table class="title">
+<tr><td width="120" class="title">Address</td><td width="210" class="title">Server</td><td class="title">Interface Model</td></tr>
+</table></td></tr>
+<tr><td width="240" rowspan="1" valign="top">Components:<br>&nbsp&nbsp&nbsp&nbspbind-ext<br><br>Load Balancers:<br>&nbsp&nbsp&nbsp&nbspextlb<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="Control_Planes.html#control-plane-1">control-plane-1</a><br><br></td><td width="240" valign="top">EXTERNAL-API-NET<table class="tab">
+<tr><td class="tab">vlan id:</td><td class="tab">101 (tagged)</td></tr>
+<tr><td class="tab">cidr:</td><td class="tab">10.0.1.0/24</td></tr>
+<tr><td class="tab">gateway-ip:</td><td class="tab">10.0.1.1</td></tr>
+<tr><td class="tab">mtu:</td><td class="tab">1500</td></tr>
+</table></td><td valign="top"><table class="tab">
+<tr><td width="110" class="tab">10.0.1.12<br>10.0.1.11<br>10.0.1.10<br>10.0.1.13<br><br></td><td width="200" class="tab"><a href="Servers/controller3.html">ardana-cp1-c1-m3</a><br><a href="Servers/controller2.html">ardana-cp1-c1-m2</a><br><a href="Servers/controller1.html">ardana-cp1-c1-m1</a><br><a href="Control_Planes.html#control-plane-1">extlb</a><br><br></td><td width="230" class="tab"><a href="Interface_Models.html#CONTROLLER-INTERFACES">CONTROLLER-INTERFACES</a><br><br><br><br></td></tr>
+</table></td></tr>
+<tr>
+</table>
+<br>
+<a name="EXTERNAL-VM">
+<h3>EXTERNAL-VM</h3>
+<a name="EXTERNAL-VM-NET">
+<table>
+<tr><td class="title">Network Group</td><td class="title">Networks</td><td class="title"><table class="title">
+<tr><td width="120" class="title">Address</td><td width="210" class="title">Server</td><td class="title">Interface Model</td></tr>
+</table></td></tr>
+<tr><td width="240" rowspan="1" valign="top">Network Tags:<br>&nbsp&nbsp&nbsp&nbspControl Plane: <a href="Control_Planes.html#control-plane-1">control-plane-1</a><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span title="neutron-vpn-agent
+">neutron.l3_agent.external_network_bridge</span><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span title="neutron-l3-agent
+">neutron.l3_agent.external_network_bridge</span><br><br></td><td width="240" valign="top">EXTERNAL-VM-NET<table class="tab">
+<tr><td class="tab">vlan id:</td><td class="tab">102 (tagged)</td></tr>
+<tr><td class="tab">mtu:</td><td class="tab">1500</td></tr>
+</table></td><td valign="top"><table class="tab">
+<tr><td width="110" class="tab"><br><br><br><br></td><td width="200" class="tab"><a href="Servers/controller3.html">ardana-cp1-c1-m3</a><br><a href="Servers/controller2.html">ardana-cp1-c1-m2</a><br><a href="Servers/controller1.html">ardana-cp1-c1-m1</a><br><br></td><td width="230" class="tab"><a href="Interface_Models.html#CONTROLLER-INTERFACES">CONTROLLER-INTERFACES</a><br><br><br><br></td></tr>
+<tr><td width="110" class="tab"><br><br></td><td width="200" class="tab"><a href="Servers/compute1.html">ardana-cp1-comp0001</a><br><br></td><td width="230" class="tab"><a href="Interface_Models.html#COMPUTE-INTERFACES">COMPUTE-INTERFACES</a><br><br></td></tr>
+</table></td></tr>
+<tr>
+</table>
+<br>
+<a name="GUEST">
+<h3>GUEST</h3>
+<a name="GUEST-NET">
+<table>
+<tr><td class="title">Network Group</td><td class="title">Networks</td><td class="title"><table class="title">
+<tr><td width="120" class="title">Address</td><td width="210" class="title">Server</td><td class="title">Interface Model</td></tr>
+</table></td></tr>
+<tr><td width="240" rowspan="1" valign="top">Network Tags:<br>&nbsp&nbsp&nbsp&nbspControl Plane: <a href="Control_Planes.html#control-plane-1">control-plane-1</a><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span title="neutron-openvswitch-agent
+">neutron.networks.vxlan</span><br><br></td><td width="240" valign="top">GUEST-NET<table class="tab">
+<tr><td class="tab">vlan id:</td><td class="tab">103 (tagged)</td></tr>
+<tr><td class="tab">cidr:</td><td class="tab">10.1.1.0/24</td></tr>
+<tr><td class="tab">gateway-ip:</td><td class="tab">10.1.1.1</td></tr>
+<tr><td class="tab">mtu:</td><td class="tab">1500</td></tr>
+</table></td><td valign="top"><table class="tab">
+<tr><td width="110" class="tab">10.1.1.4<br>10.1.1.3<br>10.1.1.2<br><br></td><td width="200" class="tab"><a href="Servers/controller3.html">ardana-cp1-c1-m3</a><br><a href="Servers/controller2.html">ardana-cp1-c1-m2</a><br><a href="Servers/controller1.html">ardana-cp1-c1-m1</a><br><br></td><td width="230" class="tab"><a href="Interface_Models.html#CONTROLLER-INTERFACES">CONTROLLER-INTERFACES</a><br><br><br><br></td></tr>
+<tr><td width="110" class="tab">10.1.1.5<br><br></td><td width="200" class="tab"><a href="Servers/compute1.html">ardana-cp1-comp0001</a><br><br></td><td width="230" class="tab"><a href="Interface_Models.html#COMPUTE-INTERFACES">COMPUTE-INTERFACES</a><br><br></td></tr>
+</table></td></tr>
+<tr>
+</table>
+<br>
+<a name="MANAGEMENT">
+<h3>MANAGEMENT</h3>
+<a name="MANAGEMENT-NET">
+<table>
+<tr><td class="title">Network Group</td><td class="title">Networks</td><td class="title"><table class="title">
+<tr><td width="120" class="title">Address</td><td width="210" class="title">Server</td><td class="title">Interface Model</td></tr>
+</table></td></tr>
+<tr><td width="240" rowspan="1" valign="top">Components:<br>&nbsp&nbsp&nbsp&nbspbarbican-api&nbsp(tls)<br>&nbsp&nbsp&nbsp&nbspdefault<br>&nbsp&nbsp&nbsp&nbspmysql&nbsp(tls)<br>&nbsp&nbsp&nbsp&nbsprabbitmq&nbsp(tls)<br><br>Load Balancers:<br>&nbsp&nbsp&nbsp&nbsplb<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="Control_Planes.html#control-plane-1">control-plane-1</a><br><br>Routes:<br>&nbsp&nbsp&nbsp&nbspdefault<br><test>&nbsp&nbsp&nbsp&nbsp</test><a href="#OCTAVIA-MGMT-NET">OCTAVIA-MGMT-NET</a><br><br>Network Tags:<br>&nbsp&nbsp&nbsp&nbspControl Plane: <a href="Control_Planes.html#control-plane-1">control-plane-1</a><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span title="neutron-openvswitch-agent
+  provider-physical-network: physnet1
+">neutron.networks.vlan</span><br><br></td><td width="240" valign="top">MANAGEMENT-NET<table class="tab">
+<tr><td class="tab">vlan id:</td><td class="tab">100 (untagged)</td></tr>
+<tr><td class="tab">cidr:</td><td class="tab">192.168.10.0/24</td></tr>
+<tr><td class="tab">gateway-ip:</td><td class="tab">192.168.10.1</td></tr>
+<tr><td class="tab">mtu:</td><td class="tab">1500</td></tr>
+</table></td><td valign="top"><table class="tab">
+<tr><td width="110" class="tab">192.168.10.11<br><br></td><td width="200" class="tab"><a href="Servers/lifecycle-manager.html">ardana-cp1-c0-m1</a><br><br></td><td width="230" class="tab"><a href="Interface_Models.html#LIFECYCLE-MANAGER-INTERFACES">LIFECYCLE-MANAGER-INTERFACES</a><br><br></td></tr>
+<tr><td width="110" class="tab">192.168.10.14<br>192.168.10.13<br>192.168.10.12<br>192.168.10.2<br><br></td><td width="200" class="tab"><a href="Servers/controller3.html">ardana-cp1-c1-m3</a><br><a href="Servers/controller2.html">ardana-cp1-c1-m2</a><br><a href="Servers/controller1.html">ardana-cp1-c1-m1</a><br><a href="Control_Planes.html#control-plane-1">lb</a><br><br></td><td width="230" class="tab"><a href="Interface_Models.html#CONTROLLER-INTERFACES">CONTROLLER-INTERFACES</a><br><br><br><br></td></tr>
+<tr><td width="110" class="tab">192.168.10.15<br><br></td><td width="200" class="tab"><a href="Servers/compute1.html">ardana-cp1-comp0001</a><br><br></td><td width="230" class="tab"><a href="Interface_Models.html#COMPUTE-INTERFACES">COMPUTE-INTERFACES</a><br><br></td></tr>
+</table></td></tr>
+<tr>
+</table>
+<br>
+<a name="OCTAVIA-MGMT-NET">
+<h3>OCTAVIA-MGMT-NET</h3>
+<a name="OCTAVIA-MGMT-NET">
+<table>
+<tr><td class="title">Network Group</td><td class="title">Networks</td><td class="title"><table class="title">
+<tr><td width="120" class="title">Address</td><td width="210" class="title">Server</td><td class="title">Interface Model</td></tr>
+</table></td></tr>
+<tr><td width="240" rowspan="1" valign="top"><td width="240" valign="top">OCTAVIA-MGMT-NET<table class="tab">
+<tr><td class="tab">cidr:</td><td class="tab">172.30.1.0/24</td></tr>
+<tr><td class="tab">mtu:</td><td class="tab">1500</td></tr>
+</table></td><td valign="top"><table class="tab">
+<tr>
+</table></td></tr>
+<tr>
+</table>
+<br>
+</html>

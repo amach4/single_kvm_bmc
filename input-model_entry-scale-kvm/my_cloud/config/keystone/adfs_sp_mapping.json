@@ -1,0 +1,25 @@
+[
+             {
+               "local": [{
+                     "user": {
+                         "name": "{0}"
+                     }
+                 }],
+                 "remote": [{
+                     "type": "ADFS_LOGIN"
+                 }]
+              },
+              {
+                "local": [{
+                    "group": {
+                        "id": "GROUP_ID"
+                    }
+                }],
+                "remote": [{
+                    "type": "ADFS_GROUP",
+                "any_one_of": [
+                    "Domain Users"
+                    ]
+                }]
+              }
+ ]

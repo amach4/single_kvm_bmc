@@ -1,0 +1,60 @@
+{#
+#
+# (c) Copyright 2015,2016 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+#}
+###############################
+# Default settings for logstash
+###############################
+
+# Override Java location
+#JAVACMD=/usr/bin/java
+
+# Set a home directory
+LS_HOME=/var/lib/logstash
+
+# Arguments to pass to logstash agent
+LS_OPTS="-w {{ logstash_threads }}"
+
+# Arguments to pass to java
+LS_HEAP_SIZE="{{ logstash_heap_size }}"
+#LS_JAVA_OPTS="-Djava.io.tmpdir=$HOME"
+
+# pidfiles aren't used for upstart; this is for sysv users.
+LS_PIDFILE=/var/run/logstash.pid
+
+# user id to be invoked as; for upstart: edit /etc/init/logstash.conf
+LS_USER=logstash
+
+# logstash logging
+LS_LOG_DIR=/var/log/logstash
+LS_LOG_FILE=/var/log/logstash/logstash.log
+#LS_USE_GC_LOGGING="true"
+#LS_GC_LOG_FILE=/var/log/logstash/gc.log
+
+# logstash configuration directory
+LS_CONF_DIR=/etc/logstash/conf.d
+
+# Open file limit; cannot be overridden in upstart
+LS_OPEN_FILES=16384
+
+# Nice level
+LS_NICE=19
+
+# If this is set to 1, then when `stop` is called, if the process has
+# not exited within a reasonable time, SIGKILL will be sent next.
+# The default behavior is to simply log a message "program stop failed; still running"
+KILL_ON_STOP_TIMEOUT=1

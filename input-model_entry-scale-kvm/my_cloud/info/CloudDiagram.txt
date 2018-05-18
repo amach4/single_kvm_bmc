@@ -1,0 +1,195 @@
++-ControlPlane: region1 (control-plane-1)----------------------------------------------------------------------------------------------------------------------+
+|                                                                                                                                                              |
+| +-Cluster cluster0 ()------------------------------+                                                                                                         |
+| |                                                  |                                                                                                         |
+| | +-ardana-cp1-c0-m1 (192.168.10.11)-------------+ |                                                                                                         |
+| | |                                              | |                                                                                                         |
+| | | ardana                                       | |                                                                                                         |
+| | |   ardana-service                             | |                                                                                                         |
+| | |   lifecycle-manager                          | |                                                                                                         |
+| | |   lifecycle-manager-target                   | |                                                                                                         |
+| | | foundation                                   | |                                                                                                         |
+| | |   ardana-ca                                  | |                                                                                                         |
+| | |   stunnel                                    | |                                                                                                         |
+| | | freezer                                      | |                                                                                                         |
+| | |   freezer-agent                              | |                                                                                                         |
+| | | logging                                      | |                                                                                                         |
+| | |   logging-producer                           | |                                                                                                         |
+| | |   logging-rotate                             | |                                                                                                         |
+| | | monasca                                      | |                                                                                                         |
+| | |   monasca-agent                              | |                                                                                                         |
+| | | tempest                                      | |                                                                                                         |
+| | |   tempest                                    | |                                                                                                         |
+| | |                                              | |                                                                                                         |
+| | | -------------------------------------------- | |                                                                                                         |
+| | |                                              | |                                                                                                         |
+| | | bond0 (hed1, hed2)                           | |                                                                                                         |
+| | |   MANAGEMENT-NET (192.168.10.11)             | |                                                                                                         |
+| | |                                              | |                                                                                                         |
+| | +----------------------------------------------+ |                                                                                                         |
+| |                                                  |                                                                                                         |
+| +--------------------------------------------------+                                                                                                         |
+|                                                                                                                                                              |
+| +-Cluster cluster1 ()--------------------------------------------------------------------------------------------------------------------------------------+ |
+| |                                                                                                                                                          | |
+| | +-ardana-cp1-c1-m1 (192.168.10.12)-------------+    +-ardana-cp1-c1-m2 (192.168.10.13)-------------+    +-ardana-cp1-c1-m3 (192.168.10.14)-------------+ | |
+| | |                                              |    |                                              |    |                                              | | |
+| | | ardana                                       |    | ardana                                       |    | ardana                                       | | |
+| | |   lifecycle-manager-target                   |    |   lifecycle-manager-target                   |    |   lifecycle-manager-target                   | | |
+| | | barbican                                     |    | barbican                                     |    | barbican                                     | | |
+| | |   barbican-api                               |    |   barbican-api                               |    |   barbican-api                               | | |
+| | |   barbican-worker                            |    |   barbican-worker                            |    |   barbican-worker                            | | |
+| | | ceilometer                                   |    | ceilometer                                   |    | ceilometer                                   | | |
+| | |   ceilometer-agent-notification              |    |   ceilometer-agent-notification              |    |   ceilometer-agent-notification              | | |
+| | |   ceilometer-api                             |    |   ceilometer-api                             |    |   ceilometer-api                             | | |
+| | |   ceilometer-common                          |    |   ceilometer-common                          |    |   ceilometer-common                          | | |
+| | |   ceilometer-polling                         |    |   ceilometer-polling                         |    |   ceilometer-polling                         | | |
+| | | cinder                                       |    | cinder                                       |    | cinder                                       | | |
+| | |   cinder-api                                 |    |   cinder-api                                 |    |   cinder-api                                 | | |
+| | |   cinder-backup                              |    |   cinder-backup                              |    |   cinder-backup                              | | |
+| | |   cinder-scheduler                           |    |   cinder-scheduler                           |    |   cinder-scheduler                           | | |
+| | |   cinder-volume                              |    |   cinder-volume                              |    |   cinder-volume                              | | |
+| | | clients                                      |    | clients                                      |    | clients                                      | | |
+| | |   barbican-client                            |    |   barbican-client                            |    |   barbican-client                            | | |
+| | |   ceilometer-client                          |    |   ceilometer-client                          |    |   ceilometer-client                          | | |
+| | |   cinder-client                              |    |   cinder-client                              |    |   cinder-client                              | | |
+| | |   designate-client                           |    |   designate-client                           |    |   designate-client                           | | |
+| | |   glance-client                              |    |   glance-client                              |    |   glance-client                              | | |
+| | |   heat-client                                |    |   heat-client                                |    |   heat-client                                | | |
+| | |   keystone-client                            |    |   keystone-client                            |    |   keystone-client                            | | |
+| | |   magnum-client                              |    |   magnum-client                              |    |   magnum-client                              | | |
+| | |   monasca-client                             |    |   monasca-client                             |    |   monasca-client                             | | |
+| | |   neutron-client                             |    |   neutron-client                             |    |   neutron-client                             | | |
+| | |   nova-client                                |    |   nova-client                                |    |   nova-client                                | | |
+| | |   openstack-client                           |    |   openstack-client                           |    |   openstack-client                           | | |
+| | |   swift-client                               |    |   swift-client                               |    |   swift-client                               | | |
+| | | designate                                    |    | designate                                    |    | designate                                    | | |
+| | |   designate-api                              |    |   designate-api                              |    |   designate-api                              | | |
+| | |   designate-central                          |    |   designate-central                          |    |   designate-central                          | | |
+| | |   designate-mdns                             |    |   designate-mdns                             |    |   designate-mdns                             | | |
+| | |   designate-pool-manager                     |    |   designate-pool-manager                     |    |   designate-pool-manager                     | | |
+| | |   designate-zone-manager                     |    |   designate-zone-manager                     |    |   designate-zone-manager                     | | |
+| | | foundation                                   |    | foundation                                   |    | foundation                                   | | |
+| | |   apache2                                    |    |   apache2                                    |    |   apache2                                    | | |
+| | |   bind                                       |    |   bind                                       |    |   bind                                       | | |
+| | |   bind-ext                                   |    |   bind-ext                                   |    |   bind-ext                                   | | |
+| | |   cassandra                                  |    |   cassandra                                  |    |   cassandra                                  | | |
+| | |   ip-cluster                                 |    |   ip-cluster                                 |    |   ip-cluster                                 | | |
+| | |   kafka                                      |    |   kafka                                      |    |   kafka                                      | | |
+| | |   memcached                                  |    |   memcached                                  |    |   memcached                                  | | |
+| | |   mysql                                      |    |   mysql                                      |    |   mysql                                      | | |
+| | |   ntp-server                                 |    |   ntp-server                                 |    |   ntp-server                                 | | |
+| | |   rabbitmq                                   |    |   rabbitmq                                   |    |   rabbitmq                                   | | |
+| | |   spark                                      |    |   spark                                      |    |   spark                                      | | |
+| | |   storm                                      |    |   storm                                      |    |   storm                                      | | |
+| | |   stunnel                                    |    |   stunnel                                    |    |   stunnel                                    | | |
+| | |   zookeeper                                  |    |   zookeeper                                  |    |   zookeeper                                  | | |
+| | | freezer                                      |    | freezer                                      |    | freezer                                      | | |
+| | |   freezer-agent                              |    |   freezer-agent                              |    |   freezer-agent                              | | |
+| | |   freezer-api                                |    |   freezer-api                                |    |   freezer-api                                | | |
+| | | glance                                       |    | glance                                       |    | glance                                       | | |
+| | |   glance-api                                 |    |   glance-api                                 |    |   glance-api                                 | | |
+| | |   glance-registry                            |    |   glance-registry                            |    |   glance-registry                            | | |
+| | | heat                                         |    | heat                                         |    | heat                                         | | |
+| | |   heat-api                                   |    |   heat-api                                   |    |   heat-api                                   | | |
+| | |   heat-api-cfn                               |    |   heat-api-cfn                               |    |   heat-api-cfn                               | | |
+| | |   heat-api-cloudwatch                        |    |   heat-api-cloudwatch                        |    |   heat-api-cloudwatch                        | | |
+| | |   heat-engine                                |    |   heat-engine                                |    |   heat-engine                                | | |
+| | | horizon                                      |    | horizon                                      |    | horizon                                      | | |
+| | |   horizon                                    |    |   horizon                                    |    |   horizon                                    | | |
+| | | keystone                                     |    | keystone                                     |    | keystone                                     | | |
+| | |   keystone-api                               |    |   keystone-api                               |    |   keystone-api                               | | |
+| | | logging                                      |    | logging                                      |    | logging                                      | | |
+| | |   logging-api                                |    |   logging-api                                |    |   logging-api                                | | |
+| | |   logging-producer                           |    |   logging-producer                           |    |   logging-producer                           | | |
+| | |   logging-rotate                             |    |   logging-rotate                             |    |   logging-rotate                             | | |
+| | |   logging-server                             |    |   logging-server                             |    |   logging-server                             | | |
+| | | magnum                                       |    | magnum                                       |    | magnum                                       | | |
+| | |   magnum-api                                 |    |   magnum-api                                 |    |   magnum-api                                 | | |
+| | |   magnum-conductor                           |    |   magnum-conductor                           |    |   magnum-conductor                           | | |
+| | | monasca                                      |    | monasca                                      |    | monasca                                      | | |
+| | |   monasca-agent                              |    |   monasca-agent                              |    |   monasca-agent                              | | |
+| | |   monasca-api                                |    |   monasca-api                                |    |   monasca-api                                | | |
+| | |   monasca-liveness-check                     |    |   monasca-liveness-check                     |    |   monasca-liveness-check                     | | |
+| | |   monasca-notifier                           |    |   monasca-notifier                           |    |   monasca-notifier                           | | |
+| | |   monasca-persister                          |    |   monasca-persister                          |    |   monasca-persister                          | | |
+| | |   monasca-threshold                          |    |   monasca-threshold                          |    |   monasca-threshold                          | | |
+| | |   monasca-transform                          |    |   monasca-transform                          |    |   monasca-transform                          | | |
+| | | neutron                                      |    | neutron                                      |    | neutron                                      | | |
+| | |   neutron-dhcp-agent                         |    |   neutron-dhcp-agent                         |    |   neutron-dhcp-agent                         | | |
+| | |   neutron-metadata-agent                     |    |   neutron-metadata-agent                     |    |   neutron-metadata-agent                     | | |
+| | |   neutron-ml2-plugin                         |    |   neutron-ml2-plugin                         |    |   neutron-ml2-plugin                         | | |
+| | |   neutron-openvswitch-agent                  |    |   neutron-openvswitch-agent                  |    |   neutron-openvswitch-agent                  | | |
+| | |   neutron-server                             |    |   neutron-server                             |    |   neutron-server                             | | |
+| | |   neutron-vpn-agent                          |    |   neutron-vpn-agent                          |    |   neutron-vpn-agent                          | | |
+| | | nova                                         |    | nova                                         |    | nova                                         | | |
+| | |   nova-api                                   |    |   nova-api                                   |    |   nova-api                                   | | |
+| | |   nova-conductor                             |    |   nova-conductor                             |    |   nova-conductor                             | | |
+| | |   nova-console-auth                          |    |   nova-console-auth                          |    |   nova-console-auth                          | | |
+| | |   nova-metadata                              |    |   nova-metadata                              |    |   nova-metadata                              | | |
+| | |   nova-novncproxy                            |    |   nova-novncproxy                            |    |   nova-novncproxy                            | | |
+| | |   nova-placement-api                         |    |   nova-placement-api                         |    |   nova-placement-api                         | | |
+| | |   nova-scheduler                             |    |   nova-scheduler                             |    |   nova-scheduler                             | | |
+| | | octavia                                      |    | octavia                                      |    | octavia                                      | | |
+| | |   octavia-api                                |    |   octavia-api                                |    |   octavia-api                                | | |
+| | |   octavia-health-manager                     |    |   octavia-health-manager                     |    |   octavia-health-manager                     | | |
+| | | operations                                   |    | operations                                   |    | operations                                   | | |
+| | |   ops-console-web                            |    |   ops-console-web                            |    |   ops-console-web                            | | |
+| | | swift                                        |    | swift                                        |    | swift                                        | | |
+| | |   swift-account                              |    |   swift-account                              |    |   swift-account                              | | |
+| | |   swift-common                               |    |   swift-common                               |    |   swift-common                               | | |
+| | |   swift-container                            |    |   swift-container                            |    |   swift-container                            | | |
+| | |   swift-object                               |    |   swift-object                               |    |   swift-object                               | | |
+| | |   swift-proxy                                |    |   swift-proxy                                |    |   swift-proxy                                | | |
+| | |   swift-ring-builder                         |    |   swift-ring-builder                         |    |   swift-ring-builder                         | | |
+| | |   swift-rsync                                |    |   swift-rsync                                |    |   swift-rsync                                | | |
+| | |                                              |    |                                              |    |                                              | | |
+| | | -------------------------------------------- |    | -------------------------------------------- |    | -------------------------------------------- | | |
+| | |                                              |    |                                              |    |                                              | | |
+| | | bond0 (hed1, hed2)                           |    | bond0 (hed1, hed2)                           |    | bond0 (hed1, hed2)                           | | |
+| | |   EXTERNAL-API-NET (10.0.1.10)               |    |   EXTERNAL-API-NET (10.0.1.11)               |    |   EXTERNAL-API-NET (10.0.1.12)               | | |
+| | |   EXTERNAL-VM-NET                            |    |   EXTERNAL-VM-NET                            |    |   EXTERNAL-VM-NET                            | | |
+| | |   GUEST-NET (10.1.1.2)                       |    |   GUEST-NET (10.1.1.3)                       |    |   GUEST-NET (10.1.1.4)                       | | |
+| | |   MANAGEMENT-NET (192.168.10.12)             |    |   MANAGEMENT-NET (192.168.10.13)             |    |   MANAGEMENT-NET (192.168.10.14)             | | |
+| | |                                              |    |                                              |    |                                              | | |
+| | +----------------------------------------------+    +----------------------------------------------+    +----------------------------------------------+ | |
+| |                                                                                                                                                          | |
+| +----------------------------------------------------------------------------------------------------------------------------------------------------------+ |
+|                                                                                                                                                              |
+| +-compute------------------------------------------+                                                                                                         |
+| |                                                  |                                                                                                         |
+| | +-COMPUTE-ROLE (AZ1) (1 servers)---------------+ |                                                                                                         |
+| | |                                              | |                                                                                                         |
+| | | ardana                                       | |                                                                                                         |
+| | |   lifecycle-manager-target                   | |                                                                                                         |
+| | | foundation                                   | |                                                                                                         |
+| | |   ntp-client                                 | |                                                                                                         |
+| | |   stunnel                                    | |                                                                                                         |
+| | | freezer                                      | |                                                                                                         |
+| | |   freezer-agent                              | |                                                                                                         |
+| | | logging                                      | |                                                                                                         |
+| | |   logging-producer                           | |                                                                                                         |
+| | |   logging-rotate                             | |                                                                                                         |
+| | | monasca                                      | |                                                                                                         |
+| | |   monasca-agent                              | |                                                                                                         |
+| | | neutron                                      | |                                                                                                         |
+| | |   neutron-l3-agent                           | |                                                                                                         |
+| | |   neutron-lbaasv2-agent                      | |                                                                                                         |
+| | |   neutron-metadata-agent                     | |                                                                                                         |
+| | |   neutron-openvswitch-agent                  | |                                                                                                         |
+| | | nova                                         | |                                                                                                         |
+| | |   nova-compute                               | |                                                                                                         |
+| | |   nova-compute-kvm                           | |                                                                                                         |
+| | |                                              | |                                                                                                         |
+| | | -------------------------------------------- | |                                                                                                         |
+| | |                                              | |                                                                                                         |
+| | | bond0 (hed1, hed2)                           | |                                                                                                         |
+| | |   EXTERNAL-VM-NET                            | |                                                                                                         |
+| | |   GUEST-NET (10.1.1.0/24)                    | |                                                                                                         |
+| | |   MANAGEMENT-NET (192.168.10.0/24)           | |                                                                                                         |
+| | |                                              | |                                                                                                         |
+| | +----------------------------------------------+ |                                                                                                         |
+| +--------------------------------------------------+                                                                                                         |
+|                                                                                                                                                              |
++--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+

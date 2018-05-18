@@ -1,0 +1,49 @@
+#
+# (c) Copyright 2016 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+
+keystone_trusted_idp: k2k
+keystone_sp_conf:
+    target_domain:
+        name: domain1
+        description: my domain
+    target_project:
+        name: project1
+        description: my project
+    target_group:
+        name: group1
+        description: my group
+    role:
+        name: service
+    idp_metadata_file: /tmp/idp_metadata.xml
+    identity_provider:
+        id: z420_idp
+        description: This is the identity service provider on the z420 box.
+    mapping:
+        id: mapping1
+        rules_file: /tmp/k2k_mapping.json
+    protocol:
+        id: saml2
+    attribute_map:
+        -
+          name: name1
+          id: id1
+        -
+          name: name2
+          id: id2
+    shib_sso_application_entity_id: http://sp_uri_entityId
+    shib_sso_idp_entity_id: <protocol>://<idp_host>:<port>/v3/OS-FEDERATION/saml2/idp

@@ -1,0 +1,116 @@
+#
+# (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+
+# Possible log levels are INFO/DEBUG/WARN/ERROR
+barbican_loglevel: "{{ ardana_loglevel | default('INFO') }}"
+barbican_logstash_loglevel: "{{ ardana_loglevel | default('INFO') }}"
+
+#########################################################################################
+# Using uwsgi adaptive process spawning to dynamically scale workers.
+# See http://uwsgi-docs.readthedocs.org/en/latest/Cheaper.html
+# cheaper-algo = spare, cheaper = 4 (min count), cheaper-initial = 6
+
+# Set maximum number of workers that can be spawned. Max value is dynamically
+# calculated based on underlying hardware capability.
+# If dynamically calculated value is less than 8, then 8 is used.
+# Max count needs to be greater than min count (below). If its set to lower or equal
+# value, then max count is updated to be 4 higher than min count.
+barbican_api_max_worker_count:  "{{ ansible_processor_count * ansible_processor_cores * 2| default('8') }}"
+
+# Minimum number of idle workers to be kept running.
+barbican_api_min_worker_count: 4
+
+# Number of workers to create at barbican api server startup
+#barbican_api_initial_worker_count: 6
+barbican_api_initial_worker_count: 4
+
+# Multi-processing is used instead of threading. Threads are kept 1
+# Python threading is useful in high IO load interactions.
+barbican_api_threads_count:  1
+#########################################################################################
+
+
+# Customer provided master key during first time barbican initial deployment.
+# The key should be a 32-byte value which is base64 encoded.
+# This value must be set before cloud deployment (with site.yml) starts.
+# Note: Master key should not be changed as there can be existing entries using
+# this key for encrypting barbican project kek and secrets.
+# barbican_customer_master_key: "3Z8QOImQyi2PAZUHjcqfxkcvZhPlHyXlH2wqjgwRpDI="
+barbican_customer_master_key:
+
+#######################################################################
+#################### KMIP Plugin Configuration Section #################
+#######################################################################
+# Flag to reflect whether KMIP plugin is to be used as backend for storing secrets
+use_kmip_secretstore_plugin: False
+
+# Note: Connection username needs to match with 'Common Name' provided
+# in client cert request (CSR).
+barbican_kmip_username:
+barbican_kmip_password:
+barbican_kmip_host:
+barbican_kmip_port:
+
+###############################################################################
+#################### PKCS11 Crypto Plugin Configuration Section ###############
+###############################################################################
+
+# Set to True when want to use PKCS11 crypto plugin. This plugin stores project
+# level kek and master kek in PKCS11 compatible HSM device. Encrypted keys are
+# stored in DB using 'store_crypto' secret store plugin. A deployment can use
+# HSM device either via PKCS11 crypto model or KMIP plugin model. Both cannot
+# be enabled within a single barbican deployment.
+use_pkcs11_crypto_plugin: False
+
+barbican_pkcs11_session_password:
+barbican_pkcs11_mkek_label:
+barbican_pkcs11_hmac_label:
+
+
+# There is a in-memory cache used with pkcs11 interaction where object handle
+# (pointer) to project kek (key encryption key) is stored. This handle is a
+# reference to key which is created in HSM as part of unwrap (register/import)
+# of 'wrapped_key' column in 'kek_data' table. This handle is added to cache
+# when project kek is needed first time on that specific barbican node/process.
+# These object handles are destoryed in HSM only when expired handle is
+# accessed or cache size limit is reached. This cache cannot be disabled though
+# value of ttl seconds or size limit can be reduced if need to limit caching
+# behavior.
+
+# pkcs11 project kek (key encryption key) cache time to live (expiry) seconds.
+barbican_pkcs11_project_kek_cache_ttl_secs: 900
+# pkcs11 project kek (key encryption key) cache max size.
+barbican_pkcs11_project_kek_cache_size: 100
+
+# HSM Slot id (Should correspond to a configured PKCS11 slot). Default: 1
+# Change here if it needs to be different from default
+barbican_pkcs11_slot_id: 1
+
+# Flag to set to True if ESKM is used as HSM otherwise keep it False.
+# With following flag set to True, playbook will use ESKM predefined path
+# so those are not required in that case.
+barbican_pkcs11_provider_is_eskm:
+barbican_pkcs11_eskm_kmip_host:
+barbican_pkcs11_eskm_kmip_port:
+
+# Following are required paths on controller nodes related to PKCS11 setup.
+# With flag barbican_pkcs11_provider_is_eskm as True, following paths are not
+# required as default expected paths are used for ESKM PKCS11 library.
+barbican_pkcs11_library_path:
+barbican_pkcs11_client_cert_path:
+barbican_pkcs11_client_key_path:
+barbican_pkcs11_client_cacert_path:

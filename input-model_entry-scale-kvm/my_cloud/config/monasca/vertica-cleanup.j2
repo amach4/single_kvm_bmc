@@ -1,0 +1,43 @@
+#!/bin/sh
+#
+# (c) Copyright 2015,2017 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+. /etc/profile.d/vertica_node.sh
+vertica_command="/opt/vertica/bin/vsql -U dbadmin -w \"{{ vertica_dbadmin_password }}\" -t -c"
+
+#Get date from vertica
+day=$(eval "$vertica_command \"SELECT EXTRACT(DAY FROM (SELECT 'NOW'::TIMESTAMP - INTERVAL '{{ vertica_retention_period }} day'));\"")
+month=$(eval "$vertica_command \"SELECT EXTRACT(MONTH FROM (SELECT 'NOW'::TIMESTAMP - INTERVAL '{{ vertica_retention_period }} day'));\"")
+year=$(eval "$vertica_command \"SELECT EXTRACT(YEAR FROM (SELECT 'NOW'::TIMESTAMP - INTERVAL '{{ vertica_retention_period }} day'));\"")
+
+checkdate=$((($year * 10000) + ($month * 100) + $day))
+
+#Get partition ids that need to be deleted
+partition_keys=$(eval "$vertica_command \"SELECT DISTINCT partition_key from PARTITIONS where partition_key < '$checkdate'\"")
+
+#Delete partitions
+for key in $partition_keys; do
+  eval "$vertica_command \"SELECT DROP_PARTITION('MonMetrics.Measurements', '$key')\""
+  eval "$vertica_command \"SELECT DROP_PARTITION('MonAlarms.StateHistory', '$key')\""
+done
+
+eval "$vertica_command \"DELETE FROM MonMetrics.DefinitionDimensions WHERE id NOT IN (SELECT DISTINCT definition_dimensions_id FROM MonMetrics.Measurements); COMMIT;\""
+
+eval "$vertica_command \"DELETE FROM MonMetrics.Definitions WHERE id NOT IN (SELECT DISTINCT definition_id FROM MonMetrics.DefinitionDimensions); COMMIT;\""
+
+eval "$vertica_command \"DELETE FROM MonMetrics.Dimensions WHERE dimension_set_id NOT IN (SELECT DISTINCT dimension_set_id FROM MonMetrics.DefinitionDimensions); COMMIT;\""
+
+eval "logrotate /opt/vertica/config/logrotate_base.conf"

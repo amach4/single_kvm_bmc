@@ -1,0 +1,184 @@
+
+#
+# (c) Copyright 2015-2017 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+#}
+# This configuration file includes the default values for Ardana Openstack
+# Changes may be made to this file by customers.
+# The changes here apply to all neutron components.
+
+[DEFAULT]
+router_distributed = {{ router_distributed }}
+debug = True
+log_format = %(asctime)s %(levelname)8s [%(name)s] %(message)s
+log_date_format = %Y-%m-%d %H:%M:%S
+use_syslog = False
+use_stderr = False
+log_dir = /var/log/neutron
+{% if host.bind.NEU_SVR is defined %}
+bind_host = {{ neutron_bind_host }}
+bind_port = 9696
+{% endif %}
+core_plugin = {{ neutron_core_plugin }}
+service_plugins = {{ neutron_service_plugins }}
+api_paste_config = api-paste.ini
+auth_strategy = keystone
+dhcp_lease_duration = 172800
+allow_bulk = True
+allow_overlapping_ips = True
+agent_down_time = 300
+router_scheduler_driver = neutron.scheduler.l3_agent_scheduler.LeastRoutersScheduler
+allow_automatic_l3agent_failover = False
+dhcp_agents_per_network = 2
+api_workers = {{ neutron_api_workers }}
+rpc_workers = {{ neutron_rpc_workers }}
+rpc_response_timeout = 120
+max_l3_agents_per_router = 2
+l3_ha = {{ neutron_l3_ha }}
+l3_ha_net_cidr = 169.254.192.0/18
+dns_domain = {{ dns_domain }}
+transport_url = {{ neutron_transport_url }}
+{{ neutron_api_extensions_path|trim }}
+{{ neutron_external_dns_driver|trim }}
+
+# Uncomment the line below if the Reference Pluggable IPAM driver is to be used
+# ipam_driver = internal
+
+# Uncomment the lines below if the Infoblox IPAM driver is to be used
+# ipam_driver = networking_infoblox.ipam.driver.InfobloxPool
+
+[oslo_concurrency]
+lock_path = {{ neutron_common_rundir }}/lock
+
+[oslo_messaging_rabbit]
+# Keep the rabbit_use_ssl in place for now. Currently ardana is still built
+# on the prerelease-newton branch.
+# TODO(sma): Remove rabbit_use_ssl after the ardana neutron venv is built
+# using the prerelease-pike branch
+rabbit_use_ssl = {{ neutron_rabbit_use_ssl }}
+ssl = {{ neutron_rabbit_use_ssl }}
+
+[oslo_messaging_notifications]
+topics = notifications
+
+# Comment out the line below if the Infoblox IPAM Driver is to be used
+driver = messaging
+
+# Uncomment the lines below if the Infoblox IPAM driver is to be used
+# driver = messagingv2
+
+[oslo_policy]
+policy_file = {{ neutron_policy_file }}
+
+# Modify the infoblox sections below to suit your cloud environment
+[infoblox]
+cloud_data_center_id = 1
+
+# This name of this section is formed by "infoblox-dc:<infoblox.cloud_data_center_id>"
+# If cloud_data_center_id is 1, then the section name is "infoblox-dc:1"
+[infoblox-dc:1]
+http_request_timeout = 120
+http_pool_maxsize = 100
+http_pool_connections = 100
+ssl_verify = False
+wapi_version = 2.2.2
+admin_user_name = admin
+admin_password = infoblox
+grid_master_name = infoblox.localdomain
+grid_master_host = 1.2.3.4
+
+
+[QUOTAS]
+quota_driver = neutron.db.quota.driver.DbQuotaDriver
+quota_items = network,subnet,port,floatingip,router,security_group,security_group_rule
+
+
+[AGENT]
+root_helper = {{ neutron_root_helper }}
+root_helper_daemon = {{ neutron_root_helper_daemon }}
+use_helper_for_ns_read = {{ neutron_use_helper_for_ns_read }}
+
+
+[keystone_authtoken]
+auth_type = password
+auth_uri = {{ neutron_auth_uri }}
+auth_url = {{ neutron_auth_url }}
+project_name = {{ neutron_admin_project_name }}
+project_domain_name = {{ neutron_project_domain_name }}
+user_domain_name = {{ neutron_user_domain_name }}
+username = {{ neutron_admin_user }}
+password = {{ neutron_admin_password }}
+region_name = {{ neutron_keystone_region_name }}
+cafile = {{ neutron_cacert_file }}
+service_token_roles_required = true
+service_token_roles = admin
+memcached_servers = {{ memcached_servers }}
+memcache_security_strategy = ENCRYPT
+memcache_secret_key = {{ memcache_secret_key }}
+memcache_pool_socket_timeout = 1
+
+[audit_middleware_notifications]
+driver = log
+
+
+[database]
+connection = {{ neutron_db_connection }}
+max_retries = -1
+max_pool_size = 50
+
+[nova]
+auth_type = v3password
+username = {{ neutron_nova_admin_username }}
+project_name = {{ neutron_nova_admin_project_name }}
+password = {{ neutron_nova_admin_password }}
+auth_url = {{ neutron_nova_admin_auth_url }}
+project_domain_name = Default
+user_domain_name = Default
+timeout = 30
+endpoint_type = internal
+region_name = {{ neutron_nova_region_name }}
+cafile = {{ neutron_cacert_file }}
+
+[service_providers]
+{{ neutron_lbaas_providers }}
+service_provider = VPN:strongswan:neutron_vpnaas.services.vpn.service_drivers.ipsec.IPsecVPNDriver:default
+service_provider = FIREWALL:Iptables:neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver:default
+
+[octavia]
+base_url = {{ octavia_api_uri }}
+request_poll_timeout = 3000
+
+[service_auth]
+auth_url = {{ neutron_auth_uri }}/v3
+admin_tenant_name = {{ keystone.admin_project_name }}
+admin_user_domain = {{ keystone.default_domain_name }}
+admin_project_domain = {{ keystone.default_domain_name }}
+region = {{ neutron_api.public_region }}
+admin_user = {{ neutron_admin_user }}
+admin_password = {{ neutron_admin_password }}
+auth_version = 3
+endpoint_type = internal
+
+
+{% for snippet in neutron_conf_snippets %}
+{% include snippet %}
+{% endfor %}
+
+
+# Add additional options here
+
+
+# Do not add anything after this line

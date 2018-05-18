@@ -1,0 +1,27 @@
+#
+# (c) Copyright 2016 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+
+keystone_k2k_idp_conf:
+    service_provider:
+        -
+          id: z620_sp
+          description: This is service provider who sits on the z620 box.
+          sp_url: https://service_provider_host:5000
+          auth_url: https://service_provider_host:5000/v3
+    signer_cert: -----BEGIN CERTIFICATE-----\nMIIDmDCCAoACCQDS+ZDoUfrcIzANBgkqhkiG9w0BAQsFADCBjDELMAkGA1UEBhMC\nVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExEjAQBgNVBAcMCVN1bm55dmFsZTEMMAoG\nA1UECgwDSFBFMRQwEgYDVQQLDAtFbmdpbmVlcmluZzEQMA4GA1UEAwwHSzJLX0lk\nUDEeMBwGCSqGSIb3DQEJARYPazJrX2lkcEBocGUuY29tMCAXDTE1MTEyMDAxMjg1\nMFoYDzIxMTUxMDI3MDEyODUwWjCBjDELMAkGA1UEBhMCVVMxEzARBgNVBAgMCkNh\nbGlmb3JuaWExEjAQBgNVBAcMCVN1bm55dmFsZTEMMAoGA1UECgwDSFBFMRQwEgYD\nVQQLDAtFbmdpbmVlcmluZzEQMA4GA1UEAwwHSzJLX0lkUDEeMBwGCSqGSIb3DQEJ\nARYPazJrX2lkcEBocGUuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC\nAQEA1gRiHiwSO6L5PrtroHi/f17DQBOpJ1KMnS9FOHSm1mES2xlB46y/GebGIZp+\nivUbLvbJHdi0axcA0OuzCLPx6t338npJzEELXNHhlSJ2KHUuLtdpltsFGMISFjD5\nkuQgBi4bEUyhQFRWkcgqL3fK5lwTB/YaMRMnLA67QDvSPOFcJFZIOhICY0cVKsHJ\nxxRbi8XfNZOLE65+yq5onxZuWH+Kbg7bOGBl45YXXjncjSN/LjruoDYv+PrHuCuF\n8B9k7F7PtGaYBnqf4z79DErxdjQZvJ3rN7W/qj04gcdaeAxoHy0+cCp+2zejerEh\n00ax1NYYnPRrEhrcU8wbM47UvQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQDD99xf\nDw4+XRzU5ii1YuJpIsFWxbCfCqAfBtz6WaEV/UssKiEkcsasOseQvD7EUMVRhxlP\ne+7Al/vazn4xwSJzthv3NQq5g5rAMuY9Dsu5Smyok6ygY1mAAJcLGfF2VtaaSo8B\nUGj5SN8jjhOG+Yh2aNOBt6GVJlE36oFeHRVPGByq/UEGlozEWT4qAZHql8/nQlzD\nhup36JhXxtgeP/DMQOAn7HYeVJQ6+xoUWZIQhvrlvDdhWskasfOtPqI0c8/BLFoL\nCvX5vYvFSXZMyhNnMOOPyf7bTXEr+TBCVaO957FLowGv8VnW/nLVEL5tkTRWVy1A\nOpKEvhlMsl5I/tle\n-----END CERTIFICATE-----
+    signer_key: -----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEA1gRiHiwSO6L5PrtroHi/f17DQBOpJ1KMnS9FOHSm1mES2xlB\n46y/GebGIZp+ivUbLvbJHdi0axcA0OuzCLPx6t338npJzEELXNHhlSJ2KHUuLtdp\nltsFGMISFjD5kuQgBi4bEUyhQFRWkcgqL3fK5lwTB/YaMRMnLA67QDvSPOFcJFZI\nOhICY0cVKsHJxxRbi8XfNZOLE65+yq5onxZuWH+Kbg7bOGBl45YXXjncjSN/Ljru\noDYv+PrHuCuF8B9k7F7PtGaYBnqf4z79DErxdjQZvJ3rN7W/qj04gcdaeAxoHy0+\ncCp+2zejerEh00ax1NYYnPRrEhrcU8wbM47UvQIDAQABAoIBADOcAv07q3nuJyTV\nlXKxK5zPgU4mb5gn8/jDuXGPz9vKtP1Y7ea1dbANUqIv22wvB0sgAAfOhlN8zJmU\n/SuQGTqGJJC4pKs41ECh7EBGey/uciChmbjjQCtkQXBQhx7BHGfhHm3hiNE2hVnK\nZ0HjJW6/rWcyFcbX045wTv+CbYR4cwGktQH+uzIkf4nxEzZ+v8ubx/JDLUet6eNz\nLPKLasIhiOU4YL2poX5wJ68up3SOTDHOOPlGvp26ml5ZhfhEiqnHZyR0x6vqTWi6\nwUrBOAwz6gnifmAdPLglso61b+S6VGfTCyyjCldj6Yrj8DMbPpO/gAXY2Xgs1Rpy\nAciL1wECgYEA82IDWOwNBhqnW4DzXaYRpHjx32ttPb60NKYtk4e33v9TW8IEXH5W\n4SVxFoDxor4Mmqp3k2CEKhmf6VRrxJNFYIqXRUqO5dBjh237zLVP4UCHhW3p3+uM\nKZl0bZ605jhd0WUGvzN2s0iP+1q+6m/++8hW008RB38LCKYsh6QHqjECgYEA4Rym\nq40ylLqqdCo3sYetR6eqidT7/8rZvN7EmaXHsvW1oCVhBxWd+X/7DCYztVGOOwM8\n7eKXZPtkEV3rWzgCE7NSP8X7AbOxej9Z9qYeM282KjYCHclJD/wkCwa1btX3qGGF\ngDbVw3/DcCmTkUWtq08zdz0HGfPC9fc+UTw95E0CgYA1BwrhqfSgetgx6KOdqNw5\nMJzKZ/aSOGW8/uP5O93E+W5pFJmsqV42idjc5VVAdxX58OBCvQmuvoyH4vvkBY5d\nHXUeBMOjsMausDjnfi2cT1n3qV4GiqSsP6INbEHP00IlqFRS/lyDbXDpe/kSzToK\nE7lPKu/z6Ss3RDV5jDSbUQKBgQCDJbMAPPmb5ohJtxLNTdMo7MiRFlFd+6sQuuPk\n8809OKMA0uYNP43SfroeoN79Iq9vN/q2SI2VGlR5PbNRaHblTVJ8rvYGTs71/pSF\n+s+bfY4b120yN0NmmanR9q2bDfMD2RTy1n+BLx0IamB7gRGlvTWpoRdTCk2qCMn4\nf9U6/QKBgB8g8Q9hc2WDRjk6K+xyfNZ3pCiHmjTHvCt305DhRDjEjenj0WuXW/QW\nfHvjOW+UrZXg5K56ZKNbew8i5W4McrUoxFhk5rZRisFgetD4gxSgPCuiY7fE/QDX\nScXlxGigdJBUDKkmsdO4q0H1EGXYudTYP8x14v0U8S1N+3SifgBu\n-----END RSA PRIVATE KEY-----

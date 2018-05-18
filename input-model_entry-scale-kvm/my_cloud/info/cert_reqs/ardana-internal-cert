@@ -1,0 +1,60 @@
+[req]
+distinguished_name = req_distinguished_name
+req_extensions = v3_req
+prompt = no
+
+[ req_distinguished_name ]
+CN = "ardana-vip"
+
+[ v3_req ]
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.1 = "ardana-cp1-vip-ARD-SVC-mgmt"
+DNS.2 = "ardana-cp1-vip-CEI-API-mgmt"
+DNS.3 = "ardana-cp1-vip-CND-API-mgmt"
+DNS.4 = "ardana-cp1-vip-DES-API-mgmt"
+DNS.5 = "ardana-cp1-vip-FRE-API-mgmt"
+DNS.6 = "ardana-cp1-vip-GLA-API-mgmt"
+DNS.7 = "ardana-cp1-vip-GLA-REG-mgmt"
+DNS.8 = "ardana-cp1-vip-HEA-ACF-mgmt"
+DNS.9 = "ardana-cp1-vip-HEA-ACW-mgmt"
+DNS.10 = "ardana-cp1-vip-HEA-API-mgmt"
+DNS.11 = "ardana-cp1-vip-HZN-WEB-mgmt"
+DNS.12 = "ardana-cp1-vip-KEY-API-mgmt"
+DNS.13 = "ardana-cp1-vip-KEYMGR-API-mgmt"
+DNS.14 = "ardana-cp1-vip-LOG-API-mgmt"
+DNS.15 = "ardana-cp1-vip-LOG-SVR-mgmt"
+DNS.16 = "ardana-cp1-vip-MAG-API-mgmt"
+DNS.17 = "ardana-cp1-vip-MON-API-mgmt"
+DNS.18 = "ardana-cp1-vip-NEU-SVR-mgmt"
+DNS.19 = "ardana-cp1-vip-NOV-API-mgmt"
+DNS.20 = "ardana-cp1-vip-NOV-PLC-mgmt"
+DNS.21 = "ardana-cp1-vip-OCT-API-mgmt"
+DNS.22 = "ardana-cp1-vip-OPS-WEB-mgmt"
+DNS.23 = "ardana-cp1-vip-SWF-PRX-mgmt"
+DNS.24 = "ardana-cp1-vip-admin-ARD-SVC-mgmt"
+DNS.25 = "ardana-cp1-vip-admin-CEI-API-mgmt"
+DNS.26 = "ardana-cp1-vip-admin-CND-API-mgmt"
+DNS.27 = "ardana-cp1-vip-admin-DES-API-mgmt"
+DNS.28 = "ardana-cp1-vip-admin-FRE-API-mgmt"
+DNS.29 = "ardana-cp1-vip-admin-GLA-API-mgmt"
+DNS.30 = "ardana-cp1-vip-admin-HEA-ACF-mgmt"
+DNS.31 = "ardana-cp1-vip-admin-HEA-ACW-mgmt"
+DNS.32 = "ardana-cp1-vip-admin-HEA-API-mgmt"
+DNS.33 = "ardana-cp1-vip-admin-HZN-WEB-mgmt"
+DNS.34 = "ardana-cp1-vip-admin-KEY-API-mgmt"
+DNS.35 = "ardana-cp1-vip-admin-KEYMGR-API-mgmt"
+DNS.36 = "ardana-cp1-vip-admin-LOG-API-mgmt"
+DNS.37 = "ardana-cp1-vip-admin-LOG-SVR-mgmt"
+DNS.38 = "ardana-cp1-vip-admin-MAG-API-mgmt"
+DNS.39 = "ardana-cp1-vip-admin-MON-API-mgmt"
+DNS.40 = "ardana-cp1-vip-admin-NEU-SVR-mgmt"
+DNS.41 = "ardana-cp1-vip-admin-NOV-API-mgmt"
+DNS.42 = "ardana-cp1-vip-admin-NOV-PLC-mgmt"
+DNS.43 = "ardana-cp1-vip-admin-OPS-WEB-mgmt"
+DNS.44 = "ardana-cp1-vip-admin-SWF-PRX-mgmt"
+DNS.45 = "192.168.10.2"
+IP.1 = "192.168.10.2"

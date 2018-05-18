@@ -1,0 +1,369 @@
+#
+# (c) Copyright 2015-2017 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017-2018 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+
+# Select heap tunings based on system RAM
+#-------------------------------------------------------------------------------
+threshold_small_mb: 31000
+threshold_medium_mb: 63000
+threshold_large_mb: 127000
+tuning_selector: "{% if ansible_memtotal_mb < threshold_small_mb|int %}demo{% elif ansible_memtotal_mb < threshold_medium_mb|int %}small{% elif ansible_memtotal_mb < threshold_large_mb|int %}medium{% else %}large{%endif %}"
+logging_possible_tunings:
+  # RAM < 32GB
+  demo:
+    elasticsearch_heap_size: 512m
+    logstash_heap_size: 512m
+  # RAM < 64GB
+  small:
+    elasticsearch_heap_size: 8g
+    logstash_heap_size: 2g
+  # RAM < 128GB
+  medium:
+    elasticsearch_heap_size: 16g
+    logstash_heap_size: 4g
+  # RAM >= 128GB
+  large:
+    elasticsearch_heap_size: 31g
+    logstash_heap_size: 8g
+logging_tunings: "{{ logging_possible_tunings[tuning_selector] }}"
+
+# Kibana variables
+#-------------------------------------------------------------------------------
+kibana_path: /opt/kibana
+kibana_internal_host: 127.0.0.1
+kibana_internal_port: "{{ host.bind.LOG_SVR.internal.port }}"
+kibana_log_path: /var/log/kibana
+kibana_port: "{{ host.bind.LOG_SVR.internal.port }}"
+kibana_host: "{{ host.bind.LOG_SVR.internal.ip_address }}"
+kibana_user: "{{ LOG_SVR | item('vars.kibana_user', default='kibana') }}"
+kibana_pass: "{{ LOG_SVR.vars.logging_kibana_password }}"
+
+# Elasticsearch variables
+# We are tuning to increase indexing performance at the expense of search
+# performance since searching will be rare and indexing constant and heavy
+# https://www.elastico.co/blog/performance-indexing-2-0
+# https://www.elastic.co/guide/en/elasticsearch/guide/current/indexing-performance.html
+# https://www.elastic.co/guide/en/elasticsearch/guide/current/_limiting_memory_usage.html
+#-------------------------------------------------------------------------------
+elasticsearch_plugin_dir: "/usr/share/elasticsearch/plugins"
+elasticsearch_heap_size: "{{ logging_tunings.elasticsearch_heap_size }}"
+elasticsearch_http_host: 127.0.0.1
+elasticsearch_http_port: "{{ host.bind.LOG_SVR.elasticsearch_http.port }}"
+elasticsearch_transport_host: "{{ host.bind.LOG_SVR.elasticsearch_transport.ip_address }}"
+elasticsearch_transport_port: "{{ host.bind.LOG_SVR.elasticsearch_transport.port }}"
+elasticsearch_cluster_name: "{{ LOG_SVR | item('vars.elasticsearch_cluster_name', default='elasticsearch') }}"
+elasticsearch_max_total_indices_size_in_bytes: 21474836480
+
+# Per index shard allocation.  For few larger indices 1 shard/index/node is a good rule
+# of thumb. When dealing with many smaller indices 1 shard/index is recommended
+# Default: 5
+elasticsearch_index_number_of_shards: 1
+
+# Spinning media has a harder time with cocurrent I/O, so we need to decrease the number of
+# threads that can concurrently access the disk per index.  This setting allows max_thread_count
+# + 2 threads to operate on the disk at one time, so a setting of 1 will allow 3 threads
+elasticsearch_index_merge_scheduler_max_thread_count: 1
+
+# If you don't need real-time accuracy on search results, you can decrease this per index value to
+# futher slant performance in favor of indexing.
+# Default: 1s
+elasticsearch_index_refresh_interval: 30s
+
+# Number of operations to allow before flushing if threshold size hasn't been reached yet.
+# Default: unlimited
+elasticsearch_index_translog_flush_threshold_ops: 150000
+
+# Allows larger segments to accumulate in the translog before a flush occurs.  By letting larger
+# segments build, you flush less often, and the larger segments merge less often.  This means
+# less I/O overhead and better indexing rates.
+# Default: 512mb
+elasticsearch_index_translog_flush_threshold_size: 1gb
+
+# Circuit breaker designed to estimate memory requirements of a query.  If the memory requirements
+# are over the percentage of the heap then abort
+# Default: 60%
+elasticsearch_indices_breaker_fielddata_limit: 25%
+
+# Controls memory size for filter cache for a node
+# Default: 10%
+elasticsearch_indices_cache_filter_size: 10%
+
+# Expires filters after this amount of time
+# Default: -1
+elasticsearch_indices_cache_filter_expire: 6h
+
+# How much heap space is allocated to field data before additional field data will
+# trigger eviction from the heap of older field data.
+# Default: unbounded
+elasticsearch_indices_fielddata_cache_size: 15%
+
+# Amount of total heap allocated to Elasticsaerch used for indexing
+# Default: 10%
+elasticsearch_indices_memory_index_buffer_size: 50%
+
+# Absolute minimum of memory to use for indexing
+# Default: 48mb
+elasticsearch_indices_memory_min_index_buffer_size: 200mb
+
+# Hard lower limit for the memory allocated per shard for its own indexing buffer.
+# Default: 4mb
+elasticsearch_indices_memory_min_shard_index_buffer_size: 12mb
+
+# Elasticsearch is tuned by default for search and thus has overly conservative
+# values here for background merging. Increase this value to reduce index
+# throttling.  SSDs are recommended to use 100-200mb here
+# Default: 20mb
+elasticsearch_indices_store_throttle_max_bytes_per_sec: 80mb
+
+# If you don't care about search at all you can set this to "none" which will
+# disable throttling entirely and allow indexing to run as fast as your disks will allow
+# Default: merge
+elasticsearch_indices_store_throttle_type: merge
+
+# Number of expired documents to delete at once
+elasticsearch_indices_ttl_bulk_size: 100000
+
+# Rebalancing the search to indexing ratio in favor of indexing
+# Default: 50
+elasticsearch_threadpool_bulk_queue_size: 3000
+
+# Number of threads for bulk operations. More than double core count doen't help
+# https://www.elastic.co/guide/en/elasticsearch/guide/current/_don_8217_t_touch_these_settings.html
+# Elasticsearch threads/node: 4VCPUs = 7, 8VCPUs = 13, 24VCPUs = 37, 48VCPUs = 73
+# Default: # of available cores
+elasticsearch_threadpool_bulk_size: "{{ (ansible_processor_vcpus*3/2+1)|int }}"
+
+# Rebalancing the search to indexing ratio in favor of indexing
+# Default: 200
+elasticsearch_threadpool_index_queue_size: 2000
+
+# Number of threads for indexing operations. More than double core count doesn't help.
+# https://www.elastic.co/guide/en/elasticsearch/guide/current/_don_8217_t_touch_these_settings.html
+# Elasticsearch threads/node: 4VCPUs = 7, 8VCPUs = 13, 24VCPUs = 37, 48VCPUs = 73
+# Default: # of available cores
+elasticsearch_threadpool_index_size: "{{ (ansible_processor_vcpus*3/2+1)|int }}"
+
+# Rebalancing the search to indexing ratio in favor of indexing
+# Default: 1000
+elasticsearch_threadpool_search_queue_size: 100
+
+# Number of threads for search. More than double core count doesn't help.
+# https://www.elastic.co/guide/en/elasticsearch/guide/current/_don_8217_t_touch_these_settings.html
+# Default: int((# of available cores * 3)/2) + 1
+elasticsearch_threadpool_search_size: "{{ ansible_processor_vcpus }}"
+
+# Logstash defaults
+#-------------------------------------------------------------------------------
+logstash_user: logstash
+logstash_group: logstash
+logstash_heap_size: "{{ logging_tunings.logstash_heap_size }}"
+logstash_anonymize_salt: "{{ LOG_SVR | item('vars.logstash_anonymize_salt', default='7cd8yjqhdw') }}"
+logstash_operational_logs_prefix: "logstash-operational-"
+logstash_audit_logs_prefix: "logstash-audit-"
+
+# Set number of input/output threads.
+# We need to balance this with Elasticsearch and Kafka (i.e. slightly less)
+# Logstash threads/node: 4VCPUs = 6, 8VCPUs = 11, 24VCPUs = 33, 48VCPUs = 65
+logstash_threads: "{{ (ansible_processor_vcpus*4/3+1)|int }}"
+
+# Needs to be less than or equal to elasticsearch_threadpool_bulk_queue_size
+# to avoid bulk rejections from Elasticsearch.
+logstash_flush_size: 2000
+
+# Curator variables
+#----------------------------------------------------------------------------------------
+curator_enable: "{{ LOG_SVR | item('vars.curator_enable', default=True) }}"
+curator_es_hostname: "{{ elasticsearch_http_host }}"
+curator_es_port: "{{ elasticsearch_http_port }}"
+curator_bin_path: /usr/bin/curator
+curator_indices_regex: ^logstash-.*$
+curator_num_of_indices_to_keep: "{{ LOG_SVR | item('vars.curator_num_of_indices_to_keep', default=7) }}"
+curator_log_path: /var/log/elasticsearch/curator.log
+curator_disable_bloom_filter_days: "{{ LOG_SVR | item('vars.curator_disable_bloom_filter_days', default=0) }}"
+curator_close_indices_after_days: "{{ LOG_SVR | item('vars.curator_close_indices_after_days', default=0) }}"
+
+# ES backup settings
+# Note: Enable this variable only after making sure you have setup a shared partition
+# that is accessible from all LOG-SVR nodes as described below by the curator_es_backup_partition variable.
+# If this variable is enabled without that, Elasticsearch will fail to start
+curator_enable_backup: false
+curator_backup_repo_name: "es_{{host.my_dimensions.cloud_name}}"
+# the partition where all ES snapshots will be stored
+# Note: this has to be a shared partition that is accessible from all the LOG-SVR ES nodes
+curator_es_backup_partition: /var/lib/esbackup
+
+# the default partition for Elasticsearch
+curator_es_partition: /var/lib/elasticsearch
+
+# The following low watermark will be used to trigger alarms if the ES partition size grows over it.
+# Tuning this to to a higher percent may not give sufficient time to backup old indices before they
+# are removed.
+curator_low_watermark_percent: 65
+
+# The following high watermark will be used to decide if it is time to delete old indices.
+# The following approach is taken:
+# An hourly cronjob checks to see if there are more indices than curator_num_of_indices_to_keep.
+# If there are, curator will be run to delete old indices per the curator_num_of_indices_to_keep setting.
+# Then, a check is made to see if the partition size is below the high watermark percent.
+# If it is still too high, curator will be run again to delete all indices older than
+# curator_num_of_indices_to_keep -1, then -2, then -3 until the partition
+# size is below the high watermark, or only the current index remains.
+# Finally, if the usage is still high, just an error message is written to the log
+# file but the current index is NOT deleted.
+curator_high_watermark_percent: 90
+
+# Logging average rates
+#-------------------------------------------------------------------------------
+kronos_logging_rate_info_msg_sec: 1
+kronos_logging_rate_debug_msg_sec: 20
+
+# Kafka variables
+#-------------------------------------------------------------------------------
+kronos_kafka_topic: logs
+kafka_segment_minutes: 15
+kafka_node_count: "{{ FND_KFK.members.private | length }}"
+kronos_kafka_replication_factor: "{% if kafka_node_count | int > 3 %}3{% else %}{{ kafka_node_count }}{% endif %}"
+kronos_kafka_consumer_group: kronos
+kronos_kafka_nodes: "{{ LOG_SVR.consumes_FND_KFK.members.private }}"
+kronos_kafka_hosts: "{% for node in kronos_kafka_nodes %}{{ node.host }}:{{ node.port }}{% if not loop.last %},{% endif %}{% endfor %}"
+kronos_zookeeper_nodes: "{{ LOG_SVR.consumes_FND_ZOO.members.private }}"
+kronos_zookeeper_hosts: "{% for node in kronos_zookeeper_nodes %}{{ node.host }}:{{ node.port }}{% if not loop.last %},{% endif %}{% endfor %}"
+
+# Set number of Kafka partitions (i.e. you can think of these as threads)
+# We need to balance this with the number of logstash threads taking into account # of nodes and some headroom
+# Logstash threads for 3 nodes: 4VCPUs = 18, 8VCPUs = 33, 24VCPUs = 99, 48VCPUs = 144
+# Kafka partitions for 3 nodes: 4VCPUs = 21, 8VCPUs = 39, 24VCPUs = 111, 48VCPUs = 219
+kronos_kafka_partitions: "{{ (ansible_processor_vcpus*3/2+1)|int * (groups['LOG-SVR']|length) }}"
+
+# kronos_kafka_max_lag = # Producer Nodes (PRO) * Rate (DEBUG: ~20 msg/sec) * Kafka Partitions *
+#  commit rate (logstash idle_flush_time=1 sec) * 4x (padding)
+kronos_kafka_max_lag: "{{ ( groups['LOG-PRO'] | length ) | int * kronos_logging_rate_debug_msg_sec | int * kronos_kafka_partitions | int * 4 }}"
+
+# Beaver Monitoring variables
+#-------------------------------------------------------------------------------
+kronos_domain: "Default"
+kronos_project: "kronos"
+
+# The folling max mem usage is used to indicate the max memory beaver is expected to use.
+# If the mem usage of beaver crosses this threshold it will trigger an alarm.
+# This is given in MB
+beaver_max_mem_usage: 400
+
+# following settings are for the python-kafka client used by the Beaver kafka transport
+kronos_kafka_queue_put_timeout: 10 # seconds
+kronos_kafka_queue_maxsize: 100
+
+# Centralized Logging enablement
+enable_centralized_logging: "{{ LOG_SVR | item('vars.enable_centralized_logging', default=True) }}"
+
+# Log-API
+#-------------------------------------------------------------------------------
+kronos_api_user: "{{ LOG_API | item('consumes_KEY_API.vars.logging_api_user', default='logging_api') }}"
+kronos_api_password: "{{ LOG_API | item('consumes_KEY_API.vars.logging_api_password') | quote }}"
+kronos_api_domain: "{{ LOG_API | item('consumes_KEY_API.vars.logging_domain') }}"
+kronos_api_admin_role: "service"
+
+# Kronos variables
+#----------------------------------------------------------------------------------------
+kronos_user: kronos
+kronos_group: adm
+kronos_home_dir: /var/lib/kronos
+kronos_log_dir: /var/log/kronos
+kronos_wsgi_dir: "{{ www_root }}/kronos"
+
+kronos_api_log_file: kronos-api.log
+kronos_api_host: "{{ host.bind.LOG_API.internal.ip_address }}"
+kronos_api_port: "{{ host.bind.LOG_API.internal.port }}"
+kronos_api_url: "http://{{ kronos_api_host }}:{{ kronos_api_port }}/healthcheck"
+kronos_api_workers: 1
+kronos_api_debug: False
+kronos_api_name: kronos
+kronos_api_proc_name: kronos
+kronos_api_max_log_size: 1048576
+kronos_api_nodes: "{{ LOG_SVR.consumes_FND_KFK.members.private }}"
+kronos_api_hosts: "{% for node in kronos_api_nodes %}{{ node.host }}:{{ kronos_api_port }}{% if not loop.last %},{% endif %}{% endfor %}"
+
+keystone_admin_user: "{{ KEY_API.vars.keystone_admin_user }}"
+keystone_admin_password: "{{ KEY_API.vars.keystone_admin_pwd }}"
+keystone_admin_project: "{{ KEY_API.vars.keystone_admin_tenant }}"
+keystone_admin_domain: "{{ KEY_API.vars.keystone_default_domain }}"
+keystone_admin_auth_uri: "{{ LOG_SVR.consumes_KEY_API.vips.private[0].url }}"
+keystone_admin_identity_uri: "{{ LOG_SVR.consumes_KEY_API.vips.private[0].url }}"
+keystone_admin_authtoken_cafile: ""
+keystone_admin_authtoken_certfile: ""
+keystone_admin_authtoken_keyfile: ""
+keystone_admin_authtoken_insecure: false
+kronos_api_middleware_agent_roles: "monasca-agent, admin"
+kronos_api_middleware_default_roles: "{{ kronos_monitoring_role }}"
+keystone_admin_project_domain: "Default"
+keystone_admin_user_domain: "Default"
+system_cacert_file: "{{ trusted_ca_bundle }}"
+
+# Log Monitoring
+#--------------------------------------------------------------------------------
+keystone_admin_endpoint: "{{ LOG_SVR.consumes_KEY_API.vips.private[0].url ~ '/v3' }}"
+kronos_monitoring_user: "{{ LOG_PRO | item('consumes_KEY_API.vars.logging_monitor_user', default='logging_monitor') }}"
+kronos_monitoring_password: "{{ LOG_PRO | item('consumes_KEY_API.vars.logging_monitor_password', default='logging') }}"
+kronos_monitoring_project: "{{ KEY_API.vars.keystone_admin_tenant }}"
+kronos_monitoring_role: "monasca-user"
+monasca_alarm_definition_api_url: "{{ MON_AGN.consumes_MON_API.vips.private[0].url ~ '/v2.0' }}"
+
+# The following low watermark will be used to trigger alarms if the /var/log partition size grows over it.
+# Tuning this to a higher percent may not give sufficient time to free disk space on /var/log before it
+# reaches 100% full, at which time log rotate will not work.
+var_log_low_watermark_percent: 80
+
+# The following high watermark will be used to alert the user that when /var/log is 100% full,
+# log rotate will not work, and to free up space on /var/log.
+# Don't set it at 100%, as by then alarms may not fire properly
+var_log_high_watermark_percent: 95
+
+# The following low watermark will be used to trigger alarms if the /var/audit partition size grows over it.
+# Tuning this to a higher percent may not give sufficient time to free disk space on /var/audit before it
+# reaches 100% full, at which time log rotate will not work.
+var_audit_low_watermark_percent: 80
+
+# The following high watermark will be used to alert the user that when /var/audit is 100% full,
+# log rotate will not work, and to free up space on /var/audit.
+# Don't set it at 100%, as by then alarms may not fire properly
+var_audit_high_watermark_percent: 95
+
+# This quota is in GB
+service_log_directory_size_quota: 100
+monasca_alarm_definition_api_url: "{{ MON_AGN.consumes_MON_API.vips.private[0].url ~ '/v2.0' }}"
+
+# Log rotate variables
+#----------------------------------------------------------------------------------------
+logrotate_conf_dir: /etc/logrotate.d
+logr_maxsize: 45M
+logr_rotate: 7
+logr_json_rotate: 5
+opt_kronos_dir: /opt/kronos
+var_kronos_dir: /var/log/kronos
+
+var_log_partition: /var/log
+var_audit_partition: /var/audit
+logrotate_check_enable: true
+logrotate_check_sleep_minutes: 5
+logrotate_bin_path: /usr/sbin/logrotate
+logrotate_log_path: /var/log/kronos/logrotate_if_needed.log
+# sh script, but .sh removed to avoid cron issue
+logrotate_if_needed_path: /opt/kronos/logrotate_if_needed
+rotate_if_exceeded_quota_path: /opt/kronos/rotate_if_exceeded_quota.py
+
+# Base mount location for audit log files
+audit_mount_name: "{{ LOG.audit.dir }}"

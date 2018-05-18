@@ -1,0 +1,159 @@
+{#
+#
+# (c) Copyright 2015-2017 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+#}
+# ======================== Elasticsearch Configuration =========================
+#
+# NOTE: Elasticsearch comes with reasonable defaults for most settings.
+#       Before you set out to tweak and tune the configuration, make sure you
+#       understand what are you trying to accomplish and the consequences.
+#
+# The primary way of configuring a node is via this file. This template lists
+# the most important settings you may want to configure for a production cluster.
+#
+# Please see the documentation for further information on configuration options:
+# <http://www.elastic.co/guide/en/elasticsearch/reference/current/setup-configuration.html>
+#
+# ---------------------------------- Cluster -----------------------------------
+#
+# Use a descriptive name for your cluster:
+#
+cluster.name: {{ elasticsearch_cluster_name }}
+#
+# ------------------------------------ Node ------------------------------------
+#
+# Use a descriptive name for the node:
+#
+node.name: {{ host.my_dimensions.hostname }}
+#
+# Add custom attributes to the node:
+#
+# node.rack: r1
+#
+# ----------------------------------- Paths ------------------------------------
+#
+# Path to directory where to store the data (separate multiple locations by comma):
+#
+# path.data: /path/to/data
+#
+# Path to log files:
+#
+# path.logs: /path/to/logs
+#
+# ----------------------------------- Memory -----------------------------------
+#
+# Lock the memory on startup:
+#
+bootstrap.mlockall: true
+#
+# Make sure that the `ES_HEAP_SIZE` environment variable is set to about half the memory
+# available on the system and that the owner of the process is allowed to use this limit.
+#
+# Elasticsearch performs poorly when the system is swapping the memory.
+#
+# ---------------------------------- Network -----------------------------------
+#
+# Set host/ip for REST traffic:
+#
+http.host: {{ elasticsearch_http_host }}
+
+# Set port to listen for REST traffic:
+#
+http.port: {{ elasticsearch_http_port }}
+
+# Set host/ip for node to node communication traffic:
+#
+transport.host: {{ elasticsearch_transport_host }}
+
+# Set port for node to node communication (9300 by default):
+#
+transport.tcp.port: {{ elasticsearch_transport_port }}
+
+#
+# For more information, see the documentation at:
+# <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-network.html>
+#
+# --------------------------------- Discovery ----------------------------------
+#
+# Explicitly disabling this for documentation
+discovery.zen.ping.multicast.enabled: false
+
+# Pass an initial list of hosts to perform discovery when new node is started:
+# The default list of hosts is ["127.0.0.1", "[::1]"]
+#
+discovery.zen.ping.unicast.hosts: [{% for host in LOG_SVR.consumes_LOG_SVR.members.elasticsearch_transport %}{{ host.host }}{% if not loop.last %}, {% endif %}{% endfor %}]
+
+# Sets the minimum number of master eligible nodes that need to join a newly elected master
+# in order for an election to complete and for the elected node to accept its mastership.
+# Effectively controls the minimum number of active master eligible nodes that should be part
+# of any active cluster.
+#
+# Prevent the "split brain" by requiring the majority of nodes (total number of nodes / 2 + 1):
+#
+discovery.zen.minimum_master_nodes: "{%- if groups['LOG-SVR']|length > 1 -%} 2 {%- else -%} 1 {%- endif -%}"
+
+# For more information, see the documentation at:
+# <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-discovery.html>
+#
+# ---------------------------------- Gateway -----------------------------------
+#
+# Block initial recovery after a full cluster restart until N nodes are started:
+#
+# gateway.recover_after_nodes: 3
+#
+# For more information, see the documentation at:
+# <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-gateway.html>
+#
+# ---------------------------------- Various -----------------------------------
+#
+# Disable starting multiple nodes on a single system:
+#
+# node.max_local_storage_nodes: 1
+#
+# Require explicit names when deleting indices:
+#
+# action.destructive_requires_name: true
+#
+# ----------------------------- Tune for Indexing ------------------------------
+index.number_of_replicas: {{ 0 if groups['LOG-SVR']|length == 1 else 1 }}
+index.number_of_shards: {{ elasticsearch_index_number_of_shards }}
+index.merge.scheduler.max_thread_count: {{ elasticsearch_index_merge_scheduler_max_thread_count }}
+index.refresh_interval: {{ elasticsearch_index_refresh_interval }}
+index.translog.flush_threshold_ops: {{ elasticsearch_index_translog_flush_threshold_ops }}
+index.translog.flush_threshold_size: {{ elasticsearch_index_translog_flush_threshold_size }}
+
+indices.breaker.fielddata.limit: {{ elasticsearch_indices_breaker_fielddata_limit }}
+indices.cache.filter.expire: {{ elasticsearch_indices_cache_filter_expire }}
+indices.cache.filter.size: {{ elasticsearch_indices_cache_filter_size }}
+indices.fielddata.cache.size: {{ elasticsearch_indices_fielddata_cache_size }}
+indices.memory.index_buffer_size: {{ elasticsearch_indices_memory_index_buffer_size }}
+indices.memory.min_index_buffer_size: {{ elasticsearch_indices_memory_min_index_buffer_size }}
+indices.memory.min_shard_index_buffer_size: {{ elasticsearch_indices_memory_min_shard_index_buffer_size }}
+indices.store.throttle.max_bytes_per_sec: {{ elasticsearch_indices_store_throttle_max_bytes_per_sec }}
+indices.store.throttle.type: {{ elasticsearch_indices_store_throttle_type }}
+indices.ttl.bulk_size: {{ elasticsearch_indices_ttl_bulk_size }}
+
+threadpool.bulk.queue_size: {{ elasticsearch_threadpool_bulk_queue_size }}
+threadpool.bulk.size: {{ elasticsearch_threadpool_bulk_size }}
+threadpool.index.queue_size: {{ elasticsearch_threadpool_index_queue_size }}
+threadpool.index.size: {{ elasticsearch_threadpool_index_size }}
+threadpool.search.queue_size: {{ elasticsearch_threadpool_search_queue_size }}
+threadpool.search.size: {{ elasticsearch_threadpool_search_size }}
+
+# ----------------------------- Backup/Watermarks ------------------------------
+# Cluster Backup(Snapshot) settings
+# This is the shared filesystem partition that curator will snapshot to
+{% if not curator_enable_backup %}#{% endif %}path.repo: ["{{ curator_es_backup_partition }}"]
+
+# Enable the watermark threshold
+cluster.routing.allocation.disk.threshold_enable: "TRUE"
+
+# Make sure curator kicks in before ES would stop assigning shards to a node
+cluster.routing.allocation.disk.watermark.low: "{{ curator_high_watermark_percent|int + 5 }}%"
+
+# This should never be hit, unless curator is disabled or the disk is being filled before curator
+# could do its job
+cluster.routing.allocation.disk.watermark.high: "99%"
+cluster.info.update.interval: "1m"

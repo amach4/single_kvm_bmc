@@ -1,0 +1,85 @@
+#
+# (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+
+keystone_domainldap_certs:
+
+    # CA certificates file content.
+    # Certificates are stored in Base64 PEM format. This may be entire LDAP server
+    # certificate (in case of self-signed certificates), certificate of authority
+    # which issued LDAP server certificate, or a full certificate chain (Root CA
+    # certificate, intermediate CA certificate(s), issuer certificate).
+    #
+    # If you have  multiple LDAP domains, and LDAP server certificates are issued
+    # by different authorities, make sure that you place certs for all the LDAP
+    # backend domains in the cacert parameter as seen in this sample yml file
+    # so that all the certs are combined in a single CA file and every LDAP
+    # domain configuration points to the combined CA file.
+    # Note:
+    # 1. Please be advised that every time this ldap domain certficates reconfigured,
+    # the single CA file gets overwritten and hence ensure that you place certs
+    # for all the LDAP backend domains in the cacert parameter.
+    # 2. There is a known issue on one cert per CA file per domain when the system processes
+    # concurrent requests to multiple LDAP domains. Using the single CA file with all certs combined
+    # shall get the system working properly.
+    cert_settings:
+      cacert_file: /etc/keystone/ssl/certs/all_ldapdomains_ca.pem
+      cacert: |
+        -----BEGIN CERTIFICATE-----
+        MIIDVTCCAg2gAwIBAgIEVW4FQjANBgkqhkiG9w0BAQsFADAaMRgwFgYDVQQDEw9F
+        eGFtcGxlIENvbXBhbnkwHhcNMTUwNjAyMTkzNDI2WhcNMTYwNjAxMTkzNDI2WjAa
+        MRgwFgYDVQQDEw9FeGFtcGxlIENvbXBhbnkwggFSMA0GCSqGSIb3DQEBAQUAA4IB
+        PwAwggE6AoIBMQC2JHPnTfQ0BExcdfeLGzUxsmFtJ/EZc/EkU5/qpKJAwsssDRlS
+        Xfg4CN2J68IosFiltBXzQFjT2GK+I9kLLr9Qmbexh5lmLhwApTXTNC+o5/IRIZnK
+        fguRsbE0OdUPlEH7oeLVacPRGg3TU6DPJD7yIgEAmYmQOXWtmUiE2hy50w+Ik6kI
+        JS2ve6VB48jLGC9O7H/x1Fs5sdRLXAEse9A06u2BtbSH9JWp1/DFSFjP9Dk514UP
+        OyXD7rUWEWPMm7vkzwD1Yy2Oj2696y1hGTUxPGWtNEBpE2A364izd8GmD2PxYFzn
+        emWs9u7UUKsc3ZCD7YQCuf+a5uLVOiq2LKsg3Cylk7jBqSVx0BjU4G3eSDnb/E2j
+        a68tEqKMrMw7n791eHFOA8vfnwy0lceQHOghAgMBAAGjQzBBMA8GA1UdEwEB/wQF
+        MAMBAf8wDwYDVR0PAQH/BAUDAwcEADAdBgNVHQ4EFgQUeazaagjvqla452B67afb
+        afAL8B0wDQYJKoZIhvcNAQELBQADggExAIE44JHWTsakqY9/r7UUXYtmA3JPIS4q
+        +ySyYkvO8zwTuinVRJqZJr9qN1dLKoovME5oQm9dgJCDuX9IPcm+NJduJp+r8Dcd
+        q+LQ58qcHI9AEIGj4z12Q6BfyN6SMfq+qxx8XiTn+94gbF8SvLDGV30kyu5P4/M0
+        kSEhpklmey0b1uxzGRgwz03QsCuMHebt7rCD5ngEsq/wjKEY58xCs/YJzoyuqOY4
+        YmI5HV8DH2WSdB0ZmG9CdgbOijm4XnIhu5fXhIpyLPfL7kOUwoyF5t2eTU/lm2Uh
+        9/qqmq+q4qQ7uSj4fZ1B3vLozD27c/AXgInq+1cUUPQx/C7PwRKfdvm1CK+75pP5
+        ed7K+bPcCfGA/YDg4HIHBdTNeFAxlBdEwXgyZUTAv4WmY4el3R/Bys0=
+        -----END CERTIFICATE-----
+        -----BEGIN CERTIFICATE-----
+        MIIDwTCCAqmgAwIBAgIQKSKXBZj4ZbBN5mitjA+p7zANBgkqhkiG9w0BAQUFADBz
+        MRMwEQYKCZImiZPyLGQBGRYDY29tMRIwEAYKCZImiZPyLGQBGRYCaHAxEzARBgoJ
+        kiaJk/IsZAEZFgNjZGwxGDAWBgoJkiaJk/IsZAEZFghrZXlzdG9uZTEZMBcGA1UE
+        AxMQa2V5c3RvbmUtQUQwMS1DQTAeFw0xNTA3MjIwOTI1MTVaFw0yNTA3MjIwOTM1
+        MTRaMHMxEzARBgoJkiaJk/IsZAEZFgNjb20xEjAQBgoJkiaJk/IsZAEZFgJocDET
+        MBEGCgmSJomT8ixkARkWA2NkbDEYMBYGCgmSJomT8ixkARkWCGtleXN0b25lMRkw
+        FwYDVQQDExBrZXlzdG9uZS1BRDAxLUNBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+        MIIBCgKCAQEAx4Zzzd59cimCknq1iNwjUEgtip+n8Aw/epW5DPfkm810MUxZ9KVl
+        MoNV82tIZHUf70gOqEBlgGreHyRiKANpN+qzCY4yP7/91sDD+eZ4JPZYV2wsXboG
+        5+dWrfz9oKr0vSo7llRfI0I1w0AwtQ26vMxwhEOBR0Rn5wM3XnRhsWYFWWCEmGHe
+        8HwWcd9KI3rFgDQwEnVQ5g+Fe9RxplHhe1h6ybgRea5Da8QGG/GKdVyyoSzwEYRe
+        5GevnBX6WChSkbtLT1qNmgFNEjizYb0eN96LgmZ5H27rq9sVemANhSdqeN/s1Jix
+        Q6JsPfT6tWmuH/6rbLMxgPaYhhe7hEoGwQIDAQABo1EwTzALBgNVHQ8EBAMCAYYw
+        DwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUwG4P2G45Ggs7dlxiyo5Pz8Ol0asw
+        EAYJKwYBBAGCNxUBBAMCAQAwDQYJKoZIhvcNAQEFBQADggEBAGxRYjs4TVbRSyNH
+        MrKrVFjhFP+vv1A4bbR8BoEwHR3zGbI1tMsFpInNRDUH0mmktor3ppn3DQdL4Tyi
+        +dFIFJrVO9fus3Jx/0ijvhC70qhTavgZdsaWji5EoTv6oBw1Tvj3jto8IGHuuFre
+        ZSyESGW3JmVYkIIJ2ZDTAY/PyIKLt+35hBtk+eCH3Gs9fFq5xNDIWIf8I2WNqJDu
+        2DpyRn9Jh5ywmle222XdjaNLqN8c2UDTbp7rMAF/X/jTXbEIHZXin+2nMiuV8Pxv
+        ot96Y/NDLTSm7ig5jNd2uXupoP19AGGF/lLTZzJvcxQ7paucJfeiJe9ZeyxICEZC
+        wampKBs=
+        -----END CERTIFICATE-----
+

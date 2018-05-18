@@ -1,0 +1,224 @@
+{#
+#
+# (c) Copyright 2015-2017 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017-2018 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+#}
+# This configuration file includes the default values for Ardana
+# Changes may be made to this file by the customer.
+# Layout / order of settings in this file can be found:
+# http://docs.openstack.org/liberty/config-reference/content/list-of-compute-config-options.html
+
+[DEFAULT]
+
+# API
+api_rate_limit = False
+enable_new_services = True
+multi_instance_display_name_template = %(name)s-%(count)s
+osapi_compute_listen = {{ osapi_compute_listen }}
+# Please change this value (if you need to) in openstack/ardana/ansible/roles/nova-common/defaults/main.yml , do not remove it here
+osapi_compute_workers = {{ nova_api_workers }}
+
+# common
+my_ip = {{ my_ip }}
+rootwrap_config = {{ rootwrap_config }}
+state_path = {{ state_path }}
+
+# Compute
+image_cache_manager_interval = 360
+instance_usage_audit = True
+instance_usage_audit_period = hour
+resume_guests_state_on_host_boot = True
+running_deleted_instance_action = reap
+vif_plugging_is_fatal = False
+# NOTE: Increasing the timout value helps the VMs to
+# come up properly and obtain its metadata in a large
+# scale testing (VNETCORE-2789).
+# This change should be revisited in 5.0 to validate
+# if there is any upstream fix in newton that fixes it.
+vif_plugging_timeout = 1800
+
+# Hypervisor
+virt_mkfs = linux-ext4=mkfs -t ext4 -F -L %(fs_label)s %(target)s
+
+# Logging
+debug = True
+default_log_levels = nova.openstack.common.rpc.amqp=INFO,nova.scheduler.filters.retry_filter=INFO,nova.scheduler.filters.image_props_filter=INFO,nova.scheduler.filters.disk_filter=INFO,nova.servicegroup.drivers.db=INFO,nova.servicegroup.api=INFO,nova.scheduler.host_manager=INFO
+logging_context_format_string = %(asctime)s.%(msecs)03d %(process)d %(levelname)s %(name)s [%(request_id)s %(user)s %(tenant)s] %(instance)s%(message)s
+log_dir = {{ log_dir }}
+
+# Metadata
+metadata_host = {{ metadata_host }}
+metadata_listen = {{ metadata_listen }}
+# Please change this value (if you need to) in openstack/ardana/ansible/roles/nova-common/defaults/main.yml , do not remove it here
+metadata_workers = {{ nova_metadata_workers }}
+
+# Policy
+resize_fs_using_block_device = True
+
+# Scheduler
+ram_allocation_ratio = 1.0
+reserved_host_disk_mb = 10240
+reserved_host_memory_mb = 2816
+available_filters = nova.scheduler.filters.all_filters
+enabled_filters = AvailabilityZoneFilter,RetryFilter,ComputeFilter,DiskFilter,RamFilter,ImagePropertiesFilter,ServerGroupAffinityFilter,ServerGroupAntiAffinityFilter,ComputeCapabilitiesFilter,NUMATopologyFilter,PciPassthroughFilter,SameHostFilter,DifferentHostFilter
+
+# Volumes (Cinder)
+volume_usage_poll_interval = 3600
+
+# transport_url
+transport_url = rabbit://{{ rabbit_hosts_transport_url }}/
+
+# End of [DEFAULT] section
+
+[oslo_messaging_notifications]
+# Oslo messaging
+#  Note:
+#  If the infoblox-ipam-agent is to be deployed in the cloud, change the
+#  notification_driver settting from "messaging" to "messagingv2".
+driver = messaging
+topics = notifications
+
+[vnc]
+vncserver_proxyclient_address = {{ vncserver_proxyclient_address }}
+
+[cinder]
+catalog_info = volumev3:cinderv3:internalURL
+cafile = {{ ca_certs_file }}
+os_region_name = {{ cinder_os_region_name }}
+
+[glance]
+api_servers = {{ glance_api_servers }}
+cafile = {{ ca_certs_file }}
+
+[placement]
+auth_type = password
+auth_url = {{ keystone_auth_uri }}/v3
+auth_uri = {{ keystone_auth_uri }}/v3
+username = {{ nova_placement_api_user }}
+password = {{ nova_placement_api_password }}
+user_domain_name = Default
+project_name = {{ nova_admin_tenant_name }}
+project_domain_name = Default
+os_region_name = {{ keystone_region_name }}
+cafile = {{ ca_certs_file }}
+os_interface = internal
+
+[placement_database]
+connection = {{ nova_api_database_connection }}
+
+[api]
+auth_strategy = keystone
+use_forwarded_for = {{ metadata_use_forwarded_for }}
+compute_link_prefix = {{ compute_link_prefix }}
+
+[api_database]
+connection = {{ nova_api_database_connection }}
+
+[crypto]
+# CA & SSL
+keys_path = {{ keys_path }}
+
+[keystone_authtoken]
+auth_type = v3password
+auth_url = {{ keystone_auth_uri }}/v3
+auth_uri = {{ keystone_auth_uri }}/v3
+project_domain_name = Default
+project_name = {{ nova_admin_tenant_name }}
+user_domain_name = Default
+username = {{ nova_admin_user }}
+password = {{ nova_admin_password }}
+region_name = {{ keystone_region_name }}
+cafile = {{ ca_certs_file }}
+service_token_roles_required = true
+service_token_roles = admin
+memcached_servers = {{ memcached_servers }}
+memcache_security_strategy = ENCRYPT
+memcache_secret_key = {{ memcache_secret_key }}
+memcache_pool_socket_timeout = 1
+
+
+[neutron]
+auth_type = v3password
+auth_url = {{ neutron_admin_auth_url }}
+password = {{ neutron_admin_password }}
+project_name = {{ neutron_admin_project_name }}
+username = {{ neutron_admin_username }}
+project_domain_name = {{ neutron_domain_name }}
+user_domain_name = {{ neutron_domain_name }}
+metadata_proxy_shared_secret = {{ neutron_metadata_proxy_shared_secret }}
+neutron_auth_strategy = keystone
+cafile = {{ ca_certs_file }}
+service_metadata_proxy = True
+url = {{ neutron_url }}
+timeout = 300
+region_name = {{ neutron_region_name }}
+default_floating_pool = {{ default_floating_pool }}
+
+[notifications]
+notify_api_faults = True
+notify_on_state_change = vm_and_task_state
+
+[osapi_v3]
+enabled = True
+
+[oslo_concurrency]
+lock_path = {{ lock_path }}
+
+[oslo_messaging_rabbit]
+ssl = {{ rabbit_use_ssl }}
+rpc_conn_pool_size = 10
+kombu_reconnect_delay = 5.0
+
+[pci]
+# SRIOV and PCI-PT
+passthrough_whitelist = [{{ pci_passthrough_whitelist }}]
+
+[quota]
+quota_cores = -1
+quota_injected_files = 5
+quota_injectd_file_content_bytes = 10240
+quota_instances = 40
+quota_metadata_items = 50
+quota_ram = 15360
+until_refresh = 1
+
+[filter_scheduler]
+ram_weight_multiplier = -1.0
+host_subset_size = 5
+weight_classes = nova.scheduler.weights.ram.RAMWeigher
+
+{% if nova_api_audit_enable|bool %}
+[audit_middleware_notifications]
+driver = log
+{% endif %}
+
+{% if barbican_endpoint_template  != "" %}
+#Barbican
+[key_manager]
+api_class = castellan.key_manager.barbican_key_manager.BarbicanKeyManager
+
+[barbican]
+barbican_endpoint = {{ barbican_endpoint_template }}
+barbican_api_version = v1
+auth_endpoint = {{ barbican_keystone_auth_url }}
+{% endif %}
+
+[wsgi]
+api_paste_config = {{ api_paste_config }}
+default_pool_size = 100
+
+### End of File  ###
+## Do NOT put anything after this line ##

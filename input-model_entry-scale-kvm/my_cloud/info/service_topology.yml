@@ -1,0 +1,1041 @@
+services:
+    ardana:
+        components:
+            ardana-service:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster0:
+                            - ardana-cp1-c0-m1-mgmt
+                        regions:
+                        - region1
+            lifecycle-manager:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster0:
+                            - ardana-cp1-c0-m1-mgmt
+                        regions:
+                        - region1
+            lifecycle-manager-target:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster0:
+                            - ardana-cp1-c0-m1-mgmt
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+                        resources:
+                            compute:
+                            - ardana-cp1-comp0001-mgmt
+    barbican:
+        components:
+            barbican-api:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            barbican-worker:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+    ceilometer:
+        components:
+            ceilometer-agent-notification:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            ceilometer-api:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            ceilometer-common:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            ceilometer-polling:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+    cinder:
+        components:
+            cinder-api:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            cinder-backup:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            cinder-scheduler:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            cinder-volume:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+    clients:
+        components:
+            barbican-client:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            ceilometer-client:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            cinder-client:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            designate-client:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            glance-client:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            heat-client:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            keystone-client:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            magnum-client:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            monasca-client:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            neutron-client:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            nova-client:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            openstack-client:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            swift-client:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+    designate:
+        components:
+            designate-api:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            designate-central:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            designate-mdns:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            designate-pool-manager:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            designate-zone-manager:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+    foundation:
+        components:
+            apache2:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            ardana-ca:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster0:
+                            - ardana-cp1-c0-m1-mgmt
+                        regions:
+                        - region1
+            bind:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            bind-ext:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            cassandra:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            ip-cluster:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            kafka:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            memcached:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            mysql:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            ntp-client:
+                control_planes:
+                    control-plane-1:
+                        regions:
+                        - region1
+                        resources:
+                            compute:
+                            - ardana-cp1-comp0001-mgmt
+            ntp-server:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            rabbitmq:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            spark:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            storm:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            stunnel:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster0:
+                            - ardana-cp1-c0-m1-mgmt
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+                        resources:
+                            compute:
+                            - ardana-cp1-comp0001-mgmt
+            zookeeper:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+    freezer:
+        components:
+            freezer-agent:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster0:
+                            - ardana-cp1-c0-m1-mgmt
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+                        resources:
+                            compute:
+                            - ardana-cp1-comp0001-mgmt
+            freezer-api:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+    glance:
+        components:
+            glance-api:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            glance-registry:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+    heat:
+        components:
+            heat-api:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            heat-api-cfn:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            heat-api-cloudwatch:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            heat-engine:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+    horizon:
+        components:
+            horizon:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+    keystone:
+        components:
+            keystone-api:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+    logging:
+        components:
+            logging-api:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            logging-producer:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster0:
+                            - ardana-cp1-c0-m1-mgmt
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+                        resources:
+                            compute:
+                            - ardana-cp1-comp0001-mgmt
+            logging-rotate:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster0:
+                            - ardana-cp1-c0-m1-mgmt
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+                        resources:
+                            compute:
+                            - ardana-cp1-comp0001-mgmt
+            logging-server:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+    magnum:
+        components:
+            magnum-api:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            magnum-conductor:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+    monasca:
+        components:
+            monasca-agent:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster0:
+                            - ardana-cp1-c0-m1-mgmt
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+                        resources:
+                            compute:
+                            - ardana-cp1-comp0001-mgmt
+            monasca-api:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            monasca-liveness-check:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            monasca-notifier:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            monasca-persister:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            monasca-threshold:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            monasca-transform:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+    neutron:
+        components:
+            neutron-dhcp-agent:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            neutron-l3-agent:
+                control_planes:
+                    control-plane-1:
+                        regions:
+                        - region1
+                        resources:
+                            compute:
+                            - ardana-cp1-comp0001-mgmt
+            neutron-lbaasv2-agent:
+                control_planes:
+                    control-plane-1:
+                        regions:
+                        - region1
+                        resources:
+                            compute:
+                            - ardana-cp1-comp0001-mgmt
+            neutron-metadata-agent:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+                        resources:
+                            compute:
+                            - ardana-cp1-comp0001-mgmt
+            neutron-ml2-plugin:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            neutron-openvswitch-agent:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+                        resources:
+                            compute:
+                            - ardana-cp1-comp0001-mgmt
+            neutron-server:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            neutron-vpn-agent:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+    nova:
+        components:
+            nova-api:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            nova-compute:
+                control_planes:
+                    control-plane-1:
+                        regions:
+                        - region1
+                        resources:
+                            compute:
+                            - ardana-cp1-comp0001-mgmt
+            nova-compute-kvm:
+                control_planes:
+                    control-plane-1:
+                        regions:
+                        - region1
+                        resources:
+                            compute:
+                            - ardana-cp1-comp0001-mgmt
+            nova-conductor:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            nova-console-auth:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            nova-metadata:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            nova-novncproxy:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            nova-placement-api:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            nova-scheduler:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+    octavia:
+        components:
+            octavia-api:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            octavia-health-manager:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+    operations:
+        components:
+            ops-console-web:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+    swift:
+        components:
+            swift-account:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            swift-common:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            swift-container:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            swift-object:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            swift-proxy:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            swift-ring-builder:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+            swift-rsync:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster1:
+                            - ardana-cp1-c1-m1-mgmt
+                            - ardana-cp1-c1-m2-mgmt
+                            - ardana-cp1-c1-m3-mgmt
+                        regions:
+                        - region1
+    tempest:
+        components:
+            tempest:
+                control_planes:
+                    control-plane-1:
+                        clusters:
+                            cluster0:
+                            - ardana-cp1-c0-m1-mgmt
+                        regions:
+                        - region1

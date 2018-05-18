@@ -1,0 +1,29 @@
+[
+  {
+    "local": [
+      {
+        "user": {
+          "name": "{0}"
+        }
+      },
+      {
+        "group": {
+           "name": "group1",
+           "domain":{
+             "name": "domain1"
+           }
+        }
+      }
+    ],
+    "remote":[{
+      "type": "openstack_user"
+    },
+    {
+      "type": "Shib-Identity-Provider",
+      "any_one_of":[
+         "https://<idp_host>:5000/v3/OS-FEDERATION/saml2/idp"
+      ]
+     }
+    ]
+   }
+]
