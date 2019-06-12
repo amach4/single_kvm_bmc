@@ -1,5 +1,5 @@
 
-This python script generates a virtual BMC (Baseboard Management Controller) for a KVM domain - based on "ipmi_sim" - IPMI LAN BMC Simulator 
+This python script generates a virtual BMC (Baseboard Management Controller) for one KVM domain - based on "ipmi_sim" - IPMI LAN BMC Simulator 
 
 
 Name: single_kvm_bmc.py
