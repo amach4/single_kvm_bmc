@@ -1,3 +1,7 @@
+# ping -c2 192.168.8.11
+PING 192.168.8.11 (192.168.8.11) 56(84) bytes of data.
+64 bytes from 192.168.8.11: icmp_seq=1 ttl=64 time=0.014 ms
+64 bytes from 192.168.8.11: icmp_seq=2 ttl=64 time=0.011 ms
 
 This python script generates a virtual BMC (Baseboard Management Controller) for one KVM domain - based on "ipmi_sim" - IPMI LAN BMC Simulator 
 
@@ -34,6 +38,10 @@ Requirements:
   KVM host network interface:	"em4"
 
   # ip address add 192.168.8.11/24 brd + dev em4
+  
+  # ping -c1 192.168.8.11
+  PING 192.168.8.11 (192.168.8.11) 56(84) bytes of data.
+  64 bytes from 192.168.8.11: icmp_seq=1 ttl=64 time=0.014 ms
 
 
 
