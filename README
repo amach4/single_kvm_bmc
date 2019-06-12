@@ -23,7 +23,6 @@ Requirements:
 
 1- KVM host setup
 
-
   - install "OpenIPMI" package which contains "ipmi_sim" BMC emulator
 
   - add KVM BMC IP address (persistent configuration is also possible)
@@ -40,34 +39,59 @@ Requirements:
 
 2- KVM domain setup
 
-
   - remove all <boot order> entries like <boot order='1'/> from defined KVM domain XML configuration
 
-  - after running the python script add the displayed lines to your KVM domain XML configuration,
-    make sure correct "port=" is used
+
+3- Create virtual IPMI interface
+
+  - execute the python script "single_kvm_bmc.py" and enter the required information's,
+    addtionally add the displayed lines to your KVM domain XML configuration, make sure correct "port=" is used
 
 
-    Example output:
+  Example:
+    
+  kroete:~/single_kvm_bmc-master # ./single_kvm_bmc.py 
 
+  Please enter KVM domain name: soc-01
+  Please enter KVM domain BMC IP address: 192.168.8.11
+  Please enter KVM domain BMC username: root
+  Please enter KVM domain BMC user password: soc
 
-    <domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
+--------------------------------------------------------------------------------------------------------
 
-     .. <snip> ..
+  KVM domain used BMC settings:
 
-     <qemu:commandline>
-       <qemu:arg value='-chardev'/>
-       <qemu:arg value='socket,id=ipmi0,host=0.0.0.0,port=60011,reconnect=10'/>
-       <qemu:arg value='-device'/>
-       <qemu:arg value='ipmi-bmc-extern,id=bmc0,chardev=ipmi0'/>
-       <qemu:arg value='-device'/>
-       <qemu:arg value='isa-ipmi-bt,bmc=bmc0'/>
-     </qemu:commandline>
-    </domain>"
+  KVM domain: 	 	 soc-01
+  KVM domain BMC IP: 	 192.168.8.11
+  KVM domain BMC user: 	 root
+  KVM domain BMC pass: 	 soc
+  KVM domain status: 	 active
+  KVM domain ID: 	 5
+  KVM host "ip:port" 	 0.0.0.0:60011
+  Both "ipmi_sim" configuration files successfully created and stored in "/etc/ipmi/soc-01"
+
+--------------------------------------------------------------------------------------------------------
+
+  !! IMPORTANT !! make sure your KVM domain XML includes the following lines: 
+
+<domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
+
+   <snip\>
+
+  <qemu:commandline>
+    <qemu:arg value='-chardev'/>
+    <qemu:arg value='socket,id=ipmi0,host=0.0.0.0,port=60011,reconnect=10'/>
+    <qemu:arg value='-device'/>
+    <qemu:arg value='ipmi-bmc-extern,id=bmc0,chardev=ipmi0'/>
+    <qemu:arg value='-device'/>
+    <qemu:arg value='isa-ipmi-bt,bmc=bmc0'/>
+  </qemu:commandline>
+</domain>
+--------------------------------------------------------------------------------------------------------
 
 --
 
-
- usable commands are:
+usable commands are:
 
  ipmitool -I lanplus -U root -P linux -H 192.168.8.11 chassis power status
  ipmitool -I lanplus -U root -P linux -H 192.168.8.11 chassis power on
@@ -79,8 +103,7 @@ Requirements:
 
 --
 
-
-script section's:
+Script description:
 
 Hint: not needed to delete files, as they will be re-created using python "w" option
 
