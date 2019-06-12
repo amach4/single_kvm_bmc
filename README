@@ -27,19 +27,19 @@ Requirements:
 
   - add KVM BMC IP address (persistent configuration is also possible)
 
-    example:
+  Example:
 
-       KVM BMC network:		192.168.8.0/24
-       KVM BMC IP:			192.168.8.11
-       KVM host network interface:	"em4"
+  KVM BMC network:		192.168.8.0/24
+  KVM BMC IP:			192.168.8.11
+  KVM host network interface:	"em4"
 
-       # ip address add 192.168.8.11/24 brd + dev em4
+  # ip address add 192.168.8.11/24 brd + dev em4
 
 
 
 2- KVM domain setup
 
-  - remove all <boot order> entries like <boot order='1'/> from defined KVM domain XML configuration
+  - remove all <boot order> entries like <boot order='1'/> from pre-defined KVM domain XML configuration
 
 
 3- Create virtual IPMI interface
@@ -103,9 +103,8 @@ usable commands are:
 
 --
 
-Script description:
-
-Hint: not needed to delete files, as they will be re-created using python "w" option
+Script Description:
+(Hint: not needed to delete files, as they will be re-created using python "w" option)
 
 
 Section 1 - KVM domain verification
