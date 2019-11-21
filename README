@@ -129,6 +129,7 @@ Troubleshooting:
 
 - for SLES [12,15] replace file "ipmisim1.emu" with the one from openSUSE
 
-- execute "ipmi_sim" from cli to verify if an error occurs while testing the power status for example in a second terminal:
+- execute "ipmi_sim" from cli to verify if an error occurs while testing the power status, in a second terminal execute:
 
 # ipmi_sim -c /etc/ipmi/soc-01-bmc.conf
+
