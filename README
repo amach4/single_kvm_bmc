@@ -126,7 +126,7 @@ Section 4 - create systemd unit file
 
 Troubleshooting:
 
-- for SLES [12,15] replace file "/etc/ipmi/ipmisim1.emu" with the one from openSUSE
+- for SLES [12,15] replace file "/etc/ipmi/ipmisim1.emu" with the one from this Github project
    Details of "/etc/ipmi/ipmisim1.emu":
  
    -rw-r--r-- 1 root root 1474 Jan 11 11:38 ipmisim1.emu
