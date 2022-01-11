@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 # # # #
 #
@@ -64,16 +64,16 @@ import os
 import ipaddress
 
 print()
-dom_name = raw_input("  Please enter KVM domain name: ")
+dom_name = input("  Please enter KVM domain name: ")
 domname = dom_name
 
-dom_bmc_ip = raw_input("  Please enter KVM domain BMC IP address: ")
+dom_bmc_ip = input("  Please enter KVM domain BMC IP address: ")
 dombmcip = dom_bmc_ip
 
-dom_bmc_user = raw_input("  Please enter KVM domain BMC username: ")
+dom_bmc_user = input("  Please enter KVM domain BMC username: ")
 dombmcuser = dom_bmc_user
 
-dom_bmc_pass = raw_input("  Please enter KVM domain BMC user password: ")
+dom_bmc_pass = input("  Please enter KVM domain BMC user password: ")
 dombmcpass = dom_bmc_pass
 
 dom_port = dom_bmc_ip.split('.')[3]
