@@ -27,7 +27,9 @@ Requirements:
 2- KVM host: Configuration
 
   - install "OpenIPMI" package which contains "ipmi_sim" BMC emulator
-
+  
+  - for SLES [12,15] replace file "/etc/ipmi/ipmisim1.emu" with the one from this Github project
+  
   - add KVM BMC IP address (persistent configuration is also possible)
 
   Example:
