@@ -30,7 +30,8 @@ Requirements:
   
   - for SLES [12,15] replace file "/etc/ipmi/ipmisim1.emu" with the one from this Github project
   
-  - add temporary KVM BMC IP address - Note: persistent configuration is also possible see: https://github.com/andreas-mach/single_kvm_bmc/wiki
+  - add temporary KVM BMC IP address
+    Note: persistent configuration is also possible see: https://github.com/andreas-mach/single_kvm_bmc/wiki
 
   Example:
 
