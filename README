@@ -127,8 +127,14 @@ Section 4 - create systemd unit file
 Troubleshooting:
 
 - for SLES [12,15] replace file "/etc/ipmi/ipmisim1.emu" with the one from openSUSE
+   Details of "/etc/ipmi/ipmisim1.emu":
+ 
+   -rw-r--r-- 1 root root 1474 Jan 11 11:38 ipmisim1.emu
 
-- execute "ipmi_sim" from cli to verify if an error occurs while testing the power status, in a second terminal execute:
+- execute "ipmi_sim" from cli to verify if an error occurs while testing the power status
+   
+   Example:
 
-# ipmi_sim -c /etc/ipmi/soc-01-bmc.conf
+   # systemctl stop soc-01-bmc.service
+   # ipmi_sim -c /etc/ipmi/soc-01/soc-01-bmc.conf
 
