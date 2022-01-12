@@ -82,9 +82,9 @@ Requirements:
   !! IMPORTANT !! make sure your KVM domain XML includes the following lines: 
 
 <domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
-
-   <snip\>
-
+.
+.
+.
   <qemu:commandline>
     <qemu:arg value='-chardev'/>
     <qemu:arg value='socket,id=ipmi0,host=0.0.0.0,port=60011,reconnect=10'/>
