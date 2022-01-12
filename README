@@ -72,6 +72,7 @@ Requirements:
   KVM domain status: 	 active
   KVM domain ID: 	 5
   KVM host "ip:port" 	 0.0.0.0:60011
+
 --------------------------------------------------------------------------------------------------------
 
   Configuration files successfully created and stored in "/etc/ipmi/soc-01/"
