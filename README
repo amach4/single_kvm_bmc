@@ -104,6 +104,7 @@ usable commands are:
  ipmitool -I lanplus -U root -P linux -H 192.168.8.11 chassis power status
  ipmitool -I lanplus -U root -P linux -H 192.168.8.11 chassis power on
  ipmitool -I lanplus -U root -P linux -H 192.168.8.11 chassis power off
+ ipmitool -I lanplus -U root -P linux -H 192.168.8.11 chassis power reset
  ipmitool -I lanplus -U root -P linux -H 192.168.8.11 chassis bootdev pxe
  ipmitool -I lanplus -U root -P linux -H 192.168.8.11 chassis bootdev disk
  ipmitool -I lanplus -U root -P linux -H 192.168.8.11 chassis bootdev cdrom
