@@ -144,8 +144,10 @@ dncon = domname + "-bmc.conf"
 # systemd filename
 dnser = domname + "-bmc.service"
  
-# delete previous KVM domain folder and "ipmi_sim" config files
-subprocess.call(['rm', '-rf', '/etc/ipmi/' + domname])
+# if it exists delete previous KVM domain folder and "ipmi_sim" config files
+domdir = "/etc/ipmi/" + domname
+if os.path.isdir(domdir):
+  subprocess.call(['rm', '-rf', '/etc/ipmi/' + domname])
 
 # create directory for each node in "/etc/ipmi/"
 path = '/etc/ipmi/' + domname
@@ -500,7 +502,10 @@ subprocess.call(['chmod', '744', '/etc/ipmi/' + domname + '/ipmi_sim_chassiscont
 subprocess.call(['chmod', '644', '/etc/systemd/system/'+ dnser])
 
 
-print('  Both \"ipmi_sim\" configuration files successfully created and stored in \"/etc/ipmi/' + domname + '"' )
+print()
+print("--------------------------------------------------------------------------------------------------------")
+print()
+print('  Configuration files successfully created and stored in \"/etc/ipmi/' + domname + '"' )
 print()
 print("--------------------------------------------------------------------------------------------------------")
 print()
