@@ -74,7 +74,7 @@ Requirements:
   KVM host "ip:port" 	 0.0.0.0:60011
 --------------------------------------------------------------------------------------------------------
 
-  Configuration files successfully created and stored in "/etc/ipmi/soc-01"
+  Configuration files successfully created and stored in "/etc/ipmi/soc-01/"
 
 --------------------------------------------------------------------------------------------------------
 
